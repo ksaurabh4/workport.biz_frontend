@@ -9,4 +9,8 @@ module.exports = {
   checkout: 'Thank you for shopping',
   sent: 'Email sent',
   labeled: 'You just changed email label',
+  addEmployeeData: 'Employee added successfully',
+  updateEmployeeData: 'Employee data updated successfully',
+  addTodoData: 'Todo added successfully',
+  updateTodoData: 'Todo data updated successfully',
 };
