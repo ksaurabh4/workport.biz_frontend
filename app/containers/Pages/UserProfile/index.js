@@ -81,8 +81,8 @@ function UserProfile(props) {
           >
             <Tab icon={<AccountCircle />} />
             <Tab icon={<SupervisorAccount />} />
-            <Tab icon={<Favorite />} />
-            <Tab icon={<PhotoLibrary />} />
+            {/* <Tab icon={<Favorite />} />
+            <Tab icon={<PhotoLibrary />} /> */}
           </Tabs>
         </Hidden>
         <Hidden smDown>
@@ -95,16 +95,16 @@ function UserProfile(props) {
             centered
           >
             <Tab icon={<AccountCircle />} label="ABOUT" />
-            <Tab icon={<SupervisorAccount />} label="20 CONNECTIONS" />
-            <Tab icon={<Favorite />} label="18 FAVORITES" />
-            <Tab icon={<PhotoLibrary />} label="4 ALBUMS" />
+            <Tab icon={<SupervisorAccount />} label="My Team" />
+            {/* <Tab icon={<Favorite />} label="18 FAVORITES" /> */}
+            {/* <Tab icon={<PhotoLibrary />} label="4 ALBUMS" /> */}
           </Tabs>
         </Hidden>
       </AppBar>
       {value === 0 && <TabContainer><About data={dataProps} /></TabContainer>}
       {value === 1 && <TabContainer><Connection /></TabContainer>}
-      {value === 2 && <TabContainer><Favorites /></TabContainer>}
-      {value === 3 && <TabContainer><Albums /></TabContainer>}
+      {/* {value === 2 && <TabContainer><Favorites /></TabContainer>} */}
+      {/* {value === 3 && <TabContainer><Albums /></TabContainer>} */}
     </div>
   );
 }

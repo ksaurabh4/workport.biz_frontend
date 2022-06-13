@@ -10,6 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import brand from 'dan-api/dummy/brand';
 import dummy from 'dan-api/dummy/dummyContents';
 import logo from 'dan-images/logo.svg';
+import { useSelector } from 'react-redux';
 import MainMenu from './MainMenu';
 import styles from './sidebar-jss';
 
@@ -37,26 +38,28 @@ function SidebarContent(props) {
     loadTransition,
     leftSidebar,
     dataMenu,
-    status,
-    anchorEl,
-    openMenuStatus,
-    closeMenuStatus,
-    changeStatus,
+    // status,
+    // anchorEl,
+    // openMenuStatus,
+    // closeMenuStatus,
+    // changeStatus,
     isLogin
   } = props;
 
-  const setStatus = st => {
-    switch (st) {
-      case 'online':
-        return classes.online;
-      case 'idle':
-        return classes.idle;
-      case 'bussy':
-        return classes.bussy;
-      default:
-        return classes.offline;
-    }
-  };
+  const user = useSelector(state => state.auth.user);
+
+  // const setStatus = st => {
+  //   switch (st) {
+  //     case 'online':
+  //       return classes.online;
+  //     case 'idle':
+  //       return classes.idle;
+  //     case 'bussy':
+  //       return classes.bussy;
+  //     default:
+  //       return classes.offline;
+  //   }
+  // };
 
   return (
     <div className={classNames(classes.drawerInner, !drawerPaper ? classes.drawerPaperClose : '')}>
@@ -76,12 +79,12 @@ function SidebarContent(props) {
               className={classNames(classes.avatar, classes.bigAvatar)}
             />
             <div>
-              <h4>{dummy.user.name}</h4>
-              <Button size="small" onClick={openMenuStatus}>
+              <h4>{user?.userEmail}</h4>
+              {/* <Button size="small" onClick={openMenuStatus}>
                 <i className={classNames(classes.dotStatus, setStatus(status))} />
                 {status}
-              </Button>
-              <Menu
+              </Button> */}
+              {/* <Menu
                 id="status-menu"
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
@@ -104,7 +107,7 @@ function SidebarContent(props) {
                   <i className={classNames(classes.dotStatus, classes.offline)} />
                   Offline
                 </MenuItem>
-              </Menu>
+              </Menu> */}
             </div>
           </div>
         )}
@@ -143,8 +146,8 @@ SidebarContent.propTypes = {
 
 SidebarContent.defaultProps = {
   turnDarker: false,
-  toggleDrawerOpen: () => {},
-  loadTransition: () => {},
+  toggleDrawerOpen: () => { },
+  loadTransition: () => { },
   anchorEl: null,
   isLogin: true,
 };

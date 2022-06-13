@@ -7,8 +7,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
 import Type from 'dan-styles/Typography.scss';
-import Slider from 'react-animated-slider';
-import 'dan-styles/vendors/react-animated-slider/react-animated-slider.css';
+// import Slider from 'react-animated-slider';
+// import 'dan-styles/vendors/react-animated-slider/react-animated-slider.css';
 import imgApi from 'dan-api/images/photos';
 
 const styles = theme => ({
@@ -72,7 +72,7 @@ function SliderWidget(props) {
   const { classes } = props;
   return (
     <div>
-      <Slider className="slider-wrapper short">
+      {/* <Slider className="slider-wrapper short">
         {content.map((item, index) => (
           <div
             key={index.toString()}
@@ -100,6 +100,7 @@ function SliderWidget(props) {
           </div>
         ))}
       </Slider>
+     */}
     </div>
   );
 }

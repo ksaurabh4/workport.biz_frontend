@@ -43,7 +43,7 @@ function MenuContent(props) {
           {getMenus(menuList)}
         </List>
         <Typography variant="caption" className={classes.copyright}>
-          &copy; 2022 Dandelion Designs
+          &copy; 2022 Workport Biz
           <br />
           All Right Reserved
         </Typography>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import {
+  Router, Switch, Route, Redirect
+} from 'react-router-dom';
 import NotFound from 'containers/Pages/Standalone/NotFoundDedicated';
 import { useSelector } from 'react-redux';
 import Auth from './Auth';
@@ -28,7 +30,6 @@ function App(props) {
                 path="/login"
                 exact
                 render={() => <Redirect to={'/app'} />}
-              // component={Auth}
               />
             </>
           ) : (
@@ -37,7 +38,9 @@ function App(props) {
                 path="/app"
                 exact
                 render={() => <Redirect to={'/login'} />}
-              // component={Auth}
+              />
+              <Route
+                render={() => <Redirect to={'/login'} />}
               />
               <Route path="/login" component={Auth} />
             </>

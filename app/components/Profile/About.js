@@ -43,13 +43,8 @@ function About(props) {
       direction="row"
       spacing={3}
     >
-      <Grid item md={7} xs={12}>
-        <div>
-          <Timeline dataTimeline={data} />
-        </div>
-      </Grid>
-      <Grid item md={5} xs={12}>
-        {/* Profile Progress */}
+      {/* Profile Progress */}
+      <Grid item md={12} xs={12}>
         <div className={classes.progressRoot}>
           <Paper className={classes.styledPaper} elevation={4}>
             <Typography className={classes.title} variant="h5" component="h3">
@@ -71,7 +66,12 @@ function About(props) {
             <LinearProgress variant="determinate" className={classes.progress} value={60} />
           </Paper>
         </div>
-        {/* ----------------------------------------------------------------------*/}
+      </Grid>
+      {/* ----------------------------------------------------------------------*/}
+      <Grid item md={7} xs={12}>
+        {/* <div>
+          <Timeline dataTimeline={data} />
+        </div> */}
         {/* About Me */}
         <PapperBlock title="About Me" icon="ion-ios-contact-outline" whiteBg noMargin desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed urna in justo euismod condimentum.">
           <Divider className={classes.divider} />
@@ -103,9 +103,11 @@ function About(props) {
           </List>
         </PapperBlock>
         <Divider className={classes.divider} />
+      </Grid>
+      <Grid item md={5} xs={12}>
         {/* ----------------------------------------------------------------------*/}
         {/* My Albums */}
-        <PapperBlock title="My Albums (6)" icon="ion-ios-images-outline" whiteBg desc="">
+        {/* <PapperBlock title="My Albums (6)" icon="ion-ios-images-outline" whiteBg desc="">
           <div className={classes.albumRoot}>
             <ImageList rowHeight={180} className={classes.gridList}>
               {
@@ -142,10 +144,10 @@ function About(props) {
               See All
             </Button>
           </Grid>
-        </PapperBlock>
+        </PapperBlock> */}
         {/* ----------------------------------------------------------------------*/}
         {/* My Connection Me */}
-        <PapperBlock title="My Connection" icon="ion-ios-contacts-outline" whiteBg desc="">
+        {/* <PapperBlock title="My Connection" icon="ion-ios-contacts-outline" whiteBg desc="">
           <List dense className={classes.profileList}>
             <ListItem button>
               <Avatar className={classNames(classes.avatar, classes.orangeAvatar)}>H</Avatar>
@@ -170,10 +172,10 @@ function About(props) {
               See All
             </Button>
           </Grid>
-        </PapperBlock>
+        </PapperBlock> */}
         {/* ----------------------------------------------------------------------*/}
         {/* My Interests */}
-        <PapperBlock title="My Interests" icon="ion-ios-aperture-outline" whiteBg desc="">
+        {/* <PapperBlock title="My Interests" icon="ion-ios-aperture-outline" whiteBg desc="">
           <Grid container className={classes.colList}>
             <Grid item md={6}>
               <ListItem>
@@ -216,7 +218,39 @@ function About(props) {
               </ListItem>
             </Grid>
           </Grid>
+        </PapperBlock> */}
+        {/* ----------------------------------------------------------------------*/}
+        {/* Manager Details */}
+        <PapperBlock title="Manager Details" icon="ion-ios-contact-outline" whiteBg noMargin desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed urna in justo euismod condimentum.">
+          <Divider className={classes.divider} />
+          <List dense className={classes.profileList}>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <DateRange />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Name" secondary="Kumar" />
+            </ListItem>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <LocalPhone />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Phone" secondary="(+62)8765432190" />
+            </ListItem>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <LocationOn />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary="Email" secondary="kumar1@gmail.com" />
+            </ListItem>
+          </List>
         </PapperBlock>
+        <Divider className={classes.divider} />
         {/* ----------------------------------------------------------------------*/}
       </Grid>
     </Grid>

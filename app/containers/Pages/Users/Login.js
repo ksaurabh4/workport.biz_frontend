@@ -23,7 +23,6 @@ function Login(props) {
         localStorage.setItem('user', JSON.stringify(res.data));
         localStorage.setItem('userRole', res.data.userId);
         dispatch(loginAction(res.data));
-        window.location.href = '/app';
       }
     } catch (e) {
       console.log(e);

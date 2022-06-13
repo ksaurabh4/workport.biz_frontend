@@ -60,14 +60,14 @@ function Application(props) {
         <Route path="/app/layouts/app-layout" component={AppLayout} />
         <Route path="/app/layouts/responsive" component={Responsive} />
         { /* Table */}
-        <Route exact path="/app/tables" component={Parent} />
+        {/* <Route exact path="/app/tables" component={Parent} />
         <Route path="/app/tables/basic-table" component={SimpleTable} />
         <Route path="/app/tables/data-table" component={AdvancedTable} />
         <Route path="/app/tables/table-playground" component={TablePlayground} />
         <Route path="/app/tables/tree-table" component={TreeTable} />
-        <Route path="/app/tables/editable-cell" component={EditableCell} />
+        <Route path="/app/tables/editable-cell" component={EditableCell} /> */}
         { /* Form & Button */}
-        <Route exact path="/app/forms" component={Parent} />
+        {/* <Route exact path="/app/forms" component={Parent} />
         <Route path="/app/forms/reduxform" component={ReduxForm} />
         <Route path="/app/forms/date-time-picker" component={DateTimePicker} />
         <Route path="/app/forms/checkbox-radio" component={CheckboxRadio} />
@@ -81,9 +81,9 @@ function Application(props) {
         <Route path="/app/forms/textfields" component={Textbox} />
         <Route path="/app/forms/autocomplete" component={Autocomplete} />
         <Route path="/app/forms/upload" component={Upload} />
-        <Route path="/app/forms/wysiwyg-editor" component={TextEditor} />
+        <Route path="/app/forms/wysiwyg-editor" component={TextEditor} /> */}
         { /* Ui Components */}
-        <Route exact path="/app/ui" component={Parent} />
+        {/* <Route exact path="/app/ui" component={Parent} />
         <Route path="/app/ui/avatars" component={Avatars} />
         <Route path="/app/ui/accordion" component={Accordion} />
         <Route path="/app/ui/badges" component={Badges} />
@@ -104,9 +104,9 @@ function Application(props) {
         <Route path="/app/ui/ionicons" component={IonIcons} />
         <Route path="/app/ui/slider-carousel" component={SliderCarousel} />
         <Route path="/app/ui/tags" component={Tags} />
-        <Route path="/app/ui/dividers" component={Dividers} />
+        <Route path="/app/ui/dividers" component={Dividers} /> */}
         { /* Chart */}
-        <Route exact path="/app/charts" component={Parent} />
+        {/* <Route exact path="/app/charts" component={Parent} />
         <Route path="/app/charts/line-charts" component={LineCharts} />
         <Route path="/app/charts/bar-charts" component={BarCharts} />
         <Route path="/app/charts/area-charts" component={AreaCharts} />
@@ -118,9 +118,9 @@ function Application(props) {
         <Route path="/app/charts/bar-direction-charts" component={BarDirection} />
         <Route path="/app/charts/line-scatter-charts" component={LineScatterChart} />
         <Route path="/app/charts/area-filled-charts" component={AreaFilledChart} />
-        <Route path="/app/charts/radar-polar-chart" component={RadarPolarCharts} />
+        <Route path="/app/charts/radar-polar-chart" component={RadarPolarCharts} /> */}
         { /* Sample Apps */}
-        <Route path="/app/pages/checkout" component={CheckoutPage} />
+        {/* <Route path="/app/pages/checkout" component={CheckoutPage} />
         <Route path="/app/pages/product-detail" component={ProductPage} />
         <Route path="/app/pages/invoice" component={Invoice} />
         <Route path="/app/pages/taskboard" component={TaskBoard} />
@@ -129,25 +129,25 @@ function Application(props) {
         <Route path="/app/pages/contact" component={Contact} />
         <Route path="/app/pages/ecommerce" component={Ecommerce} />
         <Route path="/app/pages/timeline" component={Timeline} />
-        <Route path="/app/pages/email" component={Email} />
+        <Route path="/app/pages/email" component={Email} /> */}
         { /* Pages */}
-        <Route exact path="/app/pages" component={Parent} />
-        <Route path="/app/pages/user-profile" component={Profile} />
-        <Route path="/app/pages/blank-page" component={BlankPage} />
+        {/* <Route exact path="/app/pages" component={Parent} /> */}
+        <Route path="/app/my-profile" component={Profile} />
+        {/* <Route path="/app/pages/blank-page" component={BlankPage} />
         <Route path="/app/blank-single" component={BlankPage} />
         <Route path="/app/pages/photo-gallery" component={Photos} />
         <Route path="/app/pages/pricing" component={Pricing} />
         <Route path="/app/pages/not-found" component={NotFound} />
         <Route path="/app/pages/error" component={Error} />
         <Route path="/app/pages/settings" component={Settings} />
-        <Route path="/app/pages/help-support" component={HelpSupport} />
+        <Route path="/app/pages/help-support" component={HelpSupport} /> */}
         { /* Map */}
-        <Route exact path="/app/maps" component={Parent} />
+        {/* <Route exact path="/app/maps" component={Parent} />
         <Route path="/app/maps/map-marker" component={MapMarker} />
         <Route path="/app/maps/map-direction" component={MapDirection} />
         <Route path="/app/maps/map-searchbox" component={SearchMap} />
         <Route path="/app/maps/map-traffic" component={TrafficIndicator} />
-        <Route path="/app/maps/street-view" component={StreetViewMap} />
+        <Route path="/app/maps/street-view" component={StreetViewMap} /> */}
         { /* Default */}
         <Route component={NotFound} />
       </Switch>
