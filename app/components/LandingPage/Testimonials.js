@@ -6,10 +6,10 @@ import Type from 'dan-styles/Typography.scss';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import Slider from 'react-animated-slider';
+// import Slider from 'react-animated-slider';
 import imgApi from 'dan-api/images/photos';
 import TestimonialsParallax from './TestimonialsParallax';
-import 'dan-styles/vendors/react-animated-slider/react-animated-slider.css';
+// import 'dan-styles/vendors/react-animated-slider/react-animated-slider.css';
 import Title from './Title';
 import styles from './landingStyle-jss';
 
@@ -40,7 +40,7 @@ function Testimonials(props) {
       <div className={!slideMode ? classes.container : classes.fullSliderContent}>
         <Title title="What people said" align="center" monocolor={slideMode && true} />
         <div className={classes.sliderWrap}>
-          <Slider className="slider-wrapper">
+          {/* <Slider className="slider-wrapper">
             {content.map((item, index) => (
               <div
                 key={index.toString()}
@@ -65,7 +65,7 @@ function Testimonials(props) {
                 </p>
               </div>
             ))}
-          </Slider>
+          </Slider> */}
         </div>
       </div>
     </div>

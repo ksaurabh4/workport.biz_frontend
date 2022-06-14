@@ -34,17 +34,17 @@ function PersonalDashboard(props) {
         <meta property="twitter:description" content={description} />
       </Helmet>
       {/* 1st Section */}
-      <Grid container spacing={3} className={classes.root}>
-        <Grid item md={6} xs={12}>
+      {/* <Grid container spacing={3} className={classes.root}> */}
+      {/* <Grid item md={6} xs={12}>
           <CounterIconsWidget />
-        </Grid>
-        <Grid item md={6} sm={12} xs={12}>
+        </Grid> */}
+      {/* <Grid item md={6} sm={12} xs={12}>
           <div className={classes.sliderWrap}>
             <SliderWidget />
           </div>
-        </Grid>
-      </Grid>
-      <Divider className={classes.divider} />
+        </Grid> */}
+      {/* </Grid> */}
+      {/* <Divider className={classes.divider} /> */}
       {/* 2nd Section */}
       <Grid container spacing={2} className={classes.root}>
         <Grid item xs={12}>
@@ -52,7 +52,7 @@ function PersonalDashboard(props) {
         </Grid>
       </Grid>
       {/* 3rd Section */}
-      <Grid container spacing={3} className={classes.root}>
+      {/* <Grid container spacing={3} className={classes.root}>
         <Grid item md={6} xs={12}>
           <Divider className={classes.divider} />
           <ContactWidget />
@@ -71,7 +71,7 @@ function PersonalDashboard(props) {
         </Grid>
       </Grid>
       <Divider className={classes.divider} />
-      <FilesWidget />
+      <FilesWidget /> */}
     </div>
   );
 }

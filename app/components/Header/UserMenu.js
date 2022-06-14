@@ -22,10 +22,10 @@ import dummy from 'dan-api/dummy/dummyContents';
 import messageStyles from 'dan-styles/Messages.scss';
 import avatarApi from 'dan-api/images/avatars';
 import link from 'dan-api/ui/link';
+import { useDispatch } from 'react-redux';
 import styles from './header-jss';
 import { logoutAction } from '../../redux/actions/authActions';
 import api from '../../redux/api';
-import { useDispatch } from 'react-redux';
 
 function UserMenu(props) {
   const [menuState, setMenuState] = useState({
@@ -66,7 +66,7 @@ function UserMenu(props) {
   };
   return (
     <div>
-      <IconButton
+      {/* <IconButton
         aria-haspopup="true"
         onClick={handleMenu('notification')}
         color="inherit"
@@ -75,7 +75,7 @@ function UserMenu(props) {
         <Badge className={classes.badge} badgeContent={4} color="secondary">
           <i className="ion-ios-notifications-outline" />
         </Badge>
-      </IconButton>
+      </IconButton> */}
       <Menu
         id="menu-notification"
         anchorEl={anchorEl}
@@ -170,13 +170,13 @@ function UserMenu(props) {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose} component={Link} to={link.profile}>My Profile</MenuItem>
-        <MenuItem onClick={handleClose} component={Link} to={link.calendar}>My Calendar</MenuItem>
-        <MenuItem onClick={handleClose} component={Link} to={link.email}>
+        {/* <MenuItem onClick={handleClose} component={Link} to={link.calendar}>My Calendar</MenuItem> */}
+        {/* <MenuItem onClick={handleClose} component={Link} to={link.email}>
           My Inbox
           <ListItemIcon>
             <Badge className={classNames(classes.badge, classes.badgeMenu)} badgeContent={2} color="secondary" />
           </ListItemIcon>
-        </MenuItem>
+        </MenuItem> */}
         <Divider />
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>

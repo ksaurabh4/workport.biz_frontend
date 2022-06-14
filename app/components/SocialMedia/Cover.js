@@ -14,10 +14,10 @@ import styles from './jss/cover-jss';
 
 const optionsOpt = [
   'Edit Profile',
-  'Change Cover',
-  'Option 1',
-  'Option 2',
-  'Option 3',
+  // 'Change Cover',
+  // 'Option 1',
+  // 'Option 2',
+  // 'Option 3',
 ];
 
 const ITEM_HEIGHT = 48;
@@ -77,15 +77,15 @@ function Cover(props) {
       <div className={classes.content}>
         <Avatar alt={name} src={avatar} className={classes.avatar} />
         <Typography variant="h4" className={classes.name} gutterBottom>
-          {name}
+          {'My Name'}
           <VerifiedUser className={classes.verified} />
         </Typography>
         <Typography className={classes.subheading} gutterBottom>
-          {desc}
+          {'Senior Executive'}
         </Typography>
-        <Button className={classes.button} size="large" variant="contained" color="secondary">
+        {/* <Button className={classes.button} size="large" variant="contained" color="secondary">
           Add to Connection
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

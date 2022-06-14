@@ -16,6 +16,8 @@ import treeTable from '../containers/Tables/reducers/treeTbReducer';
 import crudTable from '../containers/Tables/reducers/crudTbReducer';
 import crudTableForm from '../containers/Tables/reducers/crudTbFrmReducer';
 import ecommerce from '../containers/SampleApps/Ecommerce/reducers/ecommerceReducer';
+import employees from '../containers/Employees/reducers/employeesReducer';
+import todos from '../containers/Todos/reducers/todosReducer';
 import contact from '../containers/SampleApps/Contact/reducers/contactReducer';
 import chat from '../containers/SampleApps/Chat/reducers/chatReducer';
 import email from '../containers/SampleApps/Email/reducers/emailReducer';
@@ -50,6 +52,8 @@ export default function createReducer(injectedReducers = {}) {
     socmed,
     auth,
     ecommerce,
+    employees,
+    todos,
     contact,
     chat,
     email,

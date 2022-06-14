@@ -78,28 +78,11 @@ function LoginForm(props) {
           </div>
         </Hidden>
         <Typography variant="h4" className={classes.title} gutterBottom>
-          Sign In
+          Login
         </Typography>
-        <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
+        {/* <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
           Lorem ipsum dolor sit amet
-        </Typography>
-        <section className={classes.socmedLogin}>
-          <div className={classes.btnArea}>
-            <Button variant="outlined" size="small" className={classes.redBtn} type="button">
-              <AllInclusive className={classNames(classes.leftIcon, classes.iconSmall)} />
-              Socmed 1
-            </Button>
-            <Button variant="outlined" size="small" className={classes.blueBtn} type="button">
-              <Brightness5 className={classNames(classes.leftIcon, classes.iconSmall)} />
-              Socmed 2
-            </Button>
-            <Button variant="outlined" size="small" className={classes.cyanBtn} type="button">
-              <People className={classNames(classes.leftIcon, classes.iconSmall)} />
-              Socmed 3
-            </Button>
-          </div>
-          <ContentDivider content="Or sign in with email" />
-        </section>
+        </Typography> */}
         <section className={classes.formWrap}>
           <form onSubmit={handleSubmit}>
             <div>

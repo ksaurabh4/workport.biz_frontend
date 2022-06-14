@@ -36,6 +36,17 @@ export const CryptoDashboard = loadable(() =>
     fallback: <Loading />,
   });
 
+// Employees Page
+export const EmployeesPage = loadable(() =>
+  import('./Employees'), {
+  fallback: <Loading />,
+});
+// Todos Page
+export const TodosPage = loadable(() =>
+  import('./Todos'), {
+  fallback: <Loading />,
+});
+
 // Widgets
 export const Infographics = loadable(() =>
   import ('./Widgets/Infographics'), {

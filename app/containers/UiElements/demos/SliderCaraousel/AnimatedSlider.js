@@ -3,10 +3,10 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Type from 'dan-styles/Typography.scss';
 import Hidden from '@material-ui/core/Hidden';
-import Slider from 'react-animated-slider';
+// import Slider from 'react-animated-slider';
 import imgApi from 'dan-api/images/photos';
 import avatarApi from 'dan-api/images/avatars';
-import 'dan-styles/vendors/react-animated-slider/react-animated-slider.css';
+// import 'dan-styles/vendors/react-animated-slider/react-animated-slider.css';
 
 const content = [
   {
@@ -40,7 +40,7 @@ const content = [
 
 const AnimatedSlider = () => (
   <div>
-    <Slider className="slider-wrapper">
+    {/* <Slider className="slider-wrapper">
       {content.map((item, index) => (
         <div
           key={index.toString()}
@@ -68,6 +68,7 @@ const AnimatedSlider = () => (
         </div>
       ))}
     </Slider>
+   */}
   </div>
 );
 

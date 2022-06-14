@@ -35,8 +35,8 @@ function Header(props) {
   const menuList = [
     createData('feature', '#feature'),
     createData('showcase', '#showcase'),
-    createData('testimonials', '#testimonials'),
-    createData('technology', '#tech'),
+    // createData('testimonials', '#testimonials'),
+    // createData('technology', '#tech'),
     createData('pricing', '#pricing'),
     createData('contact', '#contact'),
   ];

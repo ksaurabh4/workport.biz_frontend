@@ -69,7 +69,7 @@ function Footer(props) {
       </div>
       <div className={classes.copyright}>
         <div className={classes.container}>
-          <p>&copy; 2022 Dandelion Designs. All Right Reserved </p>
+          <p>&copy; 2022 Workport Biz. All Right Reserved </p>
           <span>
             <IconButton color="primary" className={classes.button} href={link.twitter} target="_blank"><i className="ion-logo-twitter" /></IconButton>
             <IconButton color="primary" className={classes.button} href={link.pinterest} target="_blank"><i className="ion-logo-pinterest" /></IconButton>
