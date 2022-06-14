@@ -22,12 +22,12 @@ function HomePage() {
       <ScrollSpy id="showcase">
         <Showcase />
       </ScrollSpy>
-      <ScrollSpy id="testimonials">
+      {/* <ScrollSpy id="testimonials">
         <Testimonials />
-      </ScrollSpy>
-      <ScrollSpy id="technology">
+      </ScrollSpy> */}
+      {/* <ScrollSpy id="technology">
         <Technology />
-      </ScrollSpy>
+      </ScrollSpy> */}
       <ScrollSpy id="pricing">
         <Pricing />
       </ScrollSpy>

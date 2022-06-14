@@ -32,7 +32,7 @@ const email = value => (
 );
 
 const passwordsMatch = (value, allValues) => {
-  if (value !== allValues.password) {
+  if (value !== allValues.userPswd) {
     return 'Passwords dont match';
   }
   return undefined;
@@ -92,7 +92,7 @@ function RegisterForm(props) {
           className={classes.tab}
         >
           <Tab label="With Email" />
-          <Tab label="With Social Media" />
+          {/* <Tab label="With Social Media" /> */}
         </Tabs>
         {tab === 0 && (
           <section className={classes.formWrap}>
@@ -100,10 +100,10 @@ function RegisterForm(props) {
               <div>
                 <FormControl className={classes.formControl}>
                   <Field
-                    name="name"
+                    name="companyName"
                     component={TextFieldRedux}
-                    placeholder="Username"
-                    label="Username"
+                    placeholder="Your Company Name"
+                    label="Company Name"
                     required
                     className={classes.field}
                   />
@@ -112,7 +112,7 @@ function RegisterForm(props) {
               <div>
                 <FormControl className={classes.formControl}>
                   <Field
-                    name="email"
+                    name="userEmail"
                     component={TextFieldRedux}
                     placeholder="Your Email"
                     label="Your Email"
@@ -125,7 +125,7 @@ function RegisterForm(props) {
               <div>
                 <FormControl className={classes.formControl}>
                   <Field
-                    name="password"
+                    name="userPswd"
                     component={TextFieldRedux}
                     type="password"
                     label="Your Password"

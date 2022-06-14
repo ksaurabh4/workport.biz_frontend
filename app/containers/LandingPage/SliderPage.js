@@ -86,12 +86,12 @@ function SliderPage(props) {
               <section id="showcase">
                 <ShowcaseSlider slideMode />
               </section>
-              <section id="testimonials">
+              {/* <section id="testimonials">
                 <Testimonials slideMode />
-              </section>
-              <section id="technology">
+              </section> */}
+              {/* <section id="technology">
                 <Technology slideMode />
-              </section>
+              </section> */}
               <section id="pricing">
                 <Pricing slideMode />
               </section>

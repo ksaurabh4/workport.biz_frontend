@@ -30,7 +30,7 @@ function Banner(props) {
         <Typography component="h2" variant="h2" gutterBottom>WorkPort Biz</Typography>
         <Typography component="p" variant="h5" gutterBottom>Employees Goals & Performance Management System </Typography>
         <div className={classes.btnArea}>
-          <Button
+          {/* <Button
             size="large"
             variant="outlined"
             className={classNames(classes.button, classes.btnLight)}
@@ -38,7 +38,7 @@ function Banner(props) {
             target="_blank"
           >
             Buy Now
-          </Button>
+          </Button> */}
           <Button
             size="large"
             variant="contained"

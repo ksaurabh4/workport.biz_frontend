@@ -5,16 +5,29 @@ import { withStyles } from '@material-ui/core/styles';
 import brand from 'dan-api/dummy/brand';
 import { RegisterForm } from 'dan-components';
 import styles from 'dan-components/Forms/user-jss';
+import { useDispatch } from 'react-redux';
+import api from '../../../redux/api';
+import { loginAction } from '../../../redux/actions/authActions';
 
 function Register(props) {
   const [valueForm, setValueForm] = useState(null);
-
-  const submitForm = values => {
-    setTimeout(() => {
-      setValueForm(values);
-      console.log(`You submitted:\n\n${valueForm}`);
-      window.location.href = '/app';
-    }, 500); // simulate server latency
+  const dispatch = useDispatch();
+  const submitForm = async ({ userEmail, userPswd, companyName }) => {
+    try {
+      const data = {
+        userEmail,
+        userPswd,
+        companyName,
+      };
+      const res = await api.post('/signUp', data);
+      if (res.data.token) {
+        localStorage.setItem('user', JSON.stringify(res.data));
+        localStorage.setItem('userRole', res.data.userId);
+        dispatch(loginAction(res.data));
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const title = brand.name + ' - Register';

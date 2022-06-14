@@ -31,6 +31,11 @@ function App(props) {
                 exact
                 render={() => <Redirect to={'/app'} />}
               />
+              <Route
+                path="/register"
+                exact
+                render={() => <Redirect to={'/app'} />}
+              />
             </>
           ) : (
             <>
@@ -39,6 +44,7 @@ function App(props) {
                 exact
                 render={() => <Redirect to={'/login'} />}
               />
+              <Route path="/register" component={Auth} />
               <Route
                 render={() => <Redirect to={'/login'} />}
               />
