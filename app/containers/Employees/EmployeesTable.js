@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Field } from 'redux-form';
@@ -24,9 +24,11 @@ import {
   submitAction,
   removeAction,
   editAction,
-  closeNotifAction
+  closeNotifAction,
+  showErrorNotifAction
 } from './reducers/employeeTableActions';
-import { anchorTable, dataApi } from './sampleData';
+import { anchorTable } from './sampleData';
+import api from '../../redux/api';
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -68,11 +70,12 @@ function EmployeeTable(props) {
   const { classes } = props;
 
   // Redux State
-  const branch = 'crudTbFrmDemo';
-  const initValues = useSelector(state => state.crudTbFrmDemo.formValues);
-  const dataTable = useSelector(state => state.crudTbFrmDemo.dataTable);
-  const openForm = useSelector(state => state.crudTbFrmDemo.showFrm);
-  const messageNotif = useSelector(state => state.crudTbFrmDemo.notifMsg);
+  const branch = 'employeeForm';
+  const initValues = useSelector(state => state.employeeForm.formValues);
+  const dataTable = useSelector(state => state.employeeForm.dataTable);
+  const openForm = useSelector(state => state.employeeForm.showFrm);
+  const formTitle = useSelector(state => state.employeeForm.formTitle);
+  const messageNotif = useSelector(state => state.employeeForm.notifMsg);
 
   // Dispatcher
   const fetchData = useDispatch();
@@ -83,20 +86,64 @@ function EmployeeTable(props) {
   const editRow = useDispatch();
   const closeNotif = useDispatch();
 
+  // state
+  const [dataApi, setDataApi] = useState(null);
+
+  const fetchEmployeeList = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const url = `/employees?companyId=${user.companyId}`;
+    // if (user.userRole === 'manager') {
+    //   url += `&empManagerId=${user.userId}`;
+    // }
+    try {
+      const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
+      if (res) {
+        setDataApi(res.data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(async () => {
+    fetchEmployeeList();
+  }, []);
+
+  const handleSubmit = async (values) => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const data = { ...values, companyId: user.companyId };
+      let res = null;
+      if (formTitle.includes('Add')) {
+        res = await api.post('/employees/create', data, { headers: { Authorization: `Bearer ${user.token}` } });
+      } else {
+        res = await api.put(`/employees/${values.empId}`, data, { headers: { Authorization: `Bearer ${user.token}` } });
+      }
+      if (res.data) {
+        submit(submitAction(values, branch));
+        fetchEmployeeList();
+      }
+    } catch (e) {
+      console.log(e);
+      submit(showErrorNotifAction(e.response.data.message, branch));
+    }
+  };
+
   return (
     <div>
       <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} />
       <div className={classes.rootTable}>
-        <CrudTableForm
+        {dataApi && <CrudTableForm
           dataTable={dataTable}
           openForm={openForm}
           dataInit={dataApi}
           anchor={anchorTable}
           title="Employees"
+          formTitle={formTitle}
           fetchData={(payload) => fetchData(fetchAction(payload, branch))}
           addNew={(payload) => addNew(addAction(payload, branch))}
           closeForm={() => closeForm(closeAction(branch))}
-          submit={(payload) => submit(submitAction(payload, branch))}
+          submit={(payload) => handleSubmit(payload)}
           removeRow={(payload) => removeRow(removeAction(payload, branch))}
           editRow={(payload) => editRow(editAction(payload, branch))}
           branch={branch}
@@ -147,6 +194,55 @@ function EmployeeTable(props) {
           </div>
           <div>
             <Field
+              name="empAddress"
+              component={TextFieldRedux}
+              placeholder="Employee Address"
+              label="Address"
+              required
+              validate={required}
+              className={classes.field}
+            />
+          </div>
+          <div>
+            <Field
+              name="empCity"
+              component={TextFieldRedux}
+              placeholder="Employee City"
+              label="City"
+              required
+              validate={required}
+              className={classes.field}
+            />
+          </div>
+          <div>
+            <Field
+              name="empState"
+              component={TextFieldRedux}
+              placeholder="Employee State"
+              label="State"
+              className={classes.field}
+            />
+          </div>
+          <div>
+            <Field
+              name="empCountry"
+              component={TextFieldRedux}
+              placeholder="Employee Country"
+              label="Country"
+              className={classes.field}
+            />
+          </div>
+          <div>
+            <Field
+              name="empZip"
+              component={TextFieldRedux}
+              placeholder="Employee Zipcode"
+              label="Zipcode"
+              className={classes.field}
+            />
+          </div>
+          <div>
+            <Field
               name="empDesignation"
               component={TextFieldRedux}
               placeholder="Employee Designation"
@@ -178,7 +274,7 @@ function EmployeeTable(props) {
           </div>
           <div>
             <Field
-              name="empManager"
+              name="empManagerId"
               component={TextFieldRedux}
               placeholder="Employee Manager"
               label="Reporting Manager"
@@ -192,7 +288,7 @@ function EmployeeTable(props) {
               <FormControlLabel value="option2" control={<Radio />} label="Option 2" />
             </Field>
           </div>
-          <div>
+           <div>
             <FormControl className={classes.field}>
               <InputLabel htmlFor="selection">Selection</InputLabel>
               <Field
@@ -227,6 +323,7 @@ function EmployeeTable(props) {
           </div> */}
           {/* No need create button or submit, because that already made in this component */}
         </CrudTableForm>
+        }
       </div>
     </div>
   );

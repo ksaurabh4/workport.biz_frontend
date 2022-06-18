@@ -7,14 +7,14 @@ export const anchorTable = [
   },
   {
     name: 'empName',
-    label: 'Employee Name',
+    label: 'Name',
     initialValue: '',
     width: 'auto',
     hidden: false
   },
   {
     name: 'empCode',
-    label: 'Employee Code',
+    label: 'Code',
     initialValue: '',
     width: 'auto',
     hidden: false

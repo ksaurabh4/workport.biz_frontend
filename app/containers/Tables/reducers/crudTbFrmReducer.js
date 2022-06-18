@@ -14,15 +14,14 @@ const initialState = {
   dataTable: [],
   dataInit: [
     {
-      id: '0',
-      text: '',
-      email: '',
-      radio: '',
-      selection: '',
-      onof: false,
-      checkbox: false,
-      textarea: '',
-      edited: true,
+      empName: 'Just write',
+      empCode: 'test123',
+      empEmail: 'mail@dandelion.com',
+      empPhone: '000000000',
+      empDesignation: 'Executive',
+      empDept: 'Finance',
+      empSubDept: 'Billing',
+      empManager: 'Kumar1',
     }
   ],
   formValues: {},

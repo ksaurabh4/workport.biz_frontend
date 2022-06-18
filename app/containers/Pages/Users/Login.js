@@ -21,7 +21,7 @@ function Login(props) {
       const res = await api.post('/login', data);
       if (res.data.token) {
         localStorage.setItem('user', JSON.stringify(res.data));
-        localStorage.setItem('userRole', res.data.userId);
+        localStorage.setItem('userId', res.data.userId);
         dispatch(loginAction(res.data));
       }
     } catch (e) {

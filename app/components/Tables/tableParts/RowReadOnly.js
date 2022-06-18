@@ -39,7 +39,7 @@ function RowReadOnly(props) {
     if (itemCell.name !== 'action' && !itemCell.hidden) {
       return (
         <TableCell className={classes.padding} key={index.toString()}>
-          {item[itemCell.name] !== undefined ? item[itemCell.name].toString() : ''}
+          {item[itemCell.name] ? item[itemCell.name].toString() : ''}
         </TableCell>
       );
     }

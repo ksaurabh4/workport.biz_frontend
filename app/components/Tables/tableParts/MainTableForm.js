@@ -49,6 +49,7 @@ function MainTableForm(props) {
     }
     return false;
   });
+
   return (
     <div>
       <Toolbar className={classes.toolbar}>

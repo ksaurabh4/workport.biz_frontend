@@ -14,7 +14,7 @@ const sagaMiddleware = createSagaMiddleware();
 const persistConfig = {
   key: 'workport',
   storage,
-  whitelist: ['auth', 'ui', 'client', 'employees']
+  whitelist: ['auth', 'ui', 'client']
 };
 
 const persistedReducer = persistReducer(persistConfig, createReducer());

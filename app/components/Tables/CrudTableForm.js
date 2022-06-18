@@ -7,6 +7,7 @@ import FloatingPanel from '../Panel/FloatingPanel';
 function CrudTableForm(props) {
   const {
     title,
+    formTitle,
     dataTable,
     openForm,
     closeForm,
@@ -21,21 +22,18 @@ function CrudTableForm(props) {
     dataInit,
     submit
   } = props;
-
   useEffect(() => {
     fetchData(dataInit, branch);
-  }, []);
+  }, [dataInit]);
 
-  const sendValues = useCallback((values) => {
-    setTimeout(() => {
-      submit(values, branch);
-    }, 500);
-  }, [submit, branch]);
-
+  // const sendValues = useCallback((values) => {
+  //   submit(values);
+  // }, [submit]);
+  // console.log(children);
   return (
     <div>
-      <FloatingPanel openForm={openForm} branch={branch} closeForm={closeForm}>
-        <Form onSubmit={sendValues} initValues={initValues} branch={branch}>
+      <FloatingPanel openForm={openForm} branch={branch} closeForm={closeForm} title={formTitle}>
+        <Form onSubmit={submit} initValues={initValues} branch={branch}>
           {children}
         </Form>
       </FloatingPanel>

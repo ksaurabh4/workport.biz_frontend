@@ -1,5 +1,5 @@
 module.exports = {
-  saved: 'Data has been saved',
+  saved: 'Data created successfully',
   updated: 'Data has been updated',
   removed: 'Item has been removed',
   posted: 'Your post has been submitted',
