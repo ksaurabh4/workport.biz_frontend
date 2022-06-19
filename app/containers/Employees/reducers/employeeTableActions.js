@@ -30,6 +30,11 @@ export const editAction = (item, branch) => ({
   type: `${branch}/${types.EDIT_ROW_FORM}`,
   item
 });
+export const showErrorNotifAction = (payload, branch) => ({
+  branch,
+  type: `${branch}/${notification.GET_ERROR_NOTIF}`,
+  payload
+});
 export const closeNotifAction = branch => ({
   branch,
   type: `${branch}/${notification.CLOSE_NOTIF}`,

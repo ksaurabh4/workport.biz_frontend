@@ -49,6 +49,7 @@ function MainTableForm(props) {
     }
     return false;
   });
+
   return (
     <div>
       <Toolbar className={classes.toolbar}>
@@ -73,7 +74,7 @@ function MainTableForm(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {getItems(items)}
+            {items && items.length > 0 ? getItems(items) : <div>No Data Found!</div>}
           </TableBody>
         </Table>
       </div>
