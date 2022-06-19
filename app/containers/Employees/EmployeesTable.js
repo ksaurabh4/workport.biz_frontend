@@ -133,7 +133,7 @@ function EmployeeTable(props) {
     <div>
       <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} />
       <div className={classes.rootTable}>
-        {dataApi && <CrudTableForm
+        <CrudTableForm
           dataTable={dataTable}
           openForm={openForm}
           dataInit={dataApi}
@@ -323,7 +323,6 @@ function EmployeeTable(props) {
           </div> */}
           {/* No need create button or submit, because that already made in this component */}
         </CrudTableForm>
-        }
       </div>
     </div>
   );
