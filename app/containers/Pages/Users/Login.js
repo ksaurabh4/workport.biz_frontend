@@ -3,14 +3,15 @@ import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { LoginForm } from 'dan-components';
+import { LoginForm, Notification } from 'dan-components';
 import styles from 'dan-components/Forms/user-jss';
-import { useDispatch } from 'react-redux';
-import { loginAction } from '../../../redux/actions/authActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeNotifAction, loginAction, showErrorNotifAction } from '../../../redux/actions/authActions';
 import api from '../../../redux/api';
 
 function Login(props) {
   const dispatch = useDispatch();
+  const messageNotif = useSelector(state => state.auth.notifMsg);
   const submitForm = async ({ email, password, remember }) => {
     try {
       const data = {
@@ -26,6 +27,7 @@ function Login(props) {
       }
     } catch (e) {
       console.log(e);
+      dispatch(showErrorNotifAction(e.response.data.message));
     }
   };
 
@@ -42,6 +44,7 @@ function Login(props) {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
       </Helmet>
+      <Notification close={() => dispatch(closeNotifAction)} message={messageNotif} />
       <div className={classes.container}>
         <div className={classes.userFormWrap}>
           <LoginForm onSubmit={(values) => submitForm(values)} />

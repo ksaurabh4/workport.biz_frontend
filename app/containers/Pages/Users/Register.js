@@ -3,15 +3,16 @@ import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import brand from 'dan-api/dummy/brand';
-import { RegisterForm } from 'dan-components';
+import { RegisterForm, Notification } from 'dan-components';
 import styles from 'dan-components/Forms/user-jss';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import api from '../../../redux/api';
-import { loginAction } from '../../../redux/actions/authActions';
+import { loginAction, showErrorNotifAction, closeNotifAction } from '../../../redux/actions/authActions';
 
 function Register(props) {
   const [valueForm, setValueForm] = useState(null);
   const dispatch = useDispatch();
+  const messageNotif = useSelector(state => state.auth.notifMsg);
   const submitForm = async ({ userEmail, userPswd, companyName }) => {
     try {
       const data = {
@@ -27,6 +28,7 @@ function Register(props) {
       }
     } catch (e) {
       console.log(e);
+      dispatch(showErrorNotifAction(e.response.data.message));
     }
   };
 
@@ -43,6 +45,7 @@ function Register(props) {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
       </Helmet>
+      <Notification close={() => dispatch(closeNotifAction)} message={messageNotif} />
       <div className={classes.container}>
         <div className={classes.userFormWrap}>
           <RegisterForm onSubmit={(values) => submitForm(values)} />
