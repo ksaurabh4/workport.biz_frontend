@@ -26,7 +26,7 @@ import styles from './email-jss';
 const content = {
   blocks: [{
     key: '637gr',
-    text: 'Lorem ipsum dolor sit amet 😀',
+    text: '',
     type: 'unstyled',
     depth: 0,
     inlineStyleRanges: [],
