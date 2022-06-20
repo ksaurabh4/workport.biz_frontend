@@ -132,6 +132,10 @@ export EmailHeader from './Email/EmailHeader';
 export EmailSidebar from './Email/EmailSidebar';
 export EmailList from './Email/EmailList';
 export ComposeEmail from './Email/ComposeEmail';
+// Announcements
+export AnnouncementsList from './Email/AnnouncementsList';
+export ComposeAnnoucement from './Email/ComposeAnnoucement';
+
 // Calendar
 export EventCalendar from './Calendar/EventCalendar';
 export DetailEvent from './Calendar/DetailEvent';
