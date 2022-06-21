@@ -21,6 +21,7 @@ import todos from '../containers/Todos/reducers/todosReducer';
 import contact from '../containers/SampleApps/Contact/reducers/contactReducer';
 import chat from '../containers/SampleApps/Chat/reducers/chatReducer';
 import email from '../containers/SampleApps/Email/reducers/emailReducer';
+import announcement from '../containers/Announcement/reducers/announcementReducer';
 import socmed from '../containers/SampleApps/Timeline/reducers/timelineReducer';
 import calendar from '../containers/SampleApps/Calendar/reducers/calendarReducer';
 import taskboard from '../containers/SampleApps/TaskBoard/reducers/taskboardReducer';
@@ -53,6 +54,7 @@ export default function createReducer(injectedReducers = {}) {
     auth,
     ecommerce,
     todos,
+    announcement,
     contact,
     chat,
     email,

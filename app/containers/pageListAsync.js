@@ -41,6 +41,12 @@ export const EmployeesPage = loadable(() =>
   import('./Employees'), {
   fallback: <Loading />,
 });
+// Employees Page
+export const AnnouncementsPage = loadable(() =>
+  import('./Announcement'), {
+  fallback: <Loading />,
+});
+
 // Todos Page
 export const TodosPage = loadable(() =>
   import('./Todos'), {

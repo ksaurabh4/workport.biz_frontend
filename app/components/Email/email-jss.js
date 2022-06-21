@@ -107,12 +107,21 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     zIndex: 120,
-    marginBottom: theme.spacing(8),
-    marginTop: theme.spacing(8),
+    marginLeft: theme.spacing(4),
+    marginRight: theme.spacing(4),
+    marginBottom: theme.spacing(4),
+    marginTop: theme.spacing(4),
     padding: theme.spacing(1),
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(3),
       marginBottom: theme.spacing(4),
+      marginLeft: theme.spacing(0),
+      marginRight: theme.spacing(0),
+    },
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.spacing(2),
+      marginLeft: theme.spacing(0),
+      marginRight: theme.spacing(0),
     },
     position: 'relative',
     minWidth: 0, // So the Typography noWrap works
@@ -132,10 +141,11 @@ const styles = theme => ({
     overflow: 'hidden',
     paddingRight: '0 !important',
     paddingTop: 5,
-    marginLeft: 20
+    marginLeft: 40
+
   },
   secondaryHeading: {
-    fontSize: 14,
+    fontSize: 18,
     color: theme.palette.text.secondary,
     [theme.breakpoints.down('xs')]: {
       whiteSpace: 'normal',
