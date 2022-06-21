@@ -27,7 +27,6 @@ import {
   closeNotifAction,
   errorNotifAction
 } from './reducers/announcementActions';
-import data from './api/emailData';
 import api from '../../redux/api';
 
 // validation functions

@@ -16,10 +16,10 @@ export const fetchAction = items => ({
   items,
 });
 
-export const fetchAllAction = items => ({
-  type: types.FETCH_TODO_LIST,
-  items,
-});
+// export const fetchAllAction = items => ({
+//   type: types.FETCH_TODO_LIST,
+//   items,
+// });
 
 export const detailAction = item => ({
   type: types.SHOW_DETAIL_TODO,

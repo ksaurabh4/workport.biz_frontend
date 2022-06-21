@@ -9,26 +9,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
+import moment from 'moment';
 import PapperBlock from '../PapperBlock/PapperBlock';
 import styles from './widget-jss';
 
 function TaskWidget(props) {
-  const [checked, setChecked] = useState([0]);
-
-  const handleToggle = value => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
+  const { classes, todoData, toggleStatus } = props;
+  const handleToggle = todo => () => {
+    toggleStatus(todo.todoId, todo.todoIsCompleted);
   };
 
-  const { classes } = props;
   return (
     <PapperBlock
       title="My Task"
@@ -39,28 +29,28 @@ function TaskWidget(props) {
       desc="All Your to do list. Just check it whenever You done."
       className={classes.root}
     >
-      <List className={classes.taskList}>
-        {[0, 1, 2, 3, 4, 5, 6].map(value => (
-          <Fragment key={value}>
+      {todoData?.length > 0 ? <List className={classes.taskList}>
+        {todoData.map(todo => (
+          <Fragment key={todo.todoId}>
             <ListItem
-              key={value}
+              key={todo.todoId}
               role={undefined}
               dense
               button
-              onClick={handleToggle(value)}
+              onClick={handleToggle(todo)}
               className={
                 classNames(
                   classes.listItem,
-                  checked.indexOf(value) !== -1 ? classes.done : ''
+                  todo.todoIsCompleted ? classes.done : ''
                 )
               }
             >
               <Checkbox
-                checked={checked.indexOf(value) !== -1}
+                checked={todo.todoIsCompleted}
                 tabIndex={-1}
                 disableRipple
               />
-              <ListItemText primary={`Task item ${value + 1}`} secondary={`Task description ${value + 1}`} />
+              <ListItemText primary={todo.todoContent} secondary={moment(todo.todoDueDateTime).format('DD-MM-YYYY HH:mm:ss')} />
               <ListItemSecondaryAction>
                 <IconButton aria-label="Comments">
                   <CommentIcon />
@@ -69,13 +59,19 @@ function TaskWidget(props) {
             </ListItem>
           </Fragment>
         ))}
-      </List>
+      </List> : <h1 className={
+        classNames(
+          classes.listItem
+        )
+      }>No task Found</h1>}
     </PapperBlock>
   );
 }
 
 TaskWidget.propTypes = {
   classes: PropTypes.object.isRequired,
+  todoData: PropTypes.any,
+  toggleStatus: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(TaskWidget);

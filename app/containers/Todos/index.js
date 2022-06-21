@@ -10,13 +10,15 @@ import {
   fetchAction,
   addAction,
   updateAction,
-  closeNotifAction
+  closeNotifAction,
 } from './reducers/todosActions';
+import api from '../../redux/api';
 // import data from './api/productData';
 
 function Todos() {
   // Redux State
   const messageNotif = useSelector(state => state.todos.notifMsg);
+  const todoData = useSelector(state => state.todos.todoData);
 
   // Dispatcher
   const fetchData = useDispatch();
@@ -24,9 +26,35 @@ function Todos() {
 
   const [listView, setListView] = useState('grid');
 
-  // useEffect(() => {
-  //   fetchData(fetchAction(data));
-  // }, []);
+  const fetchTodoList = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const url = '/todos';
+    try {
+      const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
+      if (res) {
+        fetchData(fetchAction(res.data));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const toggleStatus = async (id, todoIsCompleted) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const url = `/todos/${id}`;
+    try {
+      const res = await api.put(url, { todoIsCompleted: !todoIsCompleted }, { headers: { Authorization: `Bearer ${user.token}` } });
+      if (res) {
+        fetchTodoList();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchTodoList();
+  }, []);
 
   const title = brand.name + ' - Todos';
   const description = brand.desc;
@@ -42,8 +70,8 @@ function Todos() {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <Notification close={() => closeNotif(closeNotifAction)} message={messageNotif} />
-      <PapperBlock whiteBg icon="ion-ios-list-box-outline" title="Todo Section" desc="In the Editable Table Cell Form mode allow You to create or edit via dedicated form(Redux Form). The design form itself inspired by Gmail with floating design and it can be expanded become popup mode">
-        <TaskWidget />
+      <PapperBlock whiteBg icon="ion-ios-list-box-outline" title="Todo Section" desc="Here you can add your todo and mark it completed once it is done.">
+        <TaskWidget todoData={todoData} toggleStatus={(id, todoIsCompleted) => toggleStatus(id, todoIsCompleted)} />
       </PapperBlock>
     </div>
   );
