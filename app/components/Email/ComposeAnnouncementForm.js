@@ -49,7 +49,8 @@ function ComposeAnnouncementForm(props) {
     closeForm,
     to,
     subject,
-    inputChange
+    inputChange,
+    loggedInUser,
   } = props;
 
   const onDrop = (filesVal) => {
@@ -143,7 +144,7 @@ function ComposeAnnouncementForm(props) {
                 margin="none"
               >
                 <MenuItem value={'all'}>All</MenuItem>
-                <MenuItem value={'admins'}>Admins</MenuItem>
+                {loggedInUser.userRole === 'superadmin' && <MenuItem value={'admins'}>Admins</MenuItem>}
                 <MenuItem value={'managers'}>Managers</MenuItem>
               </Select>
             </FormControl>
@@ -234,6 +235,7 @@ function ComposeAnnouncementForm(props) {
 
 ComposeAnnouncementForm.propTypes = {
   classes: PropTypes.object.isRequired,
+  loggedInUser: PropTypes.object.isRequired,
   to: PropTypes.string.isRequired,
   subject: PropTypes.string.isRequired,
   sendAnnouncement: PropTypes.func.isRequired,

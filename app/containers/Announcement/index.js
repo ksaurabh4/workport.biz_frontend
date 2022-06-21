@@ -170,7 +170,7 @@ function Announcement(props) {
           remove={(payload) => handleDelete(payload)}
           toggleStar={(payload) => toggleStar(toggleStaredAction(payload))}
           reply={handleReply}
-          canDelete={loggedInUser.isAdmin}
+          loggedInUser={loggedInUser}
         />
       </div>
       {loggedInUser.isAdmin && <ComposeAnnoucement
@@ -182,6 +182,7 @@ function Announcement(props) {
         inputChange={(e, name) => handleChange(e, name)}
         open={openFrm}
         closeForm={() => discard(discardAction)}
+        loggedInUser={loggedInUser}
       />}
     </div>
   );

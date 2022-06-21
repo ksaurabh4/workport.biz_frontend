@@ -17,7 +17,8 @@ function ComposeAnnoucement(props) {
     to,
     subject,
     inputChange,
-    compose
+    compose,
+    loggedInUser,
   } = props;
   const branch = '';
   return (
@@ -40,6 +41,7 @@ function ComposeAnnoucement(props) {
           sendAnnouncement={sendAnnouncement}
           closeForm={closeForm}
           inputChange={inputChange}
+          loggedInUser={loggedInUser}
         />
       </FloatingPanel>
     </div>
@@ -55,6 +57,7 @@ ComposeAnnoucement.propTypes = {
   closeForm: PropTypes.func.isRequired,
   sendAnnouncement: PropTypes.func.isRequired,
   inputChange: PropTypes.func.isRequired,
+  loggedInUser: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ComposeAnnoucement);

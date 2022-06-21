@@ -32,7 +32,7 @@ function AnnouncementList(props) {
     filterPage,
     keyword,
     remove,
-    canDelete
+    loggedInUser
   } = props;
 
   const handleClickOpt = (event, item) => {
@@ -84,7 +84,7 @@ function AnnouncementList(props) {
     );
   });
   const getAnnouncement = dataArray => dataArray.map(announcement => {
-    const renderHTML = { __html: announcement.announcementContent.toString('utf-8') };
+    const renderHTML = { __html: announcement.announcementContent };
     // if (announcement.announcementSubject.toLowerCase().indexOf(keyword) === -1) {
     //   return false;
     // }
@@ -121,7 +121,7 @@ function AnnouncementList(props) {
         <AccordionActions>
           <div className={classes.action}>
             {/* <Button size="small">Delete</Button> */}
-            {canDelete && <Button size="small" color="secondary" onClick={() => remove(announcement)}>Delete</Button>}
+            {loggedInUser.isAdmin && loggedInUser.companyId === announcement.comapnyId && <Button size="small" color="secondary" onClick={() => remove(announcement)}>Delete</Button>}
           </div>
         </AccordionActions>
       </Accordion>
@@ -144,7 +144,7 @@ AnnouncementList.propTypes = {
   reply: PropTypes.func.isRequired,
   filterPage: PropTypes.string.isRequired,
   keyword: PropTypes.string.isRequired,
-  canDelete: PropTypes.bool.isRequired,
+  loggedInUser: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(AnnouncementList);
