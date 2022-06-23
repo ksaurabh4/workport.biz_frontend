@@ -53,6 +53,12 @@ export const TodosPage = loadable(() =>
   fallback: <Loading />,
 });
 
+// Goals Page
+export const GoalsPage = loadable(() =>
+  import('./Goals'), {
+  fallback: <Loading />,
+});
+
 // Widgets
 export const Infographics = loadable(() =>
   import ('./Widgets/Infographics'), {

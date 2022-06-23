@@ -18,6 +18,7 @@ import crudTableForm from '../containers/Tables/reducers/crudTbFrmReducer';
 import employeeTableForm from '../containers/Employees/reducers/employeeTableReducer';
 import ecommerce from '../containers/SampleApps/Ecommerce/reducers/ecommerceReducer';
 import todos from '../containers/Todos/reducers/todosReducer';
+import goals from '../containers/Goals/reducers/goalsReducer';
 import contact from '../containers/SampleApps/Contact/reducers/contactReducer';
 import chat from '../containers/SampleApps/Chat/reducers/chatReducer';
 import email from '../containers/SampleApps/Email/reducers/emailReducer';
@@ -55,6 +56,7 @@ export default function createReducer(injectedReducers = {}) {
     ecommerce,
     todos,
     announcement,
+    goals,
     contact,
     chat,
     email,

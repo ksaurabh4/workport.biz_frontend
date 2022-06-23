@@ -13,31 +13,37 @@ module.exports = [
   },
   {
     key: 'goals',
-    name: 'Goals',
+    name: 'goals',
+    linkParent: '/app/goals',
     icon: 'ion-ios-pie-outline',
-    child: [
-      {
-        key: 'g1',
-        name: 'G1',
-        link: '/app/goals/g1',
-      },
-      {
-        key: 'g2',
-        name: 'G2',
-        link: '/app/goals/g2',
-      },
-      {
-        key: 'g3',
-        name: 'G3',
-        link: '/app/employees/g3',
-      },
-      {
-        key: 'summary',
-        name: 'Summary',
-        link: '/app/employees/summary',
-      },
-    ]
   },
+  // {
+  //   key: 'goals',
+  //   name: 'goals',
+  //   icon: 'ion-ios-pie-outline',
+  //   child: [
+  //     {
+  //       key: 'g1',
+  //       name: 'G1',
+  //       link: '/app/goals/g1',
+  //     },
+  //     {
+  //       key: 'g2',
+  //       name: 'G2',
+  //       link: '/app/goals/g2',
+  //     },
+  //     {
+  //       key: 'g3',
+  //       name: 'G3',
+  //       link: '/app/employees/g3',
+  //     },
+  //     {
+  //       key: 'summary',
+  //       name: 'Summary',
+  //       link: '/app/employees/summary',
+  //     },
+  //   ]
+  // },
   {
     key: 'todos',
     name: 'Tasks',
