@@ -46,7 +46,7 @@ function TaskWidget(props) {
               }
             >
               <Checkbox
-                checked={todo.todoIsCompleted}
+                checked={todo.todoIsCompleted === 1}
                 tabIndex={-1}
                 disableRipple
               />
