@@ -45,7 +45,7 @@ function Application(props) {
         { /* Home */}
         <Route exact path="/app" component={PersonalDashboard} />
         <Route exact path="/app/employees" component={EmployeesPage} />
-        <Route exact path="/app/todos" component={TodosPage} />
+        <Route exact path="/app/tasks" component={TodosPage} />
         <Route exact path="/app/announcements" component={AnnouncementsPage} />
         <Route path="/app/dashboard/sales-marketing" component={CrmDashboard} />
         <Route path="/app/dashboard/cryptocurrency" component={CryptoDashboard} />

@@ -40,8 +40,8 @@ module.exports = [
   },
   {
     key: 'todos',
-    name: 'Todos',
-    linkParent: '/app/todos',
+    name: 'Tasks',
+    linkParent: '/app/tasks',
     icon: 'ion-ios-list-box-outline',
   },
   {
