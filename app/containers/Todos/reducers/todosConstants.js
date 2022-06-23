@@ -4,3 +4,6 @@ export const SEARCH_TODO = 'SEARCH_TODO';
 export const SHOW_DETAIL_TODO = 'SHOW_DETAIL_TODO';
 export const ADD_TODO_DATA = 'ADD_TODO_DATA';
 export const UPDATE_TODO_DATA = 'UPDATE_TODO_DATA';
+export const COMPOSE_TODO = 'COMPOSE_TODO';
+export const SEND_TODO = 'SEND_TODO';
+export const DISCARD_MESSAGE = 'DISCARD_MESSAGE';

@@ -136,6 +136,9 @@ export ComposeEmail from './Email/ComposeEmail';
 export AnnouncementsList from './Email/AnnouncementsList';
 export ComposeAnnoucement from './Email/ComposeAnnoucement';
 
+// Todo
+export ComposeTodo from './Email/ComposeTodo';
+
 // Calendar
 export EventCalendar from './Calendar/EventCalendar';
 export DetailEvent from './Calendar/DetailEvent';
