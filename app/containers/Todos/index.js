@@ -117,7 +117,7 @@ function Todos() {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <Notification close={() => closeNotif(closeNotifAction)} message={messageNotif} />
-      <PapperBlock whiteBg icon="ion-ios-list-box-outline" title="My Tasks Section" desc="Here you can add your todo and mark it completed once it is done.">
+      <>
         <TaskWidget todoData={todoData} toggleStatus={(id, todoIsCompleted) => toggleStatus(id, todoIsCompleted)} />
         <ComposeTodo
           date={field.date}
@@ -128,7 +128,7 @@ function Todos() {
           open={openFrm}
           closeForm={() => discard(discardAction)}
         />
-      </PapperBlock>
+      </>
     </div>
   );
 }

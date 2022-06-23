@@ -51,11 +51,11 @@ function TaskWidget(props) {
                 disableRipple
               />
               <ListItemText primary={todo.todoContent} secondary={moment(todo.todoDueDateTime).format('DD-MM-YYYY HH:mm:ss')} />
-              <ListItemSecondaryAction>
+              {/* <ListItemSecondaryAction>
                 <IconButton aria-label="Comments">
                   <CommentIcon />
                 </IconButton>
-              </ListItemSecondaryAction>
+              </ListItemSecondaryAction> */}
             </ListItem>
           </Fragment>
         ))}
