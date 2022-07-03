@@ -25,7 +25,8 @@ import {
   removeAction,
   editAction,
   closeNotifAction,
-  showErrorNotifAction
+  showErrorNotifAction,
+  clearAction,
 } from './reducers/employeeTableActions';
 import { anchorTable } from './sampleData';
 import api from '../../redux/api';
@@ -79,6 +80,7 @@ function EmployeeTable(props) {
 
   // Dispatcher
   const fetchData = useDispatch();
+  const clearData = useDispatch();
   const addNew = useDispatch();
   const closeForm = useDispatch();
   const submit = useDispatch();
@@ -107,6 +109,10 @@ function EmployeeTable(props) {
 
   useEffect(async () => {
     fetchEmployeeList();
+  }, []);
+
+  useEffect(() => () => {
+    clearData(clearAction(branch));
   }, []);
 
   const handleSubmit = async (values) => {
@@ -273,13 +279,22 @@ function EmployeeTable(props) {
             />
           </div>
           <div>
-            <Field
-              name="empManagerId"
-              component={TextFieldRedux}
-              placeholder="Employee Manager"
-              label="Reporting Manager"
-              className={classes.field}
-            />
+            <FormControl className={classes.field}>
+              <InputLabel htmlFor="empManagerId">Reporting Manager</InputLabel>
+              <Field
+                name="empManagerId"
+                component={SelectRedux}
+                placeholder="Reporting Manager"
+                autoWidth
+              >
+                {dataTable?.map(item => item.isManager === 1 && <MenuItem value={item.empId}>{item.empName}</MenuItem>)}
+              </Field>
+            </FormControl>
+          </div>
+          <div className={classes.fieldBasic}>
+            <div className={classes.inlineWrap}>
+              <FormControlLabel control={<Field name="isManager" component={CheckboxRedux} />} label="Will other employees report to him?" />
+            </div>
           </div>
           {/* <div className={classes.fieldBasic}>
             <FormLabel component="label">Choose One Option</FormLabel>
