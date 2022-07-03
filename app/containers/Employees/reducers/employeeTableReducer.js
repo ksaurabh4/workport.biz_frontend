@@ -7,7 +7,8 @@ import {
   CLOSE_FORM,
   SUBMIT_DATA,
   REMOVE_ROW_FORM,
-  EDIT_ROW_FORM
+  EDIT_ROW_FORM,
+  CLEAR_DATA
 } from './employeeTableConstants';
 
 const initialState = {
@@ -22,7 +23,7 @@ const initialState = {
       empDesignation: '',
       empDept: '',
       empSubDept: '',
-      empManager: '',
+      empManagerName: '',
     }
   ],
   formValues: {},
@@ -38,7 +39,7 @@ const initialItem = (keyTemplate, anchor) => {
   for (let i = 0; i < rawKey.length; i += 1) {
     if (rawKey[i] !== 'id') {
       const itemIndex = anchor.findIndex(a => a.name === rawKey[i]);
-      staticKey[rawKey[i]] = anchor[itemIndex].initialValue;
+      if (itemIndex !== -1) { staticKey[rawKey[i]] = anchor[itemIndex].initialValue; }
     }
   }
 
@@ -86,6 +87,9 @@ const employeeTableReducer = (state = initialState, action = {}) => produce(stat
       }
       break;
     }
+    case `${branch}/${CLEAR_DATA}`:
+      draft.dataTable = [];
+      break;
     case `${branch}/${EDIT_ROW_FORM}`: {
       const index = draft.dataTable.findIndex(item => item.id === action.item.id);
       if (index !== -1) {

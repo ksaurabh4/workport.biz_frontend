@@ -6,6 +6,10 @@ export const fetchAction = (items, branch) => ({
   type: `${branch}/${types.FETCH_DATA_FORM}`,
   items
 });
+export const clearAction = (branch) => ({
+  branch,
+  type: `${branch}/${types.CLEAR_DATA}`,
+});
 export const addAction = (anchor, branch) => ({
   branch,
   type: `${branch}/${types.ADD_NEW}`,
