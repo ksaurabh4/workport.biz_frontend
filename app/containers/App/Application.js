@@ -33,7 +33,7 @@ import {
   Photos, Pricing, CheckoutPage,
   Error, Settings, HelpSupport,
   MapMarker, MapDirection, SearchMap,
-  TrafficIndicator, StreetViewMap, NotFound, EmployeesPage, TodosPage, AnnouncementsPage
+  TrafficIndicator, StreetViewMap, NotFound, EmployeesPage, TodosPage, AnnouncementsPage, GoalsPage,
 } from '../pageListAsync';
 
 function Application(props) {
@@ -46,6 +46,7 @@ function Application(props) {
         <Route exact path="/app" component={PersonalDashboard} />
         <Route exact path="/app/employees" component={EmployeesPage} />
         <Route exact path="/app/tasks" component={TodosPage} />
+        <Route exact path="/app/goals" component={GoalsPage} />
         <Route exact path="/app/announcements" component={AnnouncementsPage} />
         <Route path="/app/dashboard/sales-marketing" component={CrmDashboard} />
         <Route path="/app/dashboard/cryptocurrency" component={CryptoDashboard} />

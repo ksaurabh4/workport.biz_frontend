@@ -1,6 +1,6 @@
 import produce from 'immer';
 import notif from 'dan-api/ui/notifMessage';
-import { CLOSE_NOTIF } from 'dan-redux/constants/notifConstants';
+import { CLOSE_NOTIF, GET_ERROR_NOTIF } from 'dan-redux/constants/notifConstants';
 import {
   FETCH_DATA_FORM,
   ADD_NEW,
@@ -8,31 +8,24 @@ import {
   SUBMIT_DATA,
   REMOVE_ROW_FORM,
   EDIT_ROW_FORM
-} from '../constants/crudTbFrmConstants';
+} from './goalsTableConstants';
 
 const initialState = {
   dataTable: [],
   dataInit: [
     {
-      empName: 'Just write',
-      empCode: 'test123',
-      empEmail: 'mail@dandelion.com',
-      empPhone: '000000000',
-      empDesignation: 'Executive',
-      empDept: 'Finance',
-      empSubDept: 'Billing',
-      empManager: 'Kumar1',
-      goalTerm: 'week1',
-      goalReviewStartDate: '2022-06-28T18:30:00.000Z',
-      goalReviewEndDate: '2022-06-21T18:30:00.000Z',
-      goalParameter: '100',
-      goalAchieved: 60,
-      goalScore: 60
+      goalTerm: '',
+      goalReviewStartDate: '',
+      goalReviewEndDate: '',
+      goalParameter: '',
+      goalAchieved: '',
+      goalScore: ''
     }
   ],
   formValues: {},
   editingId: '',
   showFrm: false,
+  formTitle: 'Add New',
   notifMsg: '',
 };
 
@@ -42,7 +35,6 @@ const initialItem = (keyTemplate, anchor) => {
   for (let i = 0; i < rawKey.length; i += 1) {
     if (rawKey[i] !== 'id') {
       const itemIndex = anchor.findIndex(a => a.name === rawKey[i]);
-      // console.log(anchor, rawKey, anchor[itemIndex], itemIndex);
       if (itemIndex !== -1) { staticKey[rawKey[i]] = anchor[itemIndex].initialValue; }
     }
   }
@@ -52,7 +44,7 @@ const initialItem = (keyTemplate, anchor) => {
 let editingIndex = 0;
 
 /* eslint-disable default-case, no-param-reassign */
-const crudTbFrmReducer = (state = initialState, action = {}) => produce(state, draft => {
+const employeeTableReducer = (state = initialState, action = {}) => produce(state, draft => {
   const { branch } = action;
   switch (action.type) {
     case `${branch}/${FETCH_DATA_FORM}`:
@@ -63,25 +55,20 @@ const crudTbFrmReducer = (state = initialState, action = {}) => produce(state, d
       const initial = initialItem(raw, action.anchor);
       draft.formValues = initial;
       draft.showFrm = true;
+      draft.formTitle = 'Add New Goal';
       break;
     }
     case `${branch}/${SUBMIT_DATA}`: {
       if (draft.editingId === action.newData.id) {
         // Update data
+        draft.showFrm = false;
         draft.notifMsg = notif.updated;
-        draft.dataTable[editingIndex] = action.newData;
       } else {
         // Insert data
-        const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-        const newItem = {
-          ...action.newData,
-          id
-        };
-        draft.dataTable.unshift(newItem);
         draft.notifMsg = notif.saved;
+        draft.showFrm = false;
+        draft.formValues = {};
       }
-      draft.showFrm = false;
-      draft.formValues = {};
       break;
     }
     case `${branch}/${CLOSE_FORM}`:
@@ -103,9 +90,13 @@ const crudTbFrmReducer = (state = initialState, action = {}) => produce(state, d
         draft.formValues = action.item;
         draft.editingId = action.item.id;
         draft.showFrm = true;
+        draft.formTitle = 'Edit Goal';
       }
       break;
     }
+    case `${branch}/${GET_ERROR_NOTIF}`:
+      draft.notifMsg = action.payload;
+      break;
     case `${branch}/${CLOSE_NOTIF}`:
       draft.notifMsg = '';
       break;
@@ -114,4 +105,4 @@ const crudTbFrmReducer = (state = initialState, action = {}) => produce(state, d
   }
 });
 
-export default crudTbFrmReducer;
+export default employeeTableReducer;

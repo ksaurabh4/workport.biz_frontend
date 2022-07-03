@@ -19,11 +19,13 @@ function Login(props) {
         pswd: password,
         remember,
       };
-      const res = await api.post('/login', data);
-      if (res.data.token) {
-        localStorage.setItem('user', JSON.stringify(res.data));
-        localStorage.setItem('userId', res.data.userId);
-        dispatch(loginAction(res.data));
+      const user = await api.post('/login', data);
+      console.log(user);
+      if (user.data.token) {
+        const employee = await api.get(`/employees/${user.data.empId}`, { headers: { Authorization: `Bearer ${user.data.token}` } });
+        localStorage.setItem('user', JSON.stringify(user.data));
+        localStorage.setItem('userId', user.data.userId);
+        dispatch(loginAction({ ...user.data, ...employee.data }));
       }
     } catch (e) {
       console.log(e);

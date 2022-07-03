@@ -4,6 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import Switch from '@material-ui/core/Switch';
+import moment from 'moment';
+import DatePicker from 'react-datepicker';
 
 /* Textfield */
 export const TextFieldRedux = ({ meta: { touched, error }, input, ...rest }) => (
@@ -67,3 +69,23 @@ SwitchRedux.propTypes = {
   input: PropTypes.object.isRequired,
 };
 /* End */
+
+/* Date Picker */
+export const renderDatePicker = ({
+  input, placeholder, defaultValue, meta: { touched, error }
+}) => (
+  <div>
+    <DatePicker {...input} dateForm="MM/DD/YYYY" selected={input.value ? moment(input.value) : null} />
+    {touched && error && <span>{error}</span>}
+  </div>
+);
+
+renderDatePicker.propTypes = {
+  input: PropTypes.object.isRequired,
+  meta: PropTypes.object,
+};
+
+renderDatePicker.defaultProps = {
+  meta: null,
+};
+/* END */

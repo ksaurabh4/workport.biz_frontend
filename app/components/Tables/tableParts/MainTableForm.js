@@ -33,7 +33,7 @@ function MainTableForm(props) {
   const getItems = dataArray => dataArray.map(item => (
     <RowReadOnly
       item={item}
-      removeRow={() => removeRow(item, branch)}
+      // removeRow={() => removeRow(item, branch)}
       key={item.id}
       editRow={() => editRow(item, branch)}
       anchor={anchor}

@@ -16,8 +16,10 @@ import treeTable from '../containers/Tables/reducers/treeTbReducer';
 import crudTable from '../containers/Tables/reducers/crudTbReducer';
 import crudTableForm from '../containers/Tables/reducers/crudTbFrmReducer';
 import employeeTableForm from '../containers/Employees/reducers/employeeTableReducer';
+import goalsTableForm from '../containers/Goals/GoalsTable/reducers/goalsTableReducer';
 import ecommerce from '../containers/SampleApps/Ecommerce/reducers/ecommerceReducer';
 import todos from '../containers/Todos/reducers/todosReducer';
+import goals from '../containers/Goals/reducers/goalsReducer';
 import contact from '../containers/SampleApps/Contact/reducers/contactReducer';
 import chat from '../containers/SampleApps/Chat/reducers/chatReducer';
 import email from '../containers/SampleApps/Email/reducers/emailReducer';
@@ -55,6 +57,7 @@ export default function createReducer(injectedReducers = {}) {
     ecommerce,
     todos,
     announcement,
+    goals,
     contact,
     chat,
     email,
@@ -66,6 +69,7 @@ export default function createReducer(injectedReducers = {}) {
     crudTableForm,
     crudTbFrmDemo: branchReducer(crudTableForm, 'crudTbFrmDemo'),
     employeeForm: branchReducer(employeeTableForm, 'employeeForm'),
+    goalsForm: branchReducer(goalsTableForm, 'goalsForm'),
     language: languageProviderReducer,
     router: connectRouter(history),
     ...injectedReducers,

@@ -56,13 +56,13 @@ function RowReadOnly(props) {
         >
           <EditIcon />
         </IconButton>
-        <IconButton
+        {/* <IconButton
           onClick={() => eventDel(this)}
           className={classes.button}
           aria-label="Delete"
         >
           <DeleteIcon />
-        </IconButton>
+        </IconButton> */}
       </TableCell>
     </tr>
   );
