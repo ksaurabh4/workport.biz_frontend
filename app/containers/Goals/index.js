@@ -31,10 +31,10 @@ function Goals() {
       {/* <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} /> */}
       <PapperBlock title="Goals" desc="View and Edit Your goals here">
         <CenteredTabs handleTabChange={tab => handleTabChange(tab)} activeTab={activeTab} />
-        {activeTab === 0 && <GoalsTable tab='Goal 1' type='g1'/>}
+        {activeTab === 0 && <GoalsTable tab='Goal 1' type='g1' />}
         {activeTab === 1 && <GoalsTable tab='Goal 2' type='g2' />}
         {activeTab === 2 && <GoalsTable tab='Goal 3' type='g3' />}
-        {activeTab === 3 && <SummaryPage tab='Summary'/>}
+        {activeTab === 3 && <SummaryPage tab='Summary' />}
       </PapperBlock>
     </div>
   );

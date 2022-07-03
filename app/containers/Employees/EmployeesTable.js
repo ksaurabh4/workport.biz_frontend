@@ -287,7 +287,7 @@ function EmployeeTable(props) {
                 placeholder="Reporting Manager"
                 autoWidth
               >
-                {dataTable?.map(item => item.isManager === 1 && <MenuItem value={item.empId}>{item.empName}</MenuItem>)}
+                {dataTable?.map(item => item.isManager === 1 && <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>)}
               </Field>
             </FormControl>
           </div>

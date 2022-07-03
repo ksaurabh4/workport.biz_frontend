@@ -17,10 +17,34 @@ import {
   PieChart, Pie, Cell,
   Legend
 } from 'recharts';
-import { dataSales } from 'dan-api/chart/chartData';
 import styles from './widget-jss';
 import { setTabAction } from './reducers/goalsActions';
-
+const dataSales = [
+  {
+    name: 'Week 1',
+    G1: 40,
+    G2: 100,
+    G3: 17
+  },
+  {
+    name: 'Week 2',
+    G1: 45,
+    G2: 100,
+    G3: 90
+  },
+  {
+    name: 'Week 3',
+    G1: 27,
+    G2: 20,
+    G3: 70
+  },
+  {
+    name: 'Week 4',
+    G1: 50,
+    G2: 100,
+    G3: 80
+  }
+];
 function SummaryPage(props) {
   const { classes } = props;
   const dispatch = useDispatch();
@@ -60,10 +84,9 @@ function SummaryPage(props) {
               <CartesianGrid vertical={false} strokeDasharray="3 3" />
               <CartesianAxis />
               <Tooltip />
-              <Bar dataKey="Fashions" fill={color.primary} />
-              <Bar dataKey="Electronics" fill={color.secondary} />
-              <Bar dataKey="Toys" fill={color.third} />
-              <Bar dataKey="Vouchers" fill={color.fourth} />
+              <Bar dataKey="G1" fill={color.primary} />
+              <Bar dataKey="G2" fill={color.secondary} />
+              <Bar dataKey="G3" fill={color.fourth} />
             </BarChart>
           </ResponsiveContainer>
         </div>

@@ -20,7 +20,10 @@ import {
 } from 'dan-components/Forms/ReduxFormMUI';
 import { CrudTableForm, Notification } from 'dan-components';
 import moment from 'moment';
-import { TextField } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import {
+  Grid, Icon, Select, TextField, Tooltip
+} from '@material-ui/core';
 import {
   fetchAction,
   addAction,
@@ -38,7 +41,7 @@ import formatGoalsList from './helper';
 // validation functions
 const required = value => (value == null ? 'Required' : undefined);
 
-const styles = ({
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -54,16 +57,31 @@ const styles = ({
   inlineWrap: {
     display: 'flex',
     flexDirection: 'row'
-  }
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
+  rightIcon: {
+    marginLeft: theme.spacing(1),
+  },
 });
-
+const renderRadioGroup = ({ input, ...rest }) => (
+  <RadioGroup
+    {...input}
+    {...rest}
+    valueselected={input.value}
+    onChange={(event, value) => input.onChange(value)}
+  />
+);
 function GoalsTable(props) {
   const { classes, tab, type } = props;
 
   // Redux State
   const branch = 'goalsForm';
   const initValues = useSelector(state => state.goalsForm.formValues);
+  const loggedUser = useSelector(state => state.auth.user);
   const dataTable = useSelector(state => state.goalsForm.dataTable);
+  const empDataTable = useSelector(state => state.employeeForm.dataTable);
   const openForm = useSelector(state => state.goalsForm.showFrm);
   const formTitle = useSelector(state => state.goalsForm.formTitle);
   const messageNotif = useSelector(state => state.goalsForm.notifMsg);
@@ -78,7 +96,23 @@ function GoalsTable(props) {
   const closeNotif = useDispatch();
 
   // state
-
+  const [empDataApi, setEmpDataApi] = useState(null);
+  const fetchEmployeeList = async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    let url = `/employees?companyId=${user.companyId}`;
+    if (user.userRole === 'manager') {
+      url += `&empManagerId=${user.userId}`;
+    }
+    try {
+      const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
+      if (res) {
+        // setEmpDataApi();
+        fetchData(fetchAction(res.data, 'employeeForm'));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const [searchTerm, setSearchTerm] = useState({
     startDate: moment().clone().startOf('month')
       .format('YYYY-MM-DD'),
@@ -86,21 +120,25 @@ function GoalsTable(props) {
       .format('YYYY-MM-DD'),
     empId: null,
   });
-
   const inputChange = (event) => {
-    setSearchTerm({ ...searchTerm, [event.target.id]: event.target.value });
+    console.log(event);
+    if (event.target.id) {
+      setSearchTerm({ ...searchTerm, [event.target.id]: event.target.value });
+    } else {
+      setSearchTerm({ ...searchTerm, [event.target.name]: event.target.value });
+    }
   };
 
   const [dataApi, setDataApi] = useState(null);
-  const fetchGoalsList = async (empId) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const url = `/goals?companyId=${user.companyId}&empId=${empId || user.empId}&goalType='${type}'&startDate=${searchTerm.startDate}&endDate=${searchTerm.endDate}`;
+  const fetchGoalsList = async () => {
+    // const user = JSON.parse(localStorage.getItem('user'));
+    const url = `/goals?companyId=${loggedUser.companyId}&empId=${searchTerm.empId || loggedUser.empId}&goalType='${type}'&startDate=${searchTerm.startDate}&endDate=${searchTerm.endDate}`;
     try {
-      const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
+      const res = await api.get(url, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
       if (res) {
         const data = formatGoalsList(res.data);
-        console.log(data);
         setDataApi(data);
+        console.log(data);
       }
     } catch (e) {
       console.log(e);
@@ -109,7 +147,11 @@ function GoalsTable(props) {
   };
 
   useEffect(async () => {
+    const user = JSON.parse(localStorage.getItem('user'));
     fetchGoalsList();
+    if (user.userRole === 'manager') {
+      fetchEmployeeList();
+    }
   }, []);
   const [dateRange, setDateRange] = useState({ startDate: '', endDate: '', weekNum: 0 });
 
@@ -156,6 +198,10 @@ function GoalsTable(props) {
     setScore(event.target.value);
   };
 
+  const [goalOwner, setGoalOwner] = useState('self');
+  const radioButtonOnChange = (input) => {
+    setGoalOwner(input);
+  };
   const handleCloseForm = () => {
     setDateRange({ startDate: '', endDate: '', weekNum: 0 });
     setScore(0);
@@ -164,7 +210,7 @@ function GoalsTable(props) {
 
   const handleSubmit = async (values) => {
     try {
-      const user = JSON.parse(localStorage.getItem('user'));
+      // const user = JSON.parse(localStorage.getItem('user'));
       const data = {
         ...values,
         goalParameter: values.goalParameter || '100',
@@ -173,15 +219,16 @@ function GoalsTable(props) {
         goalReviewEndDate: dateRange.endDate.format('YYYY-MM-DD'),
         goalWeekNum: dateRange.weekNum,
         goalScore: score,
-        companyId: user.companyId,
-        empId: user.empId,
+        companyId: loggedUser.companyId,
+        empId: values.empId || loggedUser.empId,
       };
+      delete data.goalOwner;
       console.log(data);
       let res = null;
       if (formTitle.includes('Add')) {
-        res = await api.post('/goals/create', data, { headers: { Authorization: `Bearer ${user.token}` } });
+        res = await api.post('/goals/create', data, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
       } else {
-        res = await api.put(`/goals/${values.goalId}`, data, { headers: { Authorization: `Bearer ${user.token}` } });
+        res = await api.put(`/goals/${values.goalId}`, data, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
       }
       if (res.data) {
         submit(submitAction(values, branch));
@@ -194,12 +241,14 @@ function GoalsTable(props) {
       submit(showErrorNotifAction(e.response.data.message, branch));
     }
   };
-
+  const searchReporteeGoals = () => {
+    fetchGoalsList();
+  };
   return (
     <div>
       <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} />
-      <div style={{ display: 'flex' }}>
-        <div>
+      <Grid container spacing={3} className={classes.rootTable}>
+        <Grid item xs>
           <TextField
             id="startDate"
             label="From"
@@ -208,11 +257,11 @@ function GoalsTable(props) {
             type="date"
             min={new Date().toISOString().split('T')[0]}
             value={searchTerm.startDate}
-            onChange={(event) => inputChange(event, 'startDate')}
+            onChange={(event) => inputChange(event)}
             margin="normal"
           />
-        </div>
-        <div>
+        </Grid>
+        <Grid item xs>
           <TextField
             id="endDate"
             label="To"
@@ -221,11 +270,35 @@ function GoalsTable(props) {
             type="date"
             min={new Date().toISOString().split('T')[0]}
             value={searchTerm.endDate}
-            onChange={(event) => inputChange(event, 'endDate')}
+            onChange={(event) => inputChange(event)}
             margin="normal"
           />
-        </div>
-      </div>
+        </Grid>
+        {loggedUser.isManager && <Grid item xs style={{ marginTop: '33px' }}>
+          <FormControl className={classes.field}>
+            <InputLabel htmlFor="empId">Select Employee</InputLabel>
+            <Select
+              labelId="input-label-empId"
+              id="empId"
+              name="empId"
+              value={searchTerm.empId}
+              placeholder='Select Employee'
+              onChange={(event) => inputChange(event)}
+            >
+              <MenuItem selected={true} value={null}>Self</MenuItem>
+              {empDataTable.map(item => <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>)}
+            </Select>
+          </FormControl>
+        </Grid>}
+        <Grid item xs style={{ marginTop: '35px' }} >
+          <Tooltip title="Submit Request">
+            <Button className={classes.button} variant="contained" color="primary" onClick={searchReporteeGoals}>
+              Submit
+              <Icon className={classes.rightIcon}>send</Icon>
+            </Button>
+          </Tooltip>
+        </Grid>
+      </Grid>
       <div className={classes.rootTable}>
         <CrudTableForm
           dataTable={dataTable}
@@ -244,6 +317,29 @@ function GoalsTable(props) {
           initValues={initValues}
         >
           {/* Create Your own form, then arrange or custom it as You like */}
+          {!formTitle.toLowerCase().includes('edit') && loggedUser.isManager && <><div className={classes.fieldBasic}>
+            <FormLabel component="label">Submitting for</FormLabel>
+            <Field name="goalOwner" className={classes.inlineWrap} component={renderRadioGroup} onChange={radioButtonOnChange}>
+              <FormControlLabel value="reportee" control={<Radio />} label="Reportee" />
+              <FormControlLabel checked={goalOwner === 'self'} value="self" control={<Radio />} label="Self" />
+            </Field>
+          </div>
+          {goalOwner !== 'self' && <div>
+            <FormControl className={classes.field}>
+              <InputLabel htmlFor="empId">Employee*</InputLabel>
+              <Field
+                name="empId"
+                component={SelectRedux}
+                placeholder="Employee Name"
+                autoWidth
+                required
+                onChange={goalTermChangeHandler}
+              >
+                {empDataTable.map(item => <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>)}
+              </Field>
+            </FormControl>
+          </div>}
+          </>}
           {!formTitle.toLowerCase().includes('edit') && <div>
             <FormControl className={classes.field}>
               <InputLabel htmlFor="goalTerm">Term*</InputLabel>
@@ -347,10 +443,13 @@ function GoalsTable(props) {
           </div>
           {/* No need create button or submit, because that already made in this component */}
         </CrudTableForm>
-      </div>
+      </div >
     </div >
   );
 }
+renderRadioGroup.propTypes = {
+  input: PropTypes.object.isRequired,
+};
 
 GoalsTable.propTypes = {
   classes: PropTypes.object.isRequired,
