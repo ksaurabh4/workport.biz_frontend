@@ -5,6 +5,8 @@ import { PapperBlock } from 'dan-components';
 import { useDispatch, useSelector } from 'react-redux';
 import CenteredTabs from './CenteredTabs';
 import { setTabAction } from './reducers/goalsActions';
+import GoalsTable from './GoalsTable/GoalsTable';
+import SummaryPage from './SummaryPage';
 
 function Goals() {
   const dispatch = useDispatch();
@@ -26,12 +28,13 @@ function Goals() {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
       </Helmet>
+      {/* <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} /> */}
       <PapperBlock title="Goals" desc="View and Edit Your goals here">
         <CenteredTabs handleTabChange={tab => handleTabChange(tab)} activeTab={activeTab} />
-        {activeTab === 0 && <h1>Page1</h1>}
-        {activeTab === 1 && <h1>Page2</h1>}
-        {activeTab === 2 && <h1>Page3</h1>}
-        {activeTab === 3 && <h1>Page4</h1>}
+        {activeTab === 0 && <GoalsTable tab='Goal 1' type='g1'/>}
+        {activeTab === 1 && <GoalsTable tab='Goal 2' type='g2' />}
+        {activeTab === 2 && <GoalsTable tab='Goal 3' type='g3' />}
+        {activeTab === 3 && <SummaryPage tab='Summary'/>}
       </PapperBlock>
     </div>
   );
