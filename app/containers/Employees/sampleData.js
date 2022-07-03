@@ -55,7 +55,14 @@ export const anchorTable = [
     hidden: false
   },
   {
-    name: 'empManager',
+    name: 'empManagerId',
+    label: 'Manager',
+    initialValue: '',
+    width: 'auto',
+    hidden: true
+  },
+  {
+    name: 'empManagerName',
     label: 'Manager',
     initialValue: '',
     width: 'auto',
