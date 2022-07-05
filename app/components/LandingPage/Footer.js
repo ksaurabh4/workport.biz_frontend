@@ -41,8 +41,9 @@ function Footer(props) {
   const menuList = [
     createData('feature', '#feature'),
     createData('showcase', '#showcase'),
-    createData('terstimonials', '#testi'),
-    createData('technology', '#tech'),
+    // createData('terstimonials', '#testi'),
+    // createData('technology', '#tech'),
+    createData('about', '#about'),
     createData('pricing', '#pricing'),
     createData('contact', '#contact'),
   ];

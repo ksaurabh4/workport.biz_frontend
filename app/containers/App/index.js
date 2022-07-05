@@ -23,6 +23,7 @@ function App(props) {
           <Route path="/" exact component={LandingCorporate} />
           <Route path="/landing-creative" exact component={LandingCreative} />
           <Route path="/blog" component={ArticleNews} />
+          <Route path="/register" exact component={Auth} />
           {loggedIn ? (
             <>
               <Route path="/app" component={Application} />
@@ -44,11 +45,10 @@ function App(props) {
                 exact
                 render={() => <Redirect to={'/login'} />}
               />
-              <Route path="/register" component={Auth} />
+              <Route path="/login" component={Auth} />
               <Route
                 render={() => <Redirect to={'/login'} />}
               />
-              <Route path="/login" component={Auth} />
             </>
           )
           }

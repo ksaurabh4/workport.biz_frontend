@@ -46,11 +46,11 @@ function ShowcaseCard(props) {
           </div>
         )}
       </CardContent>
-      {!landscape && (
+      {/* {!landscape && (
         <CardActions className={classes.btnArea}>
           <Button size="large" component={Link} to={href} variant="outlined" color="primary">{action}</Button>
         </CardActions>
-      )}
+      )} */}
     </Card>
   );
 }

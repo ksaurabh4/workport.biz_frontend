@@ -17,6 +17,7 @@ export Pricing from './LandingPage/Pricing';
 export Showcase from './LandingPage/Showcase';
 export ShowcaseSlider from './LandingPage/ShowcaseSlider';
 export Technology from './LandingPage/Technology';
+export About from './LandingPage/About';
 export Testimonials from './LandingPage/Testimonials';
 export SideNav from './LandingPage/SideNav';
 // Dashboard and Widget
@@ -91,7 +92,7 @@ export SideSection from './SocialMedia/SideSection';
 export WritePost from './SocialMedia/WritePost';
 export Comments from './Comments';
 // Profile
-export About from './Profile/About';
+// export About from './Profile/About';
 export Albums from './Profile/Albums';
 export Connection from './Profile/Connection';
 export Favorites from './Profile/Favorites';

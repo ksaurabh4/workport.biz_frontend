@@ -19,38 +19,38 @@ function Showcase(props) {
           <Grid item sm={6} md={4} xs={12}>
             <Title title="Showcase" align={width === 'lg' ? 'left' : 'center'} monocolor={slideMode && true} />
             <ShowcaseCard
-              title="Nam sollicitudin"
-              desc="Aenean facilisis vitae purus facilisis semper."
-              action="Try it"
+              title="Easy to use"
+              desc="user friendly, ready to use"
+              // action="Try it"
               image="/images/screen/thumb1.jpg"
             />
             <ShowcaseCard
-              title="Vestibulum nec"
-              desc="Cras convallis lacus orci, tristique tincidunt magna"
-              action="See Demo"
+              title="Mobile friendly"
+              desc="you can use from any device be it desktop,tablet,mobile"
+              // action="See Demo"
               image="/images/screen/thumb3.jpg"
             />
           </Grid>
           <Grid item sm={6} md={4} xs={12}>
             <ShowcaseCard
-              title="Curabitur"
-              desc="Nulla vehicula leo ut augue tincidunt"
-              action="See Demo"
+              title="Pay fixed monthly"
+              desc="It's cheaper than monthly snacks of one employee"
+              // action="See Demo"
               image="/images/screen/thumb5.jpg"
             />
             <ShowcaseCard
-              title="Nam sollicitudin"
-              desc="Aenean facilisis vitae purus facilisis semper."
-              action="Try It"
+              title="Training"
+              desc="Build capability of employees as per area of improvement"
+              // action="Try It"
               image="/images/screen/thumb2.jpg"
             />
           </Grid>
           <Grid item sm={6} md={4} xs={12}>
             <div className={classes.lastShowcase}>
               <ShowcaseCard
-                title="Nam posuere accumsan"
-                desc="Duis sed augue phasellus ante massa."
-                action="See Demo"
+                title="Ideal Appraisal System"
+                desc="Build a data driven appraisal system in your company"
+                // action="See Demo"
                 image="/images/screen/thumb4.jpg"
               />
             </div>
