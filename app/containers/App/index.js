@@ -24,6 +24,7 @@ function App(props) {
           <Route path="/landing-creative" exact component={LandingCreative} />
           <Route path="/blog" component={ArticleNews} />
           <Route path="/register" exact component={Auth} />
+          <Route path="/reset-password" exact component={Auth} />
           {loggedIn ? (
             <>
               <Route path="/app" component={Application} />

@@ -71,17 +71,13 @@ function RegisterForm(props) {
               <img src={logo} alt={brand.name} />
               {brand.name}
             </NavLink>
-            <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/login">
-              <Icon className={classes.icon}>arrow_forward</Icon>
-              Already have account ?
-            </Button>
           </div>
         </Hidden>
         <Typography variant="h4" className={classes.title} gutterBottom>
           Register
         </Typography>
         <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
-          Lorem ipsum dolor sit amet
+          Insert you details to register here!
         </Typography>
         <Tabs
           value={tab}
@@ -163,10 +159,14 @@ function RegisterForm(props) {
                   <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} disabled={submitting || pristine} />
                 </Button>
               </div>
+              <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/login">
+                <Icon className={classes.icon}>arrow_forward</Icon>
+                Already have account?
+              </Button>
             </form>
           </section>
         )}
-        {tab === 1 && (
+        {/* {tab === 1 && (
           <section className={classes.socmedFull}>
             <Button fullWidth variant="outlined" size="large" className={classes.redBtn} type="button">
               <AllInclusive className={classNames(classes.leftIcon, classes.iconSmall)} />
@@ -181,7 +181,7 @@ function RegisterForm(props) {
               Socmed 3
             </Button>
           </section>
-        )}
+        )} */}
       </Paper>
     </Fragment>
   );

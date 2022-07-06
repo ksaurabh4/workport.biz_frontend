@@ -22,6 +22,7 @@ import Icon from '@material-ui/core/Icon';
 import Hidden from '@material-ui/core/Hidden';
 import brand from 'dan-api/dummy/brand';
 import logo from 'dan-images/logo.svg';
+import { Grid } from '@material-ui/core';
 import { TextFieldRedux, CheckboxRedux } from './ReduxFormMUI';
 import styles from './user-jss';
 import { ContentDivider } from '../Divider';
@@ -71,10 +72,6 @@ function LoginForm(props) {
               <img src={logo} alt={brand.name} />
               {brand.name}
             </NavLink>
-            <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register">
-              <Icon className={classes.icon}>arrow_forward</Icon>
-              Create new account
-            </Button>
           </div>
         </Hidden>
         <Typography variant="h4" className={classes.title} gutterBottom>
@@ -134,8 +131,19 @@ function LoginForm(props) {
                 <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} disabled={submitting || pristine} />
               </Button>
             </div>
+            <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register">
+              <Icon className={classes.icon}>arrow_forward</Icon>
+              Not have Account yet! Want to register?
+            </Button>
           </form>
         </section>
+        <div style={{ marginTop: '30px', fontSize: '14px' }}>
+          <p>Use below credential for demo login</p>
+          <Grid>
+            <Grid><b>Username:</b> demo@workport.com</Grid>
+            <Grid><b>Password:</b> demo@workport</Grid>
+          </Grid>
+        </div>
       </Paper>
     </Fragment>
   );

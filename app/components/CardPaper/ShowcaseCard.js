@@ -59,7 +59,7 @@ ShowcaseCard.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   desc: PropTypes.node.isRequired,
-  action: PropTypes.string.isRequired,
+  action: PropTypes.string,
   image: PropTypes.string.isRequired,
   landscape: PropTypes.bool,
   noMargin: PropTypes.bool,
