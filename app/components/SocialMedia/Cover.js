@@ -43,10 +43,10 @@ function Cover(props) {
   return (
     <div className={classes.cover} style={{ backgroundImage: `url(${coverImg})` }}>
       <div className={classes.opt}>
-        <IconButton className={classes.button} aria-label="Delete">
+        {/* <IconButton className={classes.button} aria-label="Delete">
           <Info />
-        </IconButton>
-        <IconButton
+        </IconButton> */}
+        {/* <IconButton
           aria-label="More"
           aria-owns={anchorElOpt ? 'long-menu' : null}
           aria-haspopup="true"
@@ -54,8 +54,8 @@ function Cover(props) {
           onClick={handleClickOpt}
         >
           <MoreVertIcon />
-        </IconButton>
-        <Menu
+        </IconButton> */}
+        {/* <Menu
           id="long-menu"
           anchorEl={anchorElOpt}
           open={Boolean(anchorElOpt)}
@@ -72,20 +72,17 @@ function Cover(props) {
               {option}
             </MenuItem>
           ))}
-        </Menu>
+        </Menu> */}
       </div>
       <div className={classes.content}>
         <Avatar alt={name} src={avatar} className={classes.avatar} />
         <Typography variant="h4" className={classes.name} gutterBottom>
-          {'My Name'}
-          <VerifiedUser className={classes.verified} />
+          {name}
+          {/* <VerifiedUser className={classes.verified} /> */}
         </Typography>
         <Typography className={classes.subheading} gutterBottom>
-          {'Senior Executive'}
+          {desc()}
         </Typography>
-        {/* <Button className={classes.button} size="large" variant="contained" color="secondary">
-          Add to Connection
-        </Button> */}
       </div>
     </div>
   );
@@ -95,7 +92,7 @@ Cover.propTypes = {
   classes: PropTypes.object.isRequired,
   avatar: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  desc: PropTypes.string.isRequired,
+  desc: PropTypes.func.isRequired,
   coverImg: PropTypes.string.isRequired,
 };
 

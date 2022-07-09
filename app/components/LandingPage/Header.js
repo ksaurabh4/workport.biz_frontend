@@ -39,7 +39,7 @@ function Header(props) {
     // createData('technology', '#tech'),
     createData('about', '#about'),
     createData('pricing', '#pricing'),
-    createData('contact', '#contact'),
+    // createData('contact', '#contact'),
   ];
 
   const toggleDrawerOpen = () => {

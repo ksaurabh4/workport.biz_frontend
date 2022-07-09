@@ -17,6 +17,8 @@ import Favorite from '@material-ui/icons/Favorite';
 import PhotoLibrary from '@material-ui/icons/PhotoLibrary';
 import Divider from '@material-ui/core/Divider';
 import styles from './cardStyle-jss';
+// import imgApi from '../images/photos';
+// import avatarApi from '../images/avatars';
 
 function ProfileCard(props) {
   const {
@@ -27,14 +29,15 @@ function ProfileCard(props) {
     title,
     connection,
     isVerified,
-    btnText
+    email,
+    phone
   } = props;
 
   return (
     <Card className={classes.cardSocmed}>
       <CardMedia
         className={classes.mediaProfile}
-        image={cover}
+        image={'http://via.placeholder.com/1050x700/2196F3/FFFFFF/'}
         title="cover"
       />
       <CardContent className={classes.contentProfile}>
@@ -47,24 +50,12 @@ function ProfileCard(props) {
           <span className={Type.regular}>{title}</span>
         </Typography>
         <Typography variant="caption" component="p">
-          {connection}
-            &nbsp;connection
+          {phone}
         </Typography>
-        <Button className={classes.buttonProfile} size="large" variant="outlined" color="secondary">
-          {btnText}
-        </Button>
+        <Typography variant="caption" component="p">
+          {email}
+        </Typography>
       </CardContent>
-      <Divider />
-      <CardActions>
-        <BottomNavigation
-          showLabels
-          className={classes.bottomLink}
-        >
-          <BottomNavigationAction label="20 Connection" icon={<SupervisorAccount />} />
-          <BottomNavigationAction label="10 Favorites" icon={<Favorite />} />
-          <BottomNavigationAction label="5 Albums" icon={<PhotoLibrary />} />
-        </BottomNavigation>
-      </CardActions>
     </Card>
   );
 }

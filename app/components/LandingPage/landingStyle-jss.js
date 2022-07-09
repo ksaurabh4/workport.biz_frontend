@@ -721,7 +721,7 @@ const styles = theme => ({
     background: theme.palette.type === 'dark' ? gradientBgDark(theme) : gradientBgLight(theme),
     paddingTop: theme.spacing(10),
     position: 'absolute',
-    bottom: -300,
+    bottom: -500,
     height: 330,
     width: '100%',
     overflow: 'hidden',

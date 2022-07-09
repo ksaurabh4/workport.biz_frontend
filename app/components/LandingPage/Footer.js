@@ -45,7 +45,7 @@ function Footer(props) {
     // createData('technology', '#tech'),
     createData('about', '#about'),
     createData('pricing', '#pricing'),
-    createData('contact', '#contact'),
+    // createData('contact', '#contact'),
   ];
 
   return (
@@ -72,10 +72,10 @@ function Footer(props) {
         <div className={classes.container}>
           <p>&copy; 2022 Workport Biz. All Right Reserved </p>
           <span>
-            <IconButton color="primary" className={classes.button} href={link.twitter} target="_blank"><i className="ion-logo-twitter" /></IconButton>
-            <IconButton color="primary" className={classes.button} href={link.twitter} target="_blank"><i className="ion-logo-linkedin" /></IconButton>
+            {/* <IconButton color="primary" className={classes.button} href={link.twitter} target="_blank"><i className="ion-logo-twitter" /></IconButton> */}
+            {/* <IconButton color="primary" className={classes.button} href={link.twitter} target="_blank"><i className="ion-logo-linkedin" /></IconButton> */}
             {/* <IconButton color="primary" className={classes.button} href={link.pinterest} target="_blank"><i className="ion-logo-pinterest" /></IconButton> */}
-            <IconButton color="primary" className={classes.button} href={link.github} target="_blank"><i className="ion-logo-whatsapp" /></IconButton>
+            <IconButton color="primary" className={classes.button} href={link.whatsapp} target="_blank"><i className="ion-logo-whatsapp" /></IconButton>
           </span>
         </div>
       </div>
