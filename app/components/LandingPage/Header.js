@@ -37,8 +37,9 @@ function Header(props) {
     createData('showcase', '#showcase'),
     // createData('testimonials', '#testimonials'),
     // createData('technology', '#tech'),
+    createData('about', '#about'),
     createData('pricing', '#pricing'),
-    createData('contact', '#contact'),
+    // createData('contact', '#contact'),
   ];
 
   const toggleDrawerOpen = () => {

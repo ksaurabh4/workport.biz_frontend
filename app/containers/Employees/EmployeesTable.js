@@ -95,7 +95,7 @@ function EmployeeTable(props) {
     const user = JSON.parse(localStorage.getItem('user'));
     const url = `/employees?companyId=${user.companyId}`;
     // if (user.userRole === 'manager') {
-    //   url += `&empManagerId=${user.userId}`;
+    //   url += `&empManagerId=${user.empId}`;
     // }
     try {
       const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });

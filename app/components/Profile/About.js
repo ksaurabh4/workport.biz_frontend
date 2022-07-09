@@ -29,6 +29,7 @@ import AllInclusive from '@material-ui/icons/AllInclusive';
 import AssistantPhoto from '@material-ui/icons/AssistantPhoto';
 import imgData from 'dan-api/images/imgData';
 import Type from 'dan-styles/Typography.scss';
+import { useSelector } from 'react-redux';
 import Timeline from '../SocialMedia/Timeline';
 import PapperBlock from '../PapperBlock/PapperBlock';
 import styles from './profile-jss';
@@ -73,7 +74,7 @@ function About(props) {
           <Timeline dataTimeline={data} />
         </div> */}
         {/* About Me */}
-        <PapperBlock title="About Me" icon="ion-ios-contact-outline" whiteBg noMargin desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed urna in justo euismod condimentum.">
+        <PapperBlock title="About Me" icon="ion-ios-contact-outline" whiteBg noMargin>
           <Divider className={classes.divider} />
           <List dense className={classes.profileList}>
             <ListItem>
@@ -82,7 +83,7 @@ function About(props) {
                   <DateRange />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Born" secondary="Jan 9, 1994" />
+              <ListItemText primary="Phone" secondary={data.empPhone} />
             </ListItem>
             <ListItem>
               <ListItemAvatar>
@@ -90,7 +91,7 @@ function About(props) {
                   <LocalPhone />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Phone" secondary="(+62)8765432190" />
+              <ListItemText primary="Email" secondary={data.empEmail} />
             </ListItem>
             <ListItem>
               <ListItemAvatar>
@@ -98,7 +99,7 @@ function About(props) {
                   <LocationOn />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Address" secondary="Chicendo Street no.105 Block A/5A - Barcelona, Spain" />
+              <ListItemText primary="Address" secondary={`${data.empAddress}, ${data.empCity}, ${data.empState}, ${data.empCountry} - ${data.empZip}`} />
             </ListItem>
           </List>
         </PapperBlock>
@@ -221,7 +222,7 @@ function About(props) {
         </PapperBlock> */}
         {/* ----------------------------------------------------------------------*/}
         {/* Manager Details */}
-        <PapperBlock title="Manager Details" icon="ion-ios-contact-outline" whiteBg noMargin desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed urna in justo euismod condimentum.">
+        <PapperBlock title="Manager Details" icon="ion-ios-contact-outline" whiteBg noMargin >
           <Divider className={classes.divider} />
           <List dense className={classes.profileList}>
             <ListItem>
@@ -230,7 +231,7 @@ function About(props) {
                   <DateRange />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Name" secondary="Kumar" />
+              <ListItemText primary="Name" secondary={data.empManagerName}/>
             </ListItem>
             <ListItem>
               <ListItemAvatar>
@@ -238,7 +239,7 @@ function About(props) {
                   <LocalPhone />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Phone" secondary="(+62)8765432190" />
+              <ListItemText primary="Phone" secondary={data.empManagerPhone} />
             </ListItem>
             <ListItem>
               <ListItemAvatar>
@@ -246,7 +247,7 @@ function About(props) {
                   <LocationOn />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Email" secondary="kumar1@gmail.com" />
+              <ListItemText primary="Email" secondary={data.empManagerEmail} />
             </ListItem>
           </List>
         </PapperBlock>

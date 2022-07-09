@@ -17,6 +17,7 @@ export Pricing from './LandingPage/Pricing';
 export Showcase from './LandingPage/Showcase';
 export ShowcaseSlider from './LandingPage/ShowcaseSlider';
 export Technology from './LandingPage/Technology';
+export AboutUs from './LandingPage/About';
 export Testimonials from './LandingPage/Testimonials';
 export SideNav from './LandingPage/SideNav';
 // Dashboard and Widget

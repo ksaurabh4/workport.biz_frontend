@@ -13,10 +13,10 @@ function Auth() {
   return (
     <Outer>
       <Switch>
+        <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/login-v2" component={LoginV2} />
         <Route path="/login-v3" component={LoginV3} />
-        <Route path="/register" component={Register} />
         <Route path="/register-v2" component={RegisterV2} />
         <Route path="/register-v3" component={RegisterV3} />
         <Route path="/reset-password" component={ResetPassword} />

@@ -21,9 +21,9 @@ function createFeatureData(icon, title, desc) {
 function Feature(props) {
   const { classes, slideMode } = props;
   const featureList = [
-    createFeatureData('ion-ios-infinite-outline', 'Lorem ipsum dolor', 'Nulla lobortis nunc vitae nisi semper semper. Sed mi neque, convallis at ipsum at, blandit pretium enim.'),
-    createFeatureData('ion-ios-flower-outline', 'Lorem ipsum dolor', 'Nulla lobortis nunc vitae nisi semper semper. Sed mi neque, convallis at ipsum at, blandit pretium enim.'),
-    createFeatureData('ion-ios-ionic-outline', 'Lorem ipsum dolor', 'Nulla lobortis nunc vitae nisi semper semper. Sed mi neque, convallis at ipsum at, blandit pretium enim.')
+    createFeatureData('ion-ios-infinite-outline', 'Define customize KPIs', 'Define customize and specific KPI for each of your employee'),
+    createFeatureData('ion-ios-flower-outline', 'Periodic Performance Chart', 'Show real time performance of employee for selected period in just one click'),
+    createFeatureData('ion-ios-ionic-outline', 'Manage Day to Day Task', 'Create daily, weekly tasks and manage them accordingly')
   ];
 
   return (

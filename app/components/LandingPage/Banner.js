@@ -13,7 +13,7 @@ import BannerParallax from './BannerParallax';
 
 function Banner(props) {
   const { classes, slideMode } = props;
-
+  const isloggedInUser = useSelector(state => state.auth.loggedIn);
   const gradient = useSelector(state => state.ui.gradient);
   return (
     <div
@@ -27,18 +27,28 @@ function Banner(props) {
     >
       {!slideMode && <BannerParallax />}
       <div className={!slideMode ? classes.container : ''}>
-        <Typography component="h2" variant="h2" gutterBottom>WorkPort Biz</Typography>
-        <Typography component="p" variant="h5" gutterBottom>Employees Goals & Performance Management System </Typography>
+        <Typography component="h2" variant="h2" gutterBottom>WorkPort</Typography>
+        <Typography component="p" variant="h5" gutterBottom>Employees goals and performance management system</Typography>
+        <Typography component="p" variant="h5" gutterBottom>Performance speaks louder than words</Typography>
         <div className={classes.btnArea}>
-          {/* <Button
+          {isloggedInUser ? (<Button
+            size="large"
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            component={Link}
+            to={link.dashboard}
+          >
+            Go to dashboard
+          </Button>) : (<><Button
             size="large"
             variant="outlined"
             className={classNames(classes.button, classes.btnLight)}
-            href={link.buy}
+            href={link.register}
             target="_blank"
           >
-            Buy Now
-          </Button> */}
+            Register Now
+          </Button>
           <Button
             size="large"
             variant="contained"
@@ -47,21 +57,22 @@ function Banner(props) {
             component={Link}
             to={link.login}
           >
-            See Demo
+              See Demo / Login
           </Button>
+          </>)}
         </div>
         <div className={classes.previewApp}>
           <Hidden smDown>
             <div className={classNames(classes.m2, classes.screen, slideMode ? classes.bottom : '')}>
-              <img src="/images/screen/crypto.jpg" alt="crm dashboard" />
+              <img src="/images/screen/banner1.png" alt="workport banner 1" />
             </div>
           </Hidden>
           <div className={classNames(classes.m1, classes.screen)}>
-            <img src="/images/screen/personal.jpg" alt="personal dashboard" />
+            <img src="/images/screen/banner2.jpg" alt="workport banner 2" />
           </div>
           <Hidden smDown>
             <div className={classNames(classes.m3, classes.screen, slideMode ? classes.bottom : '')}>
-              <img src="/images/screen/crm.jpg" alt="crypto dashboard" />
+              <img src="/images/screen/banner3.jpg" alt="workport banner 3" />
             </div>
           </Hidden>
         </div>

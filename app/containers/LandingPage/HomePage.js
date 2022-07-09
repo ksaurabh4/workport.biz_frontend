@@ -5,6 +5,7 @@ import {
   Feature,
   Showcase,
   Testimonials,
+  AboutUs,
   Technology,
   Pricing,
   Contact
@@ -28,12 +29,15 @@ function HomePage() {
       {/* <ScrollSpy id="technology">
         <Technology />
       </ScrollSpy> */}
+      <ScrollSpy id="about">
+        <AboutUs />
+      </ScrollSpy>
       <ScrollSpy id="pricing">
         <Pricing />
       </ScrollSpy>
-      <ScrollSpy id="contact">
+      {/* <ScrollSpy id="contact">
         <Contact />
-      </ScrollSpy>
+      </ScrollSpy> */}
     </div>
   );
 }

@@ -46,11 +46,11 @@ function ShowcaseCard(props) {
           </div>
         )}
       </CardContent>
-      {!landscape && (
+      {/* {!landscape && (
         <CardActions className={classes.btnArea}>
           <Button size="large" component={Link} to={href} variant="outlined" color="primary">{action}</Button>
         </CardActions>
-      )}
+      )} */}
     </Card>
   );
 }
@@ -59,7 +59,7 @@ ShowcaseCard.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   desc: PropTypes.node.isRequired,
-  action: PropTypes.string.isRequired,
+  action: PropTypes.string,
   image: PropTypes.string.isRequired,
   landscape: PropTypes.bool,
   noMargin: PropTypes.bool,

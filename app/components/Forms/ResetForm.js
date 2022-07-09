@@ -23,9 +23,18 @@ const email = value => (
     : undefined
 );
 
+const passwordsMatch = (value, allValues) => {
+  if (value !== allValues.userPswd) {
+    return 'Passwords dont match';
+  }
+  return undefined;
+};
+
 function ResetForm(props) {
   const {
     classes,
+    loginAgainHandler,
+    isReset,
     handleSubmit,
     pristine,
     submitting,
@@ -42,29 +51,46 @@ function ResetForm(props) {
       <Typography variant="h4" className={classes.title} gutterBottom>
         Reset Password
       </Typography>
-      <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
+      {/* <Typography variant="caption" className={classes.subtitle} gutterBottom align="center">
         Send reset password link to Your email
-      </Typography>
+      </Typography> */}
       <section className={classes.formWrap}>
         <form onSubmit={handleSubmit}>
           <div>
             <FormControl className={classes.formControl}>
               <Field
-                name="email"
+                name="userPswd"
                 component={TextFieldRedux}
-                placeholder="Your Email"
-                label="Your Email"
+                type="password"
+                label="New Password"
                 required
-                validate={[required, email]}
+                validate={[required, passwordsMatch]}
+                className={classes.field}
+              />
+            </FormControl>
+          </div>
+          <div>
+            <FormControl className={classes.formControl}>
+              <Field
+                name="passwordConfirm"
+                component={TextFieldRedux}
+                type="password"
+                label="Re-type New Password"
+                required
+                validate={[required, passwordsMatch]}
                 className={classes.field}
               />
             </FormControl>
           </div>
           <div className={classes.btnArea}>
-            <Button variant="contained" color="primary" type="submit">
-              Send Reset Link
+            {!isReset ? (<Button variant="contained" color="primary" type="submit">
+              Submit
               <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} disabled={submitting || pristine} />
-            </Button>
+            </Button>)
+              : (<Button variant="contained" color="primary" onClick={loginAgainHandler}>
+                Login Again
+                <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} />
+              </Button>)}
           </div>
         </form>
       </section>
