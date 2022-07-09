@@ -33,6 +33,8 @@ const passwordsMatch = (value, allValues) => {
 function ResetForm(props) {
   const {
     classes,
+    loginAgainHandler,
+    isReset,
     handleSubmit,
     pristine,
     submitting,
@@ -81,10 +83,14 @@ function ResetForm(props) {
             </FormControl>
           </div>
           <div className={classes.btnArea}>
-            <Button variant="contained" color="primary" type="submit">
+            {!isReset ? (<Button variant="contained" color="primary" type="submit">
               Submit
               <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} disabled={submitting || pristine} />
-            </Button>
+            </Button>)
+              : (<Button variant="contained" color="primary" onClick={loginAgainHandler}>
+                Login Again
+                <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} />
+              </Button>)}
           </div>
         </form>
       </section>

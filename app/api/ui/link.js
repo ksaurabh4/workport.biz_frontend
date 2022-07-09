@@ -2,6 +2,7 @@ module.exports = {
   dashboard: '/app',
   login: '/login',
   register: '/register',
+  resetPassword: '/reset-password',
   market: '#',
   email: '/app/pages/email',
   profile: '/app/my-profile',
