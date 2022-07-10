@@ -44,9 +44,9 @@ function PricingCard(props) {
           ))}
         </ul>
       </CardContent>
-      <CardActions className={classes.btnArea}>
+      {/* <CardActions className={classes.btnArea}>
         <Button variant="outlined" size="large" className={classes.lightButton}>Get in now</Button>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 }

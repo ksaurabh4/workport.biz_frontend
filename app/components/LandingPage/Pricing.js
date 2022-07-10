@@ -15,34 +15,34 @@ function Pricing(props) {
         <Grid container className={classes.root} spacing={5}>
           <Grid item md={4} xs={12}>
             <PricingCard
-              title="For Learn"
+              title="Trail"
               price="FREE"
               tier="free"
-              feature={['Vel fermentum', 'Aenean facilisis vitae', 'Vestibulum nec']}
+              feature={['7 days', 'Max 50 Employees', 'Unlimited Task', 'Unlimited Announcement']}
             />
           </Grid>
           <Grid item md={4} xs={12}>
             <PricingCard
-              title="Recomended"
-              price="$24"
+              title="Standard"
+              price="₹500"
               tier="cheap"
-              feature={['Vel fermentum', 'Aenean facilisis vitae', 'Vestibulum nec', 'Pellentesque ac bibendum', 'Vivamus sit amet']}
+              feature={['Monthly Charges', 'Max 50 Employees', 'Unlimited Task', 'Unlimited Announcement']}
             />
           </Grid>
           <Grid item md={4} xs={12}>
             <PricingCard
-              title="Recomended"
-              price="$24"
+              title="Pro"
+              price="₹1000"
               tier="cheap"
-              feature={['Vel fermentum', 'Aenean facilisis vitae', 'Vestibulum nec', 'Pellentesque ac bibendum', 'Vivamus sit amet']}
+              feature={['Monthly Charges', 'Max 250 Employees', 'Unlimited Task', 'Unlimited Announcement']}
             />
           </Grid>
           <Grid item md={4} xs={12}>
             <PricingCard
-              title="Extended"
-              price="$200"
+              title="Enterprise"
+              price="Custom"
               tier="expensive"
-              feature={['Vel fermentum', 'Aenean facilisis vitae', 'Vestibulum nec', 'Pellentesque ac bibendum', 'Vivamus sit amet']}
+              feature={['Monthly Charges', 'Special Price', 'Customized Solutions', 'Unlimited Task', 'Unlimited Announcement']}
             />
           </Grid>
         </Grid>
