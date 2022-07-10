@@ -23,9 +23,13 @@ import Hidden from '@material-ui/core/Hidden';
 import brand from 'dan-api/dummy/brand';
 import logo from 'dan-images/logo.svg';
 import { Grid } from '@material-ui/core';
-import { TextFieldRedux, CheckboxRedux } from './ReduxFormMUI';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import styles from './user-jss';
-import { ContentDivider } from '../Divider';
+import { TextFieldRedux, CheckboxRedux } from './ReduxFormMUI';
 
 // validation functions
 const required = value => (value === null ? 'Required' : undefined);
@@ -41,7 +45,7 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 
 function LoginForm(props) {
   const [showPassword, setShowPassword] = useState(false);
-
+  const [showContactAdminAlert, setShowContactAdminAlert] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(show => !show);
   };
@@ -123,7 +127,27 @@ function LoginForm(props) {
             </div>
             <div className={classes.optArea}>
               <FormControlLabel className={classes.label} control={<Field name="checkbox" component={CheckboxRedux} />} label="Remember" />
-              <Button size="small" component={LinkBtn} to="/reset-password" className={classes.buttonLink}>Forgot Password</Button>
+              <Dialog
+                open={showContactAdminAlert}
+                onClose={() => setShowContactAdminAlert(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {'Contact Administrator'}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Contact Admin Team to reset your password.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={() => setShowContactAdminAlert(false)} color="primary" autoFocus>
+                    Ok
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              <Button size="small" className={classes.buttonLink} onClick={() => setShowContactAdminAlert(true)}>Forgot Password</Button>
             </div>
             <div className={classes.btnArea}>
               <Button variant="contained" color="primary" size="large" type="submit">
