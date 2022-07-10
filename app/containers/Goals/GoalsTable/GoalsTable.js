@@ -96,7 +96,7 @@ function GoalsTable(props) {
   const closeNotif = useDispatch();
 
   // state
-  const [empDataApi, setEmpDataApi] = useState(null);
+  // const [empDataApi, setEmpDataApi] = useState(null);
   const fetchEmployeeList = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
     let url = `/employees?companyId=${user.companyId}`;
@@ -113,15 +113,17 @@ function GoalsTable(props) {
       console.log(e);
     }
   };
+
   const [searchTerm, setSearchTerm] = useState({
     startDate: moment().clone().startOf('month')
       .format('YYYY-MM-DD'),
     endDate: moment().clone().endOf('month')
       .format('YYYY-MM-DD'),
     empId: null,
+    empManagerId: null,
   });
+
   const inputChange = (event) => {
-    console.log(event);
     if (event.target.id) {
       setSearchTerm({ ...searchTerm, [event.target.id]: event.target.value });
     } else {
@@ -131,14 +133,12 @@ function GoalsTable(props) {
 
   const [dataApi, setDataApi] = useState(null);
   const fetchGoalsList = async () => {
-    // const user = JSON.parse(localStorage.getItem('user'));
     const url = `/goals?companyId=${loggedUser.companyId}&empId=${searchTerm.empId || loggedUser.empId}&goalType='${type}'&startDate=${searchTerm.startDate}&endDate=${searchTerm.endDate}`;
     try {
       const res = await api.get(url, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
       if (res) {
         const data = formatGoalsList(res.data);
         setDataApi(data);
-        console.log(data);
       }
     } catch (e) {
       console.log(e);
@@ -193,9 +193,25 @@ function GoalsTable(props) {
     }
   };
   const [score, setScore] = useState(0);
+  const [target, setTarget] = useState(0);
+  const [achieved, setAchieved] = useState(0);
+  const calculateScore = (_target = target, _achieved = achieved) => {
+    let _score = 0;
+    if (type === 'g1') {
+      _score = (_achieved / _target) * 100;
+    } else {
+      _score = (_achieved / 10) * 100;
+    }
+    setScore(_score.toFixed(2));
+  };
 
-  const calculateScore = (event) => {
-    setScore(event.target.value);
+  const changeTarget = (event) => {
+    setTarget(event.target.value);
+    calculateScore(event.target.value, undefined);
+  };
+  const changeAchieved = (event) => {
+    setAchieved(event.target.value);
+    calculateScore(undefined, event.target.value);
   };
 
   const [goalOwner, setGoalOwner] = useState('self');
@@ -223,7 +239,6 @@ function GoalsTable(props) {
         empId: values.empId || loggedUser.empId,
       };
       delete data.goalOwner;
-      console.log(data);
       let res = null;
       if (formTitle.includes('Add')) {
         res = await api.post('/goals/create', data, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
@@ -274,7 +289,7 @@ function GoalsTable(props) {
             margin="normal"
           />
         </Grid>
-        {loggedUser.isManager && <Grid item xs style={{ marginTop: '33px' }}>
+        {loggedUser.isManager === 1 && <Grid item xs style={{ marginTop: '33px' }}>
           <FormControl className={classes.field}>
             <InputLabel htmlFor="empId">Select Employee</InputLabel>
             <Select
@@ -285,8 +300,25 @@ function GoalsTable(props) {
               placeholder='Select Employee'
               onChange={(event) => inputChange(event)}
             >
-              <MenuItem selected={true} value={null}>Self</MenuItem>
-              {empDataTable.map(item => <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>)}
+              {/* <MenuItem selected={true} value={loggedUser.empId}>Self</MenuItem> */}
+              {empDataTable.map(item => (searchTerm.empManagerId !== 'all' ? item.empManagerId === searchTerm.empManagerId && <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>
+                : <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>))}
+            </Select>
+          </FormControl>
+        </Grid>}
+        {loggedUser.isAdmin && <Grid item xs style={{ marginTop: '33px' }}>
+          <FormControl className={classes.field}>
+            <InputLabel htmlFor="empId">Select Manager</InputLabel>
+            <Select
+              labelId="input-label-empId"
+              id="empManagerId"
+              name="empManagerId"
+              value={searchTerm.empManagerId}
+              placeholder='Select Employee'
+              onChange={(event) => inputChange(event)}
+            >
+              <MenuItem selected={true} value={'all'}>All</MenuItem>
+              {empDataTable.map(item => item.isManager === 1 && <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>)}
             </Select>
           </FormControl>
         </Grid>}
@@ -317,7 +349,7 @@ function GoalsTable(props) {
           initValues={initValues}
         >
           {/* Create Your own form, then arrange or custom it as You like */}
-          {!formTitle.toLowerCase().includes('edit') && loggedUser.isManager && <><div className={classes.fieldBasic}>
+          {!formTitle.toLowerCase().includes('edit') && loggedUser.isManager === 1 && <><div className={classes.fieldBasic}>
             <FormLabel component="label">Submitting for</FormLabel>
             <Field name="goalOwner" className={classes.inlineWrap} component={renderRadioGroup} onChange={radioButtonOnChange}>
               <FormControlLabel value="reportee" control={<Radio />} label="Reportee" />
@@ -394,11 +426,11 @@ function GoalsTable(props) {
               placeholder="Target"
               label="Target"
               required
-              disabled
               validate={required}
+              onChange={changeTarget}
               className={classes.field}
               normalize={val => (val || '').replace(/[^\d]/g, '')}
-              format={value => (value || 100)}
+              format={value => (value || target)}
             />) : <Field
               name="goalParameter"
               type="textarea"
@@ -425,8 +457,8 @@ function GoalsTable(props) {
               required
               validate={[required]}
               className={classes.field}
-              onChange={calculateScore}
-              normalize={val => (val || '').replace(/[^\d]/g, '')}
+              onChange={changeAchieved}
+              normalize={val => (val || achieved).replace(/[^\d]/g, '')}
             />
           </div>
           <div>
