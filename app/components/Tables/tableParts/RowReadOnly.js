@@ -85,11 +85,11 @@ function RowReadOnly(props) {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {`${additionalIcon.name}`}
+            {`${additionalIcon?.name}`}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {additionalIcon.element}
+              {additionalIcon?.element}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -114,8 +114,9 @@ RowReadOnly.propTypes = {
   anchor: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
-  removeRow: PropTypes.func.isRequired,
+  removeRow: PropTypes.func,
   editRow: PropTypes.func.isRequired,
+  selectRow: PropTypes.func,
   branch: PropTypes.string.isRequired,
   additionalIcon: PropTypes.any
 };
