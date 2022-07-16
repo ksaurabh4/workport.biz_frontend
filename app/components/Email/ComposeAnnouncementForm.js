@@ -134,7 +134,7 @@ function ComposeAnnouncementForm(props) {
         <section className={css.bodyForm}>
           <div style={{ marginBottom: '10px' }}>
             <FormControl className={classes.field}>
-              <InputLabel htmlFor="selection">Annoncement To</InputLabel>
+              <InputLabel htmlFor="to">Annoncement To</InputLabel>
               <Select
                 id="to"
                 label="To"
