@@ -47,7 +47,11 @@ const styles = theme => ({
   },
   field: {
     width: '100%',
-    marginBottom: 20
+    marginTop: 0,
+    '& svg': {
+      color: theme.palette.grey[400],
+      fontSize: 18,
+    }
   },
   fieldBasic: {
     width: '100%',
@@ -64,6 +68,10 @@ const styles = theme => ({
   rightIcon: {
     marginLeft: theme.spacing(1),
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120
+  }
 });
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioGroup
@@ -262,7 +270,9 @@ function GoalsTable(props) {
   return (
     <div>
       <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} />
-      <Grid container spacing={3} className={classes.rootTable}>
+      <Grid container spacing={3} className={classes.rootTable} style={{
+        display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 10
+      }}>
         <Grid item xs>
           <TextField
             id="startDate"
@@ -289,7 +299,7 @@ function GoalsTable(props) {
             margin="normal"
           />
         </Grid>
-        {loggedUser.isManager === 1 && <Grid item xs style={{ marginTop: '33px' }}>
+        {loggedUser.isManager === 1 && <Grid item xs>
           <FormControl className={classes.field}>
             <InputLabel htmlFor="empId">Select Employee</InputLabel>
             <Select
@@ -306,7 +316,7 @@ function GoalsTable(props) {
             </Select>
           </FormControl>
         </Grid>}
-        {loggedUser.isAdmin && <Grid item xs style={{ marginTop: '33px' }}>
+        {loggedUser.isAdmin && <Grid item xs>
           <FormControl className={classes.field}>
             <InputLabel htmlFor="empId">Select Manager</InputLabel>
             <Select
@@ -322,7 +332,7 @@ function GoalsTable(props) {
             </Select>
           </FormControl>
         </Grid>}
-        <Grid item xs style={{ marginTop: '35px' }} >
+        <Grid item xs >
           <Tooltip title="Submit Request">
             <Button className={classes.button} variant="contained" color="primary" onClick={searchReporteeGoals}>
               Submit
