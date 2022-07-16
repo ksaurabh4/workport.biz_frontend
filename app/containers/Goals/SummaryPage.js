@@ -29,29 +29,6 @@ import styles from './widget-jss';
 import { setTabAction } from './reducers/goalsActions';
 import api from '../../redux/api';
 import { closeNotifAction, showErrorNotifAction } from './GoalsTable/reducers/goalsTableActions';
-const color = ({
-  primary: colorfull[6],
-  secondary: colorfull[3],
-  third: colorfull[2],
-  fourth: colorfull[4],
-});
-const dataSales = [
-  {
-    name: 'G1',
-    percentage: 80,
-    color: 'green',
-  },
-  {
-    name: 'G2',
-    percentage: 45,
-    color: 'orange',
-  },
-  {
-    name: 'G3',
-    percentage: 30,
-    color: 'red',
-  }
-];
 const otherStyles = theme => ({
   root: {
     flexGrow: 1,
@@ -110,7 +87,6 @@ function SummaryPage(props) {
     dispatch(setTabAction(tabNum));
   };
   const getColor = (value) => {
-    console.log('value', value);
     let barColor;
     if (value >= 80) {
       barColor = 'green';
@@ -133,7 +109,6 @@ function SummaryPage(props) {
       const res = await api.get(url, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
       if (res) {
         const data = formatData(res.data);
-        console.log(data);
         setDataApi(data);
       }
     } catch (e) {
