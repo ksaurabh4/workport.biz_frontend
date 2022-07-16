@@ -34,9 +34,19 @@ export const editAction = (item, branch) => ({
   type: `${branch}/${types.EDIT_ROW_FORM}`,
   item
 });
+export const selectAction = (item, branch) => ({
+  branch,
+  type: `${branch}/${types.SELECT_ROW_FORM}`,
+  item
+});
 export const showErrorNotifAction = (payload, branch) => ({
   branch,
   type: `${branch}/${notification.GET_ERROR_NOTIF}`,
+  payload
+});
+export const showNotifAction = (payload, branch) => ({
+  branch,
+  type: `${branch}/${notification.SHOW_NOTIF}`,
   payload
 });
 export const closeNotifAction = branch => ({
