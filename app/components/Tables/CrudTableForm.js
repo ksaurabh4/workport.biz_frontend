@@ -11,7 +11,9 @@ function CrudTableForm(props) {
     dataTable,
     openForm,
     closeForm,
+    additionalIcon,
     removeRow,
+    selectRow,
     addNew,
     editRow,
     anchor,
@@ -42,9 +44,11 @@ function CrudTableForm(props) {
         addNew={addNew}
         items={dataTable}
         removeRow={removeRow}
+        selectRow={selectRow}
         editRow={editRow}
         anchor={anchor}
         branch={branch}
+        additionalIcon={additionalIcon}
       />
     </div>
   );
@@ -62,6 +66,7 @@ CrudTableForm.propTypes = {
   closeForm: PropTypes.func.isRequired,
   removeRow: PropTypes.func.isRequired,
   editRow: PropTypes.func.isRequired,
+  selectRow: PropTypes.func,
   children: PropTypes.node.isRequired,
   initValues: PropTypes.object.isRequired,
   branch: PropTypes.string.isRequired,

@@ -16,7 +16,7 @@ import {
   TextFieldRedux,
   SwitchRedux
 } from 'dan-components/Forms/ReduxFormMUI';
-import { CrudTableForm, Notification } from 'dan-components';
+import { CrudTableForm, Notification, ResetForm } from 'dan-components';
 import {
   fetchAction,
   addAction,
@@ -24,8 +24,10 @@ import {
   submitAction,
   removeAction,
   editAction,
+  selectAction,
   closeNotifAction,
   showErrorNotifAction,
+  showNotifAction,
   clearAction,
 } from './reducers/employeeTableActions';
 import { anchorTable } from './sampleData';
@@ -73,6 +75,7 @@ function EmployeeTable(props) {
   // Redux State
   const branch = 'employeeForm';
   const initValues = useSelector(state => state.employeeForm.formValues);
+  const selectedRow = useSelector(state => state.employeeForm.selectedRow);
   const dataTable = useSelector(state => state.employeeForm.dataTable);
   const openForm = useSelector(state => state.employeeForm.showFrm);
   const formTitle = useSelector(state => state.employeeForm.formTitle);
@@ -85,14 +88,14 @@ function EmployeeTable(props) {
   const closeForm = useDispatch();
   const submit = useDispatch();
   const removeRow = useDispatch();
+  const selectRow = useDispatch();
   const editRow = useDispatch();
   const closeNotif = useDispatch();
-
+  const user = JSON.parse(localStorage.getItem('user'));
   // state
   const [dataApi, setDataApi] = useState(null);
 
   const fetchEmployeeList = async () => {
-    const user = JSON.parse(localStorage.getItem('user'));
     const url = `/employees?companyId=${user.companyId}`;
     // if (user.userRole === 'manager') {
     //   url += `&empManagerId=${user.empId}`;
@@ -117,7 +120,6 @@ function EmployeeTable(props) {
 
   const handleSubmit = async (values) => {
     try {
-      const user = JSON.parse(localStorage.getItem('user'));
       const data = { ...values, companyId: user.companyId };
       let res = null;
       if (formTitle.includes('Add')) {
@@ -134,7 +136,21 @@ function EmployeeTable(props) {
       submit(showErrorNotifAction(e.response.data.message, branch));
     }
   };
-
+  const resetPasswordSubmitForm = async (values) => {
+    try {
+      const data = {
+        userPswd: values.userPswd,
+      };
+      const res = await api.put(`/users?empId=${selectedRow.empId}`, data, { headers: { Authorization: `Bearer ${user.token}` } });
+      if (res.data) {
+        submit(showNotifAction(res.data.message, branch));
+        selectRow(selectAction({}, branch));
+      }
+    } catch (e) {
+      console.log(e);
+      submit(showErrorNotifAction(e.response.data.message, branch));
+    }
+  };
   return (
     <div>
       <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} />
@@ -144,6 +160,7 @@ function EmployeeTable(props) {
           openForm={openForm}
           dataInit={dataApi}
           anchor={anchorTable}
+          additionalIcon={{ name: 'Change Password', element: <ResetForm onSubmit={(values) => resetPasswordSubmitForm(values)} /> }}
           title="Employees"
           formTitle={formTitle}
           fetchData={(payload) => fetchData(fetchAction(payload, branch))}
@@ -152,6 +169,7 @@ function EmployeeTable(props) {
           submit={(payload) => handleSubmit(payload)}
           removeRow={(payload) => removeRow(removeAction(payload, branch))}
           editRow={(payload) => editRow(editAction(payload, branch))}
+          selectRow={(payload) => selectRow(selectAction(payload, branch))}
           branch={branch}
           initValues={initValues}
         >

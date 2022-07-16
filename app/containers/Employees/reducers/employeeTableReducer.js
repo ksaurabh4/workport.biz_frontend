@@ -1,6 +1,6 @@
 import produce from 'immer';
 import notif from 'dan-api/ui/notifMessage';
-import { CLOSE_NOTIF, GET_ERROR_NOTIF } from 'dan-redux/constants/notifConstants';
+import { CLOSE_NOTIF, GET_ERROR_NOTIF, SHOW_NOTIF } from 'dan-redux/constants/notifConstants';
 import {
   FETCH_DATA_FORM,
   ADD_NEW,
@@ -8,7 +8,8 @@ import {
   SUBMIT_DATA,
   REMOVE_ROW_FORM,
   EDIT_ROW_FORM,
-  CLEAR_DATA
+  CLEAR_DATA,
+  SELECT_ROW_FORM
 } from './employeeTableConstants';
 
 const initialState = {
@@ -27,6 +28,7 @@ const initialState = {
     }
   ],
   formValues: {},
+  selectedRow: {},
   editingId: '',
   showFrm: false,
   formTitle: 'Add New',
@@ -101,7 +103,17 @@ const employeeTableReducer = (state = initialState, action = {}) => produce(stat
       }
       break;
     }
+    case `${branch}/${SELECT_ROW_FORM}`: {
+      const index = draft.dataTable.findIndex(item => item.id === action.item.id);
+      if (index !== -1) {
+        draft.selectedRow = action.item;
+      }
+      break;
+    }
     case `${branch}/${GET_ERROR_NOTIF}`:
+      draft.notifMsg = action.payload;
+      break;
+    case `${branch}/${SHOW_NOTIF}`:
       draft.notifMsg = action.payload;
       break;
     case `${branch}/${CLOSE_NOTIF}`:
