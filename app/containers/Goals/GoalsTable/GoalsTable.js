@@ -127,8 +127,8 @@ function GoalsTable(props) {
       .format('YYYY-MM-DD'),
     endDate: moment().clone().endOf('month')
       .format('YYYY-MM-DD'),
-    empId: null,
-    empManagerId: null,
+    empId: loggedUser.empId,
+    empManagerId: 'all',
   });
 
   const inputChange = (event) => {
@@ -203,6 +203,11 @@ function GoalsTable(props) {
   const [score, setScore] = useState(0);
   const [target, setTarget] = useState(0);
   const [achieved, setAchieved] = useState(0);
+  const updateState = (payload) => {
+    setTarget(parseInt(payload.goalParameter, 10));
+    setAchieved(payload.goalAchieved);
+    setDateRange({ startDate: moment(payload.goalReviewStartDate), endDate: moment(payload.goalReviewEndDate), weekNum: payload.goalWeekNum });
+  };
   const calculateScore = (_target = target, _achieved = achieved) => {
     let _score = 0;
     if (type === 'g1') {
@@ -229,13 +234,15 @@ function GoalsTable(props) {
   const handleCloseForm = () => {
     setDateRange({ startDate: '', endDate: '', weekNum: 0 });
     setScore(0);
+    setTarget(0);
+    setAchieved(0);
     closeForm(closeAction(branch));
   };
 
   const handleSubmit = async (values) => {
     try {
       // const user = JSON.parse(localStorage.getItem('user'));
-      const data = {
+      const addData = {
         ...values,
         goalParameter: values.goalParameter || '100',
         goalType: type,
@@ -246,18 +253,33 @@ function GoalsTable(props) {
         companyId: loggedUser.companyId,
         empId: values.empId || loggedUser.empId,
       };
-      delete data.goalOwner;
+      delete addData.goalOwner;
+      const editData = {
+        ...values,
+        goalParameter: values.goalParameter || '100',
+        goalScore: score,
+        companyId: loggedUser.companyId,
+        empId: values.empId || loggedUser.empId,
+      };
+      delete editData.goalOwner;
+      delete editData.goalReviewEndDate;
+      delete editData.goalReviewStartDate;
+      delete editData.goalWeekNum;
+      delete editData.goalType;
+      delete editData.goalTerm;
       let res = null;
       if (formTitle.includes('Add')) {
-        res = await api.post('/goals/create', data, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
+        res = await api.post('/goals/create', addData, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
       } else {
-        res = await api.put(`/goals/${values.goalId}`, data, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
+        res = await api.put(`/goals/${values.goalId}`, editData, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
       }
       if (res.data) {
         submit(submitAction(values, branch));
         fetchGoalsList(res.data.empId);
         setDateRange({ startDate: '', endDate: '', weekNum: 0 });
         setScore(0);
+        setTarget(0);
+        setAchieved(0);
       }
     } catch (e) {
       console.log(e);
@@ -354,7 +376,10 @@ function GoalsTable(props) {
           closeForm={handleCloseForm}
           submit={(payload) => handleSubmit(payload)}
           removeRow={(payload) => removeRow(removeAction(payload, branch))}
-          editRow={(payload) => editRow(editAction(payload, branch))}
+          editRow={(payload) => {
+            updateState(payload);
+            editRow(editAction(payload, branch));
+          }}
           branch={branch}
           initValues={initValues}
         >
@@ -468,6 +493,7 @@ function GoalsTable(props) {
               validate={[required]}
               className={classes.field}
               onChange={changeAchieved}
+              format={value => (value || achieved)}
               normalize={val => (val || achieved).replace(/[^\d]/g, '')}
             />
           </div>
@@ -479,8 +505,8 @@ function GoalsTable(props) {
               label="Score"
               className={classes.field}
               disabled
-              format={value => `${value || score}%`}
-              normalize={val => (val || '').replace(/[^\d]/g, '')}
+              format={value => `${score || value}%`}
+            // normalize={val => (val || '').replace(/[^\d]/g, '')}
             />
           </div>
           {/* No need create button or submit, because that already made in this component */}
