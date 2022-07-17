@@ -9,6 +9,7 @@ module.exports = {
   calendar: '/app/pages/calendar',
   twitter: '#',
   github: '#',
+  whatsapp: 'https://wa.me/919891964222',
   pinterest: '#',
   linkedin: '#',
   buy: '#',

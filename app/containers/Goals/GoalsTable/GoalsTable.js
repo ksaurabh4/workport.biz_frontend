@@ -108,8 +108,8 @@ function GoalsTable(props) {
   const fetchEmployeeList = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
     let url = `/employees?companyId=${user.companyId}`;
-    if (user.userRole === 'manager') {
-      url += `&empManagerId=${user.userId}`;
+    if (user.userRole === 'manager' && !user.isAdmin) {
+      url += `&empManagerId=${user.empId}`;
     }
     try {
       const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
@@ -157,7 +157,7 @@ function GoalsTable(props) {
   useEffect(async () => {
     const user = JSON.parse(localStorage.getItem('user'));
     fetchGoalsList();
-    if (user.userRole === 'manager') {
+    if (user.userRole === 'manager' || user.isAdmin) {
       fetchEmployeeList();
     }
   }, []);
@@ -334,7 +334,7 @@ function GoalsTable(props) {
             >
               {/* <MenuItem selected={true} value={loggedUser.empId}>Self</MenuItem> */}
               {empDataTable.map(item => (searchTerm.empManagerId !== 'all' ? item.empManagerId === searchTerm.empManagerId && <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>
-                : <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>))}
+                : item.empId === loggedUser.empId ? <MenuItem key={item.empId} value={item.empId}>{'Self'}</MenuItem> : <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>))}
             </Select>
           </FormControl>
         </Grid>}
@@ -402,7 +402,8 @@ function GoalsTable(props) {
                 required
                 onChange={goalTermChangeHandler}
               >
-                {empDataTable.map(item => <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>)}
+                {empDataTable.map(item => (searchTerm.empManagerId !== 'all' ? item.empManagerId === searchTerm.empManagerId && <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>
+                  : item.empId !== loggedUser.empId && <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>))}
               </Field>
             </FormControl>
           </div>}

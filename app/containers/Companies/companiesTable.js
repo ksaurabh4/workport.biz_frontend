@@ -29,7 +29,7 @@ import {
   showErrorNotifAction,
   showNotifAction,
   clearAction,
-} from './reducers/employeeTableActions';
+} from './reducers/companiesTableActions';
 import { anchorTable } from './sampleData';
 import api from '../../redux/api';
 
@@ -69,17 +69,17 @@ const styles = ({
   }
 });
 
-function EmployeeTable(props) {
+function CompanyTable(props) {
   const { classes } = props;
 
   // Redux State
-  const branch = 'employeeForm';
-  const initValues = useSelector(state => state.employeeForm.formValues);
-  const selectedRow = useSelector(state => state.employeeForm.selectedRow);
-  const dataTable = useSelector(state => state.employeeForm.dataTable);
-  const openForm = useSelector(state => state.employeeForm.showFrm);
-  const formTitle = useSelector(state => state.employeeForm.formTitle);
-  const messageNotif = useSelector(state => state.employeeForm.notifMsg);
+  const branch = 'companyForm';
+  const initValues = useSelector(state => state.companyForm.formValues);
+  const selectedRow = useSelector(state => state.companyForm.selectedRow);
+  const dataTable = useSelector(state => state.companyForm.dataTable);
+  const openForm = useSelector(state => state.companyForm.showFrm);
+  const formTitle = useSelector(state => state.companyForm.formTitle);
+  const messageNotif = useSelector(state => state.companyForm.notifMsg);
 
   // Dispatcher
   const fetchData = useDispatch();
@@ -121,7 +121,6 @@ function EmployeeTable(props) {
   const handleSubmit = async (values) => {
     try {
       const data = { ...values, companyId: user.companyId };
-      delete data.empManagerName;
       let res = null;
       if (formTitle.includes('Add')) {
         res = await api.post('/employees/create', data, { headers: { Authorization: `Bearer ${user.token}` } });
@@ -263,7 +262,6 @@ function EmployeeTable(props) {
               component={TextFieldRedux}
               placeholder="Employee Zipcode"
               label="Zipcode"
-              required
               className={classes.field}
             />
           </div>
@@ -306,7 +304,6 @@ function EmployeeTable(props) {
                 component={SelectRedux}
                 placeholder="Reporting Manager"
                 autoWidth
-                required
               >
                 {dataTable?.map(item => item.isManager === 1 && <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>)}
               </Field>
@@ -368,8 +365,8 @@ renderRadioGroup.propTypes = {
   input: PropTypes.object.isRequired,
 };
 
-EmployeeTable.propTypes = {
+CompanyTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(EmployeeTable);
+export default withStyles(styles)(CompanyTable);
