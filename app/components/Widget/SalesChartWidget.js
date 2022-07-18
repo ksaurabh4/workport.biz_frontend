@@ -32,74 +32,7 @@ import {
 // import { data2 } from 'dan-api/chart/chartMiniData';
 import styles from './widget-jss';
 import PapperBlock from '../PapperBlock/PapperBlock';
-const data1 = [
-  {
-    name: 'emp1',
-    score: 40,
-  },
-  {
-    name: 'emp2',
-    score: 45,
-  },
-  {
-    name: 'emp3',
-    score: 27,
-  },
-  {
-    name: 'emp4',
-    score: 50,
-  },
-  {
-    name: 'emp5',
-    score: 32,
-  },
-  {
-    name: 'emp6',
-    score: 80,
-  },
-  {
-    name: 'emp7',
-    score: 57,
-  },
-  {
-    name: 'emp8',
-    score: 39,
-  },
-  {
-    name: 'emp9',
-    score: 79,
-  },
-  {
-    name: 'emp10',
-    score: 100,
-  },
-  {
-    name: 'emp11',
-    score: 50,
-  },
-  {
-    name: 'emp12',
-    score: 65,
-  },
-];
 
-const pieChartDataRaw = [
-  {
-    name: 'More than 80%',
-    value: 0,
-    color: 'green'
-  },
-  {
-    name: '80% to 60%',
-    value: 0,
-    color: 'orange'
-  },
-  {
-    name: 'less than 60%',
-    value: 0,
-    color: 'red'
-  }
-];
 const color = ({
   primary: colorfull[6],
   secondary: colorfull[3],
@@ -121,10 +54,29 @@ const getColor = (value) => {
 
 function SalesChartWidget(props) {
   const { classes, data } = props;
-  const [dataApi, setDataApi] = useState({ data: [], pieChartData: pieChartDataRaw });
+  const [dataApi, setDataApi] = useState({
+    data: [],
+    pieChartData: [
+      {
+        name: 'More than 80%',
+        value: 0,
+        color: 'green'
+      },
+      {
+        name: '80% to 60%',
+        value: 0,
+        color: 'orange'
+      },
+      {
+        name: 'less than 60%',
+        value: 0,
+        color: 'red'
+      }
+    ]
+  });
   const formatData = (_data) => {
     const newData = [];
-    const newPieChartData = [...pieChartDataRaw];
+    const newPieChartData = [...dataApi.pieChartData];
     for (let i = 0; i < _data?.length; i += 1) {
       const element = { ..._data[i], color: getColor(_data[i].score) };
       if (_data[i].score >= 80) {
@@ -145,10 +97,13 @@ function SalesChartWidget(props) {
 
   useEffect(() => {
     formatData(data);
-    return () => setDataApi({
-      data: [],
-      pieChartData: pieChartDataRaw
-    });
+    return () => {
+      setDataApi(prev => ({
+        ...prev,
+        data: [],
+        pieChartData: []
+      }));
+    };
   }, [data]);
 
   return (
