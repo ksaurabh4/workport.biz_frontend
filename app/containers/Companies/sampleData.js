@@ -13,6 +13,27 @@ export const anchorTable = [
     hidden: false
   },
   {
+    name: 'compWebsite',
+    label: 'Website',
+    initialValue: '',
+    width: 'auto',
+    hidden: false
+  },
+  {
+    name: 'compEmail',
+    label: 'Email',
+    initialValue: '',
+    width: 'auto',
+    hidden: false
+  },
+  {
+    name: 'compPhone',
+    label: 'Phone',
+    initialValue: '',
+    width: 'auto',
+    hidden: false
+  },
+  {
     name: 'compAddress',
     label: 'Address',
     initialValue: '',
@@ -48,31 +69,17 @@ export const anchorTable = [
     hidden: true
   },
   {
-    name: 'compWebsite',
-    label: 'Website',
-    initialValue: '',
-    width: 'auto',
-    hidden: false
-  },
-  {
-    name: 'compEmail',
-    label: 'Email',
-    initialValue: '',
-    width: 'auto',
-    hidden: true
-  },
-  {
-    name: 'compPhone',
-    label: 'Phone',
-    initialValue: '',
-    width: 'auto',
-    hidden: false
-  },
-  {
-    name: 'compSubsPlan',
+    name: 'compPlanName',
     label: 'Subscription',
     initialValue: '',
     width: 'auto',
+    hidden: false
+  },
+  {
+    name: 'subsIsActive',
+    label: 'Active',
+    initialValue: 'Yes',
+    width: '80',
     hidden: false
   },
   // {

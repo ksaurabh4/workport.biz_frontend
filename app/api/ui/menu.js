@@ -6,6 +6,12 @@ module.exports = [
     icon: 'ion-ios-home-outline',
   },
   {
+    key: 'companies',
+    name: 'Companies',
+    linkParent: '/app/companies',
+    icon: 'ion-ios-contact-outline',
+  },
+  {
     key: 'employees',
     name: 'Employees',
     linkParent: '/app/employees',

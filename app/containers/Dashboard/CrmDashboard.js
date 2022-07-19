@@ -8,7 +8,9 @@ import Divider from '@material-ui/core/Divider';
 import {
   CounterChartWidget,
   SalesChartWidget,
+  LatestTransactionWidget,
   CarouselWidget,
+  HistoryWidget,
   TableWidget,
   NewsWidget,
   CalculatorWidget,
@@ -21,9 +23,8 @@ function CrmDahboard(props) {
   const description = brand.desc;
   const { classes } = props;
   const [dataApi, setDataApi] = useState({});
-
+  const user = JSON.parse(localStorage.getItem('user'));
   const fetchDashboardData = async () => {
-    const user = JSON.parse(localStorage.getItem('user'));
     const url = '/reports';
     try {
       const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
@@ -53,10 +54,10 @@ function CrmDahboard(props) {
         <CounterChartWidget data={dataApi.counter}/>
       </Grid>
       <Divider className={classes.divider} />
-      <SalesChartWidget data={dataApi.empWiseScore} />
-      {/* <Divider className={classes.divider} />
+      {user.userRole !== 'superadmin' ? <SalesChartWidget data={dataApi.empWiseScore} /> : <LatestTransactionWidget />}
+      <Divider className={classes.divider} />
       <TableWidget />
-      <Divider className={classes.divider} /> */}
+      <Divider className={classes.divider} />
       {/* <Grid container spacing={3} className={classes.root}>
         <Grid item md={4} xs={12}>
           <CarouselWidget />
