@@ -55,9 +55,9 @@ function CrmDahboard(props) {
       </Grid>
       <Divider className={classes.divider} />
       {user.userRole !== 'superadmin' ? <SalesChartWidget data={dataApi.empWiseScore} /> : <LatestTransactionWidget />}
-      <Divider className={classes.divider} />
+      {/* <Divider className={classes.divider} />
       <TableWidget />
-      <Divider className={classes.divider} />
+      <Divider className={classes.divider} /> */}
       {/* <Grid container spacing={3} className={classes.root}>
         <Grid item md={4} xs={12}>
           <CarouselWidget />
