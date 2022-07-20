@@ -286,6 +286,16 @@ function GoalsTable(props) {
       submit(showErrorNotifAction(e.response.data.message, branch));
     }
   };
+  const deleteClickHandler = async (payload) => {
+    console.log(payload);
+    try {
+      await api.delete(`/goals/${payload.goalId}`, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
+      removeRow(removeAction(payload, branch));
+    } catch (e) {
+      console.log(e);
+      submit(showErrorNotifAction(e.response.data.message, branch));
+    }
+  };
   const searchReporteeGoals = () => {
     fetchGoalsList();
   };
@@ -375,7 +385,8 @@ function GoalsTable(props) {
           addNew={(payload) => addNew(addAction(payload, branch))}
           closeForm={handleCloseForm}
           submit={(payload) => handleSubmit(payload)}
-          removeRow={(payload) => removeRow(removeAction(payload, branch))}
+          removeRow={(payload) => deleteClickHandler(payload)}
+          canRemove={true}
           editRow={(payload) => {
             updateState(payload);
             editRow(editAction(payload, branch));

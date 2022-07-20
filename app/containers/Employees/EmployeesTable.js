@@ -307,7 +307,6 @@ function EmployeeTable(props) {
                 component={SelectRedux}
                 placeholder="Reporting Manager"
                 autoWidth
-                required
               >
                 {dataTable?.map(item => item.isManager === 1 && <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>)}
               </Field>

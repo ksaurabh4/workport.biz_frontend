@@ -23,6 +23,7 @@ function MainTableForm(props) {
     classes,
     items,
     removeRow,
+    canRemove,
     editRow,
     selectRow,
     addNew,
@@ -35,7 +36,8 @@ function MainTableForm(props) {
   const getItems = dataArray => dataArray.map(item => (
     <RowReadOnly
       item={item}
-      // removeRow={() => removeRow(item, branch)}
+      removeRow={() => removeRow(item, branch)}
+      canRemove={canRemove}
       additionalIcon={additionalIcon}
       key={item.id}
       editRow={() => editRow(item, branch)}
@@ -93,6 +95,7 @@ MainTableForm.propTypes = {
   anchor: PropTypes.array.isRequired,
   addNew: PropTypes.func.isRequired,
   removeRow: PropTypes.func.isRequired,
+  canRemove: PropTypes.bool,
   editRow: PropTypes.func.isRequired,
   selectRow: PropTypes.func,
   branch: PropTypes.string.isRequired,

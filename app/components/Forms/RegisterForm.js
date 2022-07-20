@@ -144,7 +144,7 @@ function RegisterForm(props) {
                   />
                 </FormControl>
               </div>
-              <div>
+              {/* <div>
                 <FormControlLabel
                   control={(
                     <Field name="checkbox" component={CheckboxRedux} required className={classes.agree} />
@@ -152,7 +152,7 @@ function RegisterForm(props) {
                   label="Agree with"
                 />
                 <a href="#" className={classes.link}>Terms &amp; Condition</a>
-              </div>
+              </div> */}
               <div className={classes.btnArea}>
                 <Button variant="contained" color="primary" type="submit">
                   Continue
