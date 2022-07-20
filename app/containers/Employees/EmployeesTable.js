@@ -96,10 +96,10 @@ function EmployeeTable(props) {
   const [dataApi, setDataApi] = useState(null);
 
   const fetchEmployeeList = async () => {
-    const url = `/employees?companyId=${user.companyId}`;
-    // if (user.userRole === 'manager') {
-    //   url += `&empManagerId=${user.empId}`;
-    // }
+    let url = `/employees?companyId=${user.companyId}`;
+    if (user.userRole === 'manager' && !user.isAdmin) {
+      url += `&empManagerId=${user.empId}`;
+    }
     try {
       const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
       if (res) {
@@ -204,6 +204,7 @@ function EmployeeTable(props) {
               placeholder="Employee Email"
               label="Email"
               required
+              disabled={formTitle.toLowerCase().includes('edit')}
               validate={[required, email]}
               className={classes.field}
             />
