@@ -30,6 +30,7 @@ function RowReadOnly(props) {
     classes,
     item,
     removeRow,
+    canRemove,
     editRow,
     selectRow,
     branch,
@@ -98,13 +99,13 @@ function RowReadOnly(props) {
             </Button>
           </DialogActions>
         </Dialog>
-        {/* <IconButton
+        {canRemove && <IconButton
           onClick={() => eventDel(this)}
           className={classes.button}
           aria-label="Delete"
         >
           <DeleteIcon />
-        </IconButton> */}
+        </IconButton>}
       </TableCell>
     </tr>
   );
@@ -115,6 +116,7 @@ RowReadOnly.propTypes = {
   classes: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
   removeRow: PropTypes.func,
+  canRemove: PropTypes.bool,
   editRow: PropTypes.func.isRequired,
   selectRow: PropTypes.func,
   branch: PropTypes.string.isRequired,

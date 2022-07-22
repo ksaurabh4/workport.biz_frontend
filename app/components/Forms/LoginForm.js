@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { Field, reduxForm } from 'redux-form';
 import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
@@ -26,10 +26,13 @@ import { Grid } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import { Notification } from 'dan-components';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import styles from './user-jss';
 import { TextFieldRedux, CheckboxRedux } from './ReduxFormMUI';
+import api from '../../redux/api';
+import { closeNotifAction, loginAction, showErrorNotifAction } from '../../redux/actions/authActions';
 
 // validation functions
 const required = value => (value === null ? 'Required' : undefined);
@@ -46,6 +49,8 @@ const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disabl
 function LoginForm(props) {
   const [showPassword, setShowPassword] = useState(false);
   const [showContactAdminAlert, setShowContactAdminAlert] = useState(false);
+  const dispatch = useDispatch();
+  const messageNotif = useSelector(state => state.auth.notifMsg);
   const handleClickShowPassword = () => {
     setShowPassword(show => !show);
   };
@@ -54,6 +59,24 @@ function LoginForm(props) {
     event.preventDefault();
   };
 
+  const demoLoginHandler = async () => {
+    try {
+      const data = {
+        email: 'demo@workport.biz',
+        pswd: 'password',
+      };
+      const user = await api.post('/login', data);
+      if (user.data.token) {
+        const employee = await api.get(`/employees/${user.data.empId}`, { headers: { Authorization: `Bearer ${user.data.token}` } });
+        localStorage.setItem('user', JSON.stringify(user.data));
+        localStorage.setItem('userId', user.data.userId);
+        dispatch(loginAction({ ...user.data, ...employee.data }));
+      }
+    } catch (e) {
+      console.log(e);
+      dispatch(showErrorNotifAction(e.response.data.message));
+    }
+  };
   const {
     classes,
     handleSubmit,
@@ -63,6 +86,7 @@ function LoginForm(props) {
   } = props;
   return (
     <Fragment>
+      <Notification close={() => dispatch(closeNotifAction)} message={messageNotif} />
       <Hidden mdUp>
         <NavLink to="/" className={classNames(classes.brand, classes.outer)}>
           <img src={logo} alt={brand.name} />
@@ -126,7 +150,8 @@ function LoginForm(props) {
               </FormControl>
             </div>
             <div className={classes.optArea}>
-              <FormControlLabel className={classes.label} control={<Field name="checkbox" component={CheckboxRedux} />} label="Remember" />
+              {/* <FormControlLabel className={classes.label} control={<Field name="checkbox" component={CheckboxRedux} />} label="Remember" /> */}
+              <div></div>
               <Dialog
                 open={showContactAdminAlert}
                 onClose={() => setShowContactAdminAlert(false)}
@@ -149,25 +174,33 @@ function LoginForm(props) {
               </Dialog>
               <Button size="small" className={classes.buttonLink} onClick={() => setShowContactAdminAlert(true)}>Forgot Password</Button>
             </div>
+            <div style={{ marginTop: 5 }}>
+              <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register">
+                <Icon className={classes.icon}>arrow_forward</Icon>
+              Not have Account yet! Want to register?
+              </Button>
+            </div>
             <div className={classes.btnArea}>
               <Button variant="contained" color="primary" size="large" type="submit">
                 Continue
                 <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} disabled={submitting || pristine} />
               </Button>
             </div>
-            <Button size="small" className={classes.buttonLink} component={LinkBtn} to="/register">
-              <Icon className={classes.icon}>arrow_forward</Icon>
-              Not have Account yet! Want to register?
-            </Button>
           </form>
         </section>
-        <div style={{ marginTop: '30px', fontSize: '14px' }}>
+        <div className={classes.btnArea}>
+          <Button variant="outlined" color="secondary" size="large" onClick={demoLoginHandler}>
+            Demo Login
+            <ArrowForward className={classNames(classes.rightIcon, classes.iconSmall)} disabled={submitting || pristine} />
+          </Button>
+        </div>
+        {/* <div style={{ marginTop: '30px', fontSize: '14px' }}>
           <p>Use below credential for demo login</p>
           <Grid>
             <Grid><b>Username:</b> demo@workport.com</Grid>
             <Grid><b>Password:</b> demo@workport</Grid>
           </Grid>
-        </div>
+        </div> */}
       </Paper>
     </Fragment>
   );

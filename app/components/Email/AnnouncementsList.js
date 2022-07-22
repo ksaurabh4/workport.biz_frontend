@@ -100,9 +100,10 @@ function AnnouncementList(props) {
           <div className={classes.fromHeading}>
             <Typography className={classes.heading} display="block">
               <Typography variant="caption" display="block">{moment(announcement.announcementCreatedAt).format('DD-MM-YYYY HH:mm:ss')}</Typography>
+              <Typography variant="caption" display="block">{`To ${announcement.announcementTo}`}</Typography>
             </Typography>
           </div>
-          <div className={classes.column}>
+          <div className={classes.column} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography className={classes.secondaryHeading} noWrap>{announcement.announcementSubject}</Typography>
           </div>
         </AccordionSummary>

@@ -13,8 +13,111 @@ import AssignmentReturned from '@material-ui/icons/AssignmentReturned';
 import CounterWidget from '../Counter/CounterWidget';
 import styles from './widget-jss';
 
+export const data2 = [
+  {
+    name: 'Electronics',
+    value: 400
+  }, {
+    name: 'Fashions',
+    value: 300
+  },
+  {
+    name: 'Toys',
+    value: 300
+  }, {
+    name: 'Other',
+    value: 200
+  }
+];
+
+export const cryptoData = [
+  {
+    btc: 7300,
+    ltc: 0.2,
+    ada: 1.2,
+    xrp: 0.9,
+    xlm: 0.2,
+  },
+  {
+    btc: 7290,
+    ltc: 0.3,
+    ada: 1.3,
+    xrp: 1.2,
+    xlm: 0.4,
+  },
+  {
+    btc: 7120,
+    ltc: 0.5,
+    ada: 1.4,
+    xrp: 1.3,
+    xlm: 0.2,
+  },
+  {
+    btc: 7290,
+    ltc: 0.3,
+    ada: 1.3,
+    xrp: 1.2,
+    xlm: 0.4,
+  },
+  {
+    btc: 7090,
+    ltc: 0.4,
+    ada: 2,
+    xrp: 5,
+    xlm: 0.2,
+  },
+  {
+    btc: 7100,
+    ltc: 0.2,
+    ada: 1,
+    xrp: 7.2,
+    xlm: 0.5,
+  },
+  {
+    btc: 7700,
+    ltc: 1,
+    ada: 4,
+    xrp: 7.1,
+    xlm: 0.8,
+  },
+  {
+    btc: 7500,
+    ltc: 1.6,
+    ada: 4.6,
+    xrp: 7.7,
+    xlm: 1.2,
+  },
+  {
+    btc: 7610,
+    ltc: 1,
+    ada: 2,
+    xrp: 5,
+    xlm: 2,
+  },
+  {
+    btc: 7090,
+    ltc: 0.4,
+    ada: 2,
+    xrp: 5,
+    xlm: 0.2,
+  },
+  {
+    btc: 7100,
+    ltc: 0.2,
+    ada: 1,
+    xrp: 7.2,
+    xlm: 0.5,
+  },
+  {
+    btc: 7500,
+    ltc: 1.6,
+    ada: 4.6,
+    xrp: 7.7,
+    xlm: 1.2,
+  },
+];
 function CounterChartWidget(props) {
-  const { classes } = props;
+  const { classes, data } = props;
   return (
     <div className={classes.rootCounter}>
       <Grid container spacing={2}>
@@ -22,11 +125,11 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[6]}
             start={0}
-            end={20}
+            end={data?.empCount}
             duration={3}
-            title="Monthly Income"
-            unitBefore="$ "
-            unitAfter="k"
+            title="Total Employees"
+            // unitBefore="$ "
+            // unitAfter="k"
           >
             <AssignmentReturned className={classes.counterIcon} />
           </CounterWidget>
@@ -35,9 +138,9 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[3]}
             start={0}
-            end={20}
+            end={data?.sameTeamEmpCount}
             duration={3}
-            title="Weekly Sales"
+            title="Team members"
           >
             <BarChart width={100} height={40} data={data1}>
               <Bar dataKey="uv" fill="#ffffff" />
@@ -48,9 +151,9 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[5]}
             start={0}
-            end={321}
+            end={data?.reporteeCount}
             duration={3}
-            title="New Customers"
+            title="Your Reportees"
           >
             <AreaChart width={100} height={60} data={data1}>
               <Area type="monotone" dataKey="uv" stroke="#FFFFFF" fill="rgba(255,255,255,.5)" />
@@ -61,9 +164,9 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[4]}
             start={0}
-            end={82}
+            end={data?.pendingTaskCount}
             duration={3}
-            title="Active Users"
+            title="Pending Tasks"
           >
             <LineChart width={100} height={80} data={data1}>
               <Line type="monotone" dataKey="pv" stroke="#FFFFFF" strokeWidth={2} />

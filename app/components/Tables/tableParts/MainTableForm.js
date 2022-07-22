@@ -23,9 +23,11 @@ function MainTableForm(props) {
     classes,
     items,
     removeRow,
+    canRemove,
     editRow,
     selectRow,
     addNew,
+    isAddButton,
     anchor,
     branch,
     width,
@@ -35,7 +37,8 @@ function MainTableForm(props) {
   const getItems = dataArray => dataArray.map(item => (
     <RowReadOnly
       item={item}
-      // removeRow={() => removeRow(item, branch)}
+      removeRow={() => removeRow(item, branch)}
+      canRemove={canRemove}
       additionalIcon={additionalIcon}
       key={item.id}
       editRow={() => editRow(item, branch)}
@@ -61,14 +64,14 @@ function MainTableForm(props) {
           <Typography variant="h6">{title}</Typography>
         </div>
         <div className={classes.spacer} />
-        <div className={classes.actions}>
+        {isAddButton && <div className={classes.actions}>
           <Tooltip title="Add Item">
             <Button variant="contained" onClick={() => addNew(anchor, branch)} color="secondary" className={classes.button}>
               <AddIcon className={classNames(isWidthUp('sm', width) && classes.leftIcon, classes.iconSmall)} />
               {isWidthUp('sm', width) && 'Add New'}
             </Button>
           </Tooltip>
-        </div>
+        </div>}
       </Toolbar>
       <div className={classes.rootTable}>
         <Table className={classNames(css.tableCrud, classes.table, classes.stripped)}>
@@ -93,6 +96,8 @@ MainTableForm.propTypes = {
   anchor: PropTypes.array.isRequired,
   addNew: PropTypes.func.isRequired,
   removeRow: PropTypes.func.isRequired,
+  canRemove: PropTypes.bool,
+  isAddButton: PropTypes.bool,
   editRow: PropTypes.func.isRequired,
   selectRow: PropTypes.func,
   branch: PropTypes.string.isRequired,

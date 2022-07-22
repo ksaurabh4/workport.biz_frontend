@@ -29,8 +29,9 @@ import {
   showErrorNotifAction,
   showNotifAction,
   clearAction,
-} from './reducers/employeeTableActions';
+} from './reducers/companyTableActions';
 import { anchorTable } from './sampleData';
+import formatCompaniesList from './helper';
 import api from '../../redux/api';
 
 const renderRadioGroup = ({ input, ...rest }) => (
@@ -69,17 +70,17 @@ const styles = ({
   }
 });
 
-function EmployeeTable(props) {
+function CompaniesTable(props) {
   const { classes } = props;
 
   // Redux State
-  const branch = 'employeeForm';
-  const initValues = useSelector(state => state.employeeForm.formValues);
-  const selectedRow = useSelector(state => state.employeeForm.selectedRow);
-  const dataTable = useSelector(state => state.employeeForm.dataTable);
-  const openForm = useSelector(state => state.employeeForm.showFrm);
-  const formTitle = useSelector(state => state.employeeForm.formTitle);
-  const messageNotif = useSelector(state => state.employeeForm.notifMsg);
+  const branch = 'companyForm';
+  const initValues = useSelector(state => state.companyForm.formValues);
+  const selectedRow = useSelector(state => state.companyForm.selectedRow);
+  const dataTable = useSelector(state => state.companyForm.dataTable);
+  const openForm = useSelector(state => state.companyForm.showFrm);
+  const formTitle = useSelector(state => state.companyForm.formTitle);
+  const messageNotif = useSelector(state => state.companyForm.notifMsg);
 
   // Dispatcher
   const fetchData = useDispatch();
@@ -95,15 +96,27 @@ function EmployeeTable(props) {
   // state
   const [dataApi, setDataApi] = useState(null);
 
-  const fetchEmployeeList = async () => {
-    let url = `/employees?companyId=${user.companyId}`;
-    if (user.userRole === 'manager' && !user.isAdmin) {
-      url += `&empManagerId=${user.empId}`;
-    }
+  const fetchCompaniesList = async () => {
+    const url = '/companies';
     try {
       const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
-      if (res) {
-        setDataApi(res.data);
+      if (res.data) {
+        const data = formatCompaniesList(res.data);
+        setDataApi(data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const [plans, setPlans] = useState([]);
+
+  const fetchPlansList = async () => {
+    const url = '/plans';
+    try {
+      const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
+      if (res.data) {
+        setPlans(res.data);
       }
     } catch (e) {
       console.log(e);
@@ -111,7 +124,8 @@ function EmployeeTable(props) {
   };
 
   useEffect(async () => {
-    fetchEmployeeList();
+    fetchPlansList();
+    fetchCompaniesList();
   }, []);
 
   useEffect(() => () => {
@@ -120,38 +134,32 @@ function EmployeeTable(props) {
 
   const handleSubmit = async (values) => {
     try {
-      const data = { ...values, companyId: user.companyId };
-      delete data.empManagerName;
+      const data = { ...values };
+      Object.keys(data).forEach(key => {
+        console.log(data[key]);
+        if (data[key] === null || data[key] === '') {
+          delete data[key];
+        }
+      });
+      delete data.compPlanName;
+      delete data.isActive;
+
       let res = null;
       if (formTitle.includes('Add')) {
-        res = await api.post('/employees/create', data, { headers: { Authorization: `Bearer ${user.token}` } });
+        res = await api.post('/companies/create', data, { headers: { Authorization: `Bearer ${user.token}` } });
       } else {
-        res = await api.put(`/employees/${values.empId}`, data, { headers: { Authorization: `Bearer ${user.token}` } });
+        res = await api.put(`/companies/${values.compId}`, data, { headers: { Authorization: `Bearer ${user.token}` } });
       }
       if (res.data) {
         submit(submitAction(values, branch));
-        fetchEmployeeList();
+        fetchCompaniesList();
       }
     } catch (e) {
       console.log(e);
-      submit(showErrorNotifAction(e.response.data.message, branch));
+      // submit(showErrorNotifAction(e.response.data.message, branch));
     }
   };
-  const resetPasswordSubmitForm = async (values) => {
-    try {
-      const data = {
-        userPswd: values.userPswd,
-      };
-      const res = await api.put(`/users?empId=${selectedRow.empId}`, data, { headers: { Authorization: `Bearer ${user.token}` } });
-      if (res.data) {
-        submit(showNotifAction(res.data.message, branch));
-        selectRow(selectAction({}, branch));
-      }
-    } catch (e) {
-      console.log(e);
-      submit(showErrorNotifAction(e.response.data.message, branch));
-    }
-  };
+
   return (
     <div>
       <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} />
@@ -161,12 +169,12 @@ function EmployeeTable(props) {
           openForm={openForm}
           dataInit={dataApi}
           anchor={anchorTable}
-          additionalIcon={{ name: 'Change Password', element: <ResetForm onSubmit={(values) => resetPasswordSubmitForm(values)} /> }}
-          title="Employees"
+          // additionalIcon={{ name: 'Change Password', element: <ResetForm onSubmit={(values) => resetPasswordSubmitForm(values)} /> }}
+          title="Companies"
           formTitle={formTitle}
           fetchData={(payload) => fetchData(fetchAction(payload, branch))}
           addNew={(payload) => addNew(addAction(payload, branch))}
-          isAddButton={true}
+          isAddButton={false}
           closeForm={() => closeForm(closeAction(branch))}
           submit={(payload) => handleSubmit(payload)}
           removeRow={(payload) => removeRow(removeAction(payload, branch))}
@@ -178,9 +186,9 @@ function EmployeeTable(props) {
           {/* Create Your own form, then arrange or custom it as You like */}
           <div>
             <Field
-              name="empName"
+              name="compName"
               component={TextFieldRedux}
-              placeholder="Employee Name"
+              placeholder="Company Name"
               label="Name"
               validate={required}
               required
@@ -189,133 +197,92 @@ function EmployeeTable(props) {
           </div>
           <div>
             <Field
-              name="empCode"
+              name="compWebsite"
               component={TextFieldRedux}
-              placeholder="Employee Code"
-              label="Employee Code"
-              required
-              validate={required}
+              placeholder="Company Website"
+              label="Website"
               className={classes.field}
             />
           </div>
           <div>
             <Field
-              name="empEmail"
+              name="compEmail"
               component={TextFieldRedux}
-              placeholder="Employee Email"
+              placeholder="Company Email"
               label="Email"
-              required
-              disabled={formTitle.toLowerCase().includes('edit')}
-              validate={[required, email]}
+              validate={[email]}
               className={classes.field}
             />
           </div>
           <div>
             <Field
-              name="empPhone"
+              name="compPhone"
               component={TextFieldRedux}
-              placeholder="Employee Phone"
+              placeholder="Company Phone"
               label="Phone"
               className={classes.field}
             />
           </div>
           <div>
             <Field
-              name="empAddress"
+              name="compAddress"
               component={TextFieldRedux}
-              placeholder="Employee Address"
+              placeholder="Company Address"
               label="Address"
-              required
-              validate={required}
               className={classes.field}
             />
           </div>
           <div>
             <Field
-              name="empCity"
+              name="compCity"
               component={TextFieldRedux}
-              placeholder="Employee City"
+              placeholder="Company City"
               label="City"
-              required
-              validate={required}
               className={classes.field}
             />
           </div>
           <div>
             <Field
-              name="empState"
+              name="compState"
               component={TextFieldRedux}
-              placeholder="Employee State"
-              label="State"
+              placeholder="Company State"
               className={classes.field}
             />
           </div>
           <div>
             <Field
-              name="empCountry"
+              name="compCountry"
               component={TextFieldRedux}
-              placeholder="Employee Country"
-              label="Country"
+              placeholder="Company Country"
+              label="country"
               className={classes.field}
             />
           </div>
           <div>
             <Field
-              name="empZip"
+              name="compZip"
               component={TextFieldRedux}
-              placeholder="Employee Zipcode"
+              placeholder="Company Zipcode"
               label="Zipcode"
-              required
-              className={classes.field}
-            />
-          </div>
-          <div>
-            <Field
-              name="empDesignation"
-              component={TextFieldRedux}
-              placeholder="Employee Designation"
-              label="Designation"
-              required
-              validate={required}
-              className={classes.field}
-            />
-          </div>
-          <div>
-            <Field
-              name="empDept"
-              component={TextFieldRedux}
-              placeholder="Employee Department"
-              label="Department"
-              required
-              validate={required}
-              className={classes.field}
-            />
-          </div>
-          <div>
-            <Field
-              name="empSubDept"
-              component={TextFieldRedux}
-              placeholder="Employee Sub Department"
-              label="Sub-Department"
               className={classes.field}
             />
           </div>
           <div>
             <FormControl className={classes.field}>
-              <InputLabel htmlFor="empManagerId">Reporting Manager</InputLabel>
+              <InputLabel htmlFor="compPlanId">Subscription Plan</InputLabel>
               <Field
-                name="empManagerId"
+                name="compPlanId"
                 component={SelectRedux}
-                placeholder="Reporting Manager"
+                placeholder="Selected Plan"
                 autoWidth
               >
-                {dataTable?.map(item => item.isManager === 1 && <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>)}
+                {plans?.map(item => <MenuItem key={item.planId} value={item.planId}>{item.planName}</MenuItem>)}
               </Field>
             </FormControl>
           </div>
           <div className={classes.fieldBasic}>
             <div className={classes.inlineWrap}>
-              <FormControlLabel control={<Field name="isManager" component={CheckboxRedux} />} label="Will other employees report to him?" />
+              <FormControlLabel control={<Field name="subsIsActive" component={CheckboxRedux} />} label="This is a Active Client" />
             </div>
           </div>
           {/* <div className={classes.fieldBasic}>
@@ -369,8 +336,8 @@ renderRadioGroup.propTypes = {
   input: PropTypes.object.isRequired,
 };
 
-EmployeeTable.propTypes = {
+CompaniesTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(EmployeeTable);
+export default withStyles(styles)(CompaniesTable);

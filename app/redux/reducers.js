@@ -16,6 +16,7 @@ import treeTable from '../containers/Tables/reducers/treeTbReducer';
 import crudTable from '../containers/Tables/reducers/crudTbReducer';
 import crudTableForm from '../containers/Tables/reducers/crudTbFrmReducer';
 import employeeTableForm from '../containers/Employees/reducers/employeeTableReducer';
+import companyTableForm from '../containers/Companies/reducers/companyTableReducer';
 import goalsTableForm from '../containers/Goals/GoalsTable/reducers/goalsTableReducer';
 import ecommerce from '../containers/SampleApps/Ecommerce/reducers/ecommerceReducer';
 import todos from '../containers/Todos/reducers/todosReducer';
@@ -69,6 +70,7 @@ export default function createReducer(injectedReducers = {}) {
     crudTableForm,
     crudTbFrmDemo: branchReducer(crudTableForm, 'crudTbFrmDemo'),
     employeeForm: branchReducer(employeeTableForm, 'employeeForm'),
+    companyForm: branchReducer(companyTableForm, 'companyForm'),
     goalsForm: branchReducer(goalsTableForm, 'goalsForm'),
     language: languageProviderReducer,
     router: connectRouter(history),

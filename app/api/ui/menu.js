@@ -1,61 +1,70 @@
-module.exports = [
-  {
-    key: 'dashboard',
-    name: 'Dashboard',
-    linkParent: '/app',
-    icon: 'ion-ios-home-outline',
-  },
-  {
-    key: 'employees',
-    name: 'Employees',
-    linkParent: '/app/employees',
-    icon: 'ion-ios-person-outline',
-  },
-  {
-    key: 'goals',
-    name: 'goals',
-    linkParent: '/app/goals',
-    icon: 'ion-ios-pie-outline',
-  },
-  // {
-  //   key: 'goals',
-  //   name: 'goals',
-  //   icon: 'ion-ios-pie-outline',
-  //   child: [
-  //     {
-  //       key: 'g1',
-  //       name: 'G1',
-  //       link: '/app/goals/g1',
-  //     },
-  //     {
-  //       key: 'g2',
-  //       name: 'G2',
-  //       link: '/app/goals/g2',
-  //     },
-  //     {
-  //       key: 'g3',
-  //       name: 'G3',
-  //       link: '/app/employees/g3',
-  //     },
-  //     {
-  //       key: 'summary',
-  //       name: 'Summary',
-  //       link: '/app/employees/summary',
-  //     },
-  //   ]
-  // },
-  {
-    key: 'todos',
-    name: 'Tasks',
-    linkParent: '/app/tasks',
-    icon: 'ion-ios-list-box-outline',
-  },
-  {
-    key: 'announcements',
-    name: 'Announcements',
-    linkParent: '/app/announcements',
-    icon: 'ion-ios-globe-outline',
-  },
+module.exports = (() => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(user.userRole);
+  return ([
+    {
+      key: 'dashboard',
+      name: 'Dashboard',
+      linkParent: '/app',
+      icon: 'ion-ios-home-outline',
+    },
+    {
+      key: 'companies',
+      name: 'Companies',
+      linkParent: '/app/companies',
+      icon: 'ion-ios-cube-outline',
+    },
+    {
+      key: 'employees',
+      name: 'Employees',
+      linkParent: '/app/employees',
+      icon: 'ion-ios-person-outline',
+    },
+    {
+      key: 'goals',
+      name: 'goals',
+      linkParent: '/app/goals',
+      icon: 'ion-ios-pie-outline',
+    },
+    // {
+    //   key: 'goals',
+    //   name: 'goals',
+    //   icon: 'ion-ios-pie-outline',
+    //   child: [
+    //     {
+    //       key: 'g1',
+    //       name: 'G1',
+    //       link: '/app/goals/g1',
+    //     },
+    //     {
+    //       key: 'g2',
+    //       name: 'G2',
+    //       link: '/app/goals/g2',
+    //     },
+    //     {
+    //       key: 'g3',
+    //       name: 'G3',
+    //       link: '/app/employees/g3',
+    //     },
+    //     {
+    //       key: 'summary',
+    //       name: 'Summary',
+    //       link: '/app/employees/summary',
+    //     },
+    //   ]
+    // },
+    {
+      key: 'todos',
+      name: 'Tasks',
+      linkParent: '/app/tasks',
+      icon: 'ion-ios-list-box-outline',
+    },
+    {
+      key: 'announcements',
+      name: 'Announcements',
+      linkParent: '/app/announcements',
+      icon: 'ion-ios-globe-outline',
+    },
   // child: [
   //   // {
   //   //   key: 'landing_page',
@@ -893,4 +902,5 @@ module.exports = [
   //   icon: 'ion-ios-document-outline',
   //   linkParent: '/app/blank-single',
   // }
-];
+  ]);
+})();

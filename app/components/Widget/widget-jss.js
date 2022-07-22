@@ -57,8 +57,9 @@ const styles = theme => ({
   },
   bigResume: {
     marginBottom: theme.spacing(5),
-    justifyContent: 'space-between',
     display: 'flex',
+    justifyContent: 'space-between',
+    // maxWidth: '75%',
     [theme.breakpoints.down('xs')]: {
       height: 160,
       display: 'block',
