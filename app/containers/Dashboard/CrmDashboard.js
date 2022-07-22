@@ -3,18 +3,28 @@ import PropTypes from 'prop-types';
 import brand from 'dan-api/dummy/brand';
 import { Helmet } from 'react-helmet';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import {
+  Grid, TextField
+} from '@material-ui/core';
+
+import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import {
   CounterChartWidget,
   SalesChartWidget,
   LatestTransactionWidget,
-  CarouselWidget,
-  HistoryWidget,
-  TableWidget,
-  NewsWidget,
-  CalculatorWidget,
+  // CarouselWidget,
+  // HistoryWidget,
+  // TableWidget,
+  // NewsWidget,
+  // CalculatorWidget,
 } from 'dan-components';
+import moment from 'moment';
 import api from '../../redux/api';
 import styles from './dashboard-jss';
 
@@ -24,6 +34,22 @@ function CrmDahboard(props) {
   const { classes } = props;
   const [dataApi, setDataApi] = useState({});
   const user = JSON.parse(localStorage.getItem('user'));
+
+  const [showDialog, setShowDialog] = useState(false);
+  const calanderOnClick = () => { setShowDialog(true); };
+  const [searchTerm, setSearchTerm] = useState({
+    startDate: moment().clone().startOf('year')
+      .format('YYYY-MM-DD'),
+    endDate: moment().clone().endOf('year')
+      .format('YYYY-MM-DD'),
+  });
+  const inputChange = (event) => {
+    if (event.target.id) {
+      setSearchTerm({ ...searchTerm, [event.target.id]: event.target.value });
+    } else {
+      setSearchTerm({ ...searchTerm, [event.target.name]: event.target.value });
+    }
+  };
   const fetchDashboardData = async () => {
     let reportType;
     if (user.userRole === 'superadmin') {
@@ -36,16 +62,24 @@ function CrmDahboard(props) {
     if (user.userRole !== 'superadmin' && user.isAdmin) {
       reportType = 'admin_dashboard';
     }
-    const url = `/reports?reportType=${reportType}`;
+    let url = `/reports?reportType=${reportType}`;
+    if (reportType !== 'superadmin_dashboard') {
+      url += `&startDate=${searchTerm.startDate}&endDate=${searchTerm.endDate}`;
+    }
+
     try {
       const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
-      console.log(res.data);
       if (res.data) {
-        setDataApi(res.data);
+        setDataApi(prev => ({ ...prev, ...res.data }));
       }
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const onSubmit = () => {
+    fetchDashboardData();
+    setShowDialog(false);
   };
   useEffect(() => {
     fetchDashboardData();
@@ -65,7 +99,57 @@ function CrmDahboard(props) {
         <CounterChartWidget data={dataApi.counter && Object.values(dataApi.counter)} userType={user.userRole === 'superadmin' ? 'superadmin' : 'others'} />
       </Grid>
       <Divider className={classes.divider} />
-      {user.userRole === 'superadmin' ? <LatestTransactionWidget data={dataApi.compDashboardData}/> : <SalesChartWidget data={dataApi.empWiseScore} />}
+      <Dialog
+        open={showDialog}
+        onClose={() => setShowDialog(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        style={{ padding: '10px' }}
+      >
+        <DialogTitle id="alert-dialog-title">
+          {'Select Date Range'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            <Grid container spacing={3} className={classes.rootTable} style={{
+              display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
+            }}>
+              <Grid item xs style={{ width: '100%' }}>
+                <TextField
+                  id="startDate"
+                  label="From"
+                  className={classes.field}
+                  InputLabelProps={{ shrink: true, required: true }}
+                  type="date"
+                  min={new Date().toISOString().split('T')[0]}
+                  value={searchTerm.startDate}
+                  onChange={(event) => inputChange(event)}
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs style={{ width: '100%' }}>
+                <TextField
+                  id="endDate"
+                  label="To"
+                  className={classes.field}
+                  InputLabelProps={{ shrink: true, required: true }}
+                  type="date"
+                  min={new Date().toISOString().split('T')[0]}
+                  value={searchTerm.endDate}
+                  onChange={(event) => inputChange(event)}
+                  margin="normal"
+                />
+              </Grid>
+            </Grid>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onSubmit} color="primary" autoFocus>
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {user.userRole === 'superadmin' ? <LatestTransactionWidget data={dataApi.compDashboardData} /> : <SalesChartWidget data={dataApi.empWiseScore} calanderOnClick={calanderOnClick} />}
       {/* <Divider className={classes.divider} />
       <TableWidget />
       <Divider className={classes.divider} /> */}

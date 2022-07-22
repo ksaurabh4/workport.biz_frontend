@@ -192,7 +192,7 @@ function EmployeeTable(props) {
       <Grid container spacing={3} className={classes.rootTable} style={{
         display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '10px', marginTop: '5px'
       }}>
-        {user.userRole === 'superadmin' && <Grid item xs>
+        {user.userRole === 'superadmin' && <><Grid item xs>
           <FormControl className={classes.field} style={{ marginBottom: 0 }}>
             <InputLabel htmlFor="compId">Select Company</InputLabel>
             <Select
@@ -207,7 +207,7 @@ function EmployeeTable(props) {
               {compDataTable.map(item => item.compId !== user.companyId && <MenuItem key={item.compId} value={item.compId}>{item.compName}</MenuItem>)}
             </Select>
           </FormControl>
-        </Grid>}
+        </Grid>
         <Grid item xs >
           <Tooltip title="Submit Request">
             <Button className={classes.button} variant="contained" color="primary" onClick={fetchEmployeeList}>
@@ -215,7 +215,7 @@ function EmployeeTable(props) {
               <Icon className={classes.rightIcon}>send</Icon>
             </Button>
           </Tooltip>
-        </Grid>
+        </Grid></>}
       </Grid>
       <div className={classes.rootTable}>
         <CrudTableForm

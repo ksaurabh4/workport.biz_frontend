@@ -23,7 +23,15 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       padding: '0 !important'
     }
-  }
+  },
+  field: {
+    width: '100%',
+    marginTop: 0,
+    '& svg': {
+      color: theme.palette.grey[400],
+      fontSize: 18,
+    }
+  },
 });
 
 export default styles;

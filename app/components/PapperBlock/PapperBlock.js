@@ -44,7 +44,7 @@ function PapperBlock(props) {
 
 PapperBlock.propTypes = {
   classes: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.any.isRequired,
   desc: PropTypes.string.isRequired,
   icon: PropTypes.string,
   children: PropTypes.node.isRequired,
