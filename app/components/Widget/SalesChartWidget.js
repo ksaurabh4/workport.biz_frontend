@@ -28,8 +28,12 @@ import {
   PieChart, Pie, Cell,
   Legend
 } from 'recharts';
+import {
+  Icon, Tooltip as TooltipNew
+} from '@material-ui/core';
 // import { dataSales } from 'dan-api/chart/chartData';
 // import { data2 } from 'dan-api/chart/chartMiniData';
+import { cloneDeep } from 'lodash';
 import styles from './widget-jss';
 import PapperBlock from '../PapperBlock/PapperBlock';
 
@@ -52,31 +56,32 @@ const getColor = (value) => {
   return barColor;
 };
 
+const pieChartData = [
+  {
+    name: 'More than 80%',
+    value: 0,
+    color: 'green'
+  },
+  {
+    name: '80% to 60%',
+    value: 0,
+    color: 'orange'
+  },
+  {
+    name: 'less than 60%',
+    value: 0,
+    color: 'red'
+  }
+];
 function SalesChartWidget(props) {
-  const { classes, data } = props;
+  const { classes, data, calanderOnClick } = props;
   const [dataApi, setDataApi] = useState({
     data: [],
-    pieChartData: [
-      {
-        name: 'More than 80%',
-        value: 0,
-        color: 'green'
-      },
-      {
-        name: '80% to 60%',
-        value: 0,
-        color: 'orange'
-      },
-      {
-        name: 'less than 60%',
-        value: 0,
-        color: 'red'
-      }
-    ]
+    pieChartData: [...pieChartData]
   });
   const formatData = (_data) => {
     const newData = [];
-    const newPieChartData = [...dataApi.pieChartData];
+    const newPieChartData = cloneDeep([...pieChartData]);
     for (let i = 0; i < _data?.length; i += 1) {
       const element = { ..._data[i], color: getColor(_data[i].score) };
       if (_data[i].score >= 80) {
@@ -105,9 +110,16 @@ function SalesChartWidget(props) {
       }));
     };
   }, [data]);
-
+  const titleRender = (<div style={{ display: 'flex', alignItems: 'center' }}>
+    <span>Employee Goals Overview </span>
+    <span style={{ padding: '10px', marginTop: '8px' }} onClick={calanderOnClick}>
+      <TooltipNew title="Select Date Range">
+        <Icon className={classes.rightIcon}>calendar_month</Icon>
+      </TooltipNew>
+    </span>
+  </div>);
   return (
-    <PapperBlock whiteBg noMargin title="Employee Goals Overview" icon="ion-ios-stats-outline" desc="">
+    <PapperBlock whiteBg noMargin title={titleRender} icon="ion-ios-stats-outline" desc="">
       <Grid container spacing={2}>
         <Grid item md={8} xs={12}>
           <ul className={classes.bigResume}>
@@ -176,7 +188,6 @@ function SalesChartWidget(props) {
           <Divider className={classes.divider} />
           <Grid container className={classes.secondaryWrap}>
             <PieChart width={300} height={300}>
-              {console.log(dataApi.pieChartData)}
               <Pie
                 data={dataApi.pieChartData}
                 cx={150}
