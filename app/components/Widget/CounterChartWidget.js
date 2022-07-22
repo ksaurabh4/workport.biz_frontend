@@ -117,7 +117,7 @@ export const cryptoData = [
   },
 ];
 function CounterChartWidget(props) {
-  const { classes, data } = props;
+  const { classes, data = [], userType } = props;
   return (
     <div className={classes.rootCounter}>
       <Grid container spacing={2}>
@@ -125,9 +125,9 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[6]}
             start={0}
-            end={data?.empCount}
+            end={data[0]}
             duration={3}
-            title="Total Employees"
+            title={userType === 'superadmin' ? 'Total Companies' : 'Total Employees'}
             // unitBefore="$ "
             // unitAfter="k"
           >
@@ -138,9 +138,9 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[3]}
             start={0}
-            end={data?.sameTeamEmpCount}
+            end={data[1]}
             duration={3}
-            title="Team members"
+            title={userType === 'superadmin' ? 'Active Companies' : 'Team members'}
           >
             <BarChart width={100} height={40} data={data1}>
               <Bar dataKey="uv" fill="#ffffff" />
@@ -151,9 +151,9 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[5]}
             start={0}
-            end={data?.reporteeCount}
+            end={data[2]}
             duration={3}
-            title="Your Reportees"
+            title={userType === 'superadmin' ? 'Paid Companies' : 'Your Reportees'}
           >
             <AreaChart width={100} height={60} data={data1}>
               <Area type="monotone" dataKey="uv" stroke="#FFFFFF" fill="rgba(255,255,255,.5)" />
@@ -164,9 +164,9 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[4]}
             start={0}
-            end={data?.pendingTaskCount}
+            end={data[3]}
             duration={3}
-            title="Pending Tasks"
+            title={userType === 'superadmin' ? 'Total Users' : 'Pending Tasks'}
           >
             <LineChart width={100} height={80} data={data1}>
               <Line type="monotone" dataKey="pv" stroke="#FFFFFF" strokeWidth={2} />

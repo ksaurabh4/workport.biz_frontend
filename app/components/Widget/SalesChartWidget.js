@@ -107,7 +107,7 @@ function SalesChartWidget(props) {
   }, [data]);
 
   return (
-    <PapperBlock whiteBg noMargin title="Statistics" icon="ion-ios-stats-outline" desc="">
+    <PapperBlock whiteBg noMargin title="Employee Goals Overview" icon="ion-ios-stats-outline" desc="">
       <Grid container spacing={2}>
         <Grid item md={8} xs={12}>
           <ul className={classes.bigResume}>
