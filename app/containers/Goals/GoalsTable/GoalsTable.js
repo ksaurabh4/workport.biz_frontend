@@ -332,7 +332,7 @@ function GoalsTable(props) {
           />
         </Grid>
         {loggedUser.isManager === 1 && <Grid item xs>
-          <FormControl className={classes.field}>
+          <FormControl className={classes.field} style={{ marginBottom: 0 }}>
             <InputLabel htmlFor="empId">Select Employee</InputLabel>
             <Select
               labelId="input-label-empId"
@@ -349,7 +349,7 @@ function GoalsTable(props) {
           </FormControl>
         </Grid>}
         {loggedUser.isAdmin && <Grid item xs>
-          <FormControl className={classes.field}>
+          <FormControl className={classes.field} style={{ marginBottom: 0 }}>
             <InputLabel htmlFor="empId">Select Manager</InputLabel>
             <Select
               labelId="input-label-empId"

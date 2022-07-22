@@ -25,7 +25,18 @@ function CrmDahboard(props) {
   const [dataApi, setDataApi] = useState({});
   const user = JSON.parse(localStorage.getItem('user'));
   const fetchDashboardData = async () => {
-    const url = '/reports';
+    let reportType;
+    if (user.userRole === 'superadmin') {
+      reportType = 'superadmin_dashboard';
+    } else if (user.userRole === 'manager') {
+      reportType = 'manager_dashboard';
+    } else {
+      reportType = 'user_dashboard';
+    }
+    if (user.userRole !== 'superadmin' && user.isAdmin) {
+      reportType = 'admin_dashboard';
+    }
+    const url = `/reports?reportType=${reportType}`;
     try {
       const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
       console.log(res.data);
@@ -51,10 +62,10 @@ function CrmDahboard(props) {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <Grid container className={classes.root}>
-        <CounterChartWidget data={dataApi.counter}/>
+        <CounterChartWidget data={dataApi.counter && Object.values(dataApi.counter)} userType={user.userRole === 'superadmin' ? 'superadmin' : 'others'} />
       </Grid>
       <Divider className={classes.divider} />
-      {user.userRole !== 'superadmin' ? <SalesChartWidget data={dataApi.empWiseScore} /> : <LatestTransactionWidget />}
+      {user.userRole === 'superadmin' ? <LatestTransactionWidget data={dataApi.compDashboardData}/> : <SalesChartWidget data={dataApi.empWiseScore} />}
       {/* <Divider className={classes.divider} />
       <TableWidget />
       <Divider className={classes.divider} /> */}

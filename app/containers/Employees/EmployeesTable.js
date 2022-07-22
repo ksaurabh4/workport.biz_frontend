@@ -17,6 +17,10 @@ import {
   SwitchRedux
 } from 'dan-components/Forms/ReduxFormMUI';
 import { CrudTableForm, Notification, ResetForm } from 'dan-components';
+import Button from '@material-ui/core/Button';
+import {
+  Grid, Icon, Select, TextField, Tooltip
+} from '@material-ui/core';
 import {
   fetchAction,
   addAction,
@@ -77,6 +81,7 @@ function EmployeeTable(props) {
   const initValues = useSelector(state => state.employeeForm.formValues);
   const selectedRow = useSelector(state => state.employeeForm.selectedRow);
   const dataTable = useSelector(state => state.employeeForm.dataTable);
+  const compDataTable = useSelector(state => state.companyForm.dataTable);
   const openForm = useSelector(state => state.employeeForm.showFrm);
   const formTitle = useSelector(state => state.employeeForm.formTitle);
   const messageNotif = useSelector(state => state.employeeForm.notifMsg);
@@ -93,24 +98,53 @@ function EmployeeTable(props) {
   const closeNotif = useDispatch();
   const user = JSON.parse(localStorage.getItem('user'));
   // state
+
+  const [searchTerm, setSearchTerm] = useState({
+    compId: user.companyId,
+  });
+  const inputChange = (event) => {
+    if (event.target.id) {
+      setSearchTerm({ ...searchTerm, [event.target.id]: event.target.value });
+    } else {
+      setSearchTerm({ ...searchTerm, [event.target.name]: event.target.value });
+    }
+  };
+
   const [dataApi, setDataApi] = useState(null);
 
   const fetchEmployeeList = async () => {
-    let url = `/employees?companyId=${user.companyId}`;
+    let url = `/employees?companyId=${searchTerm.compId || user.companyId}`;
     if (user.userRole === 'manager' && !user.isAdmin) {
       url += `&empManagerId=${user.empId}`;
     }
     try {
       const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
       if (res) {
-        setDataApi(res.data);
+        let { data } = res;
+        console.log(user.userRole === 'superadmin', searchTerm.compId, user.companyId);
+        if (user.userRole === 'superadmin' && searchTerm.compId !== user.companyId) {
+          data = data.filter(emp => emp.companyId !== user.companyId);
+        }
+        setDataApi(data);
       }
     } catch (e) {
       console.log(e);
     }
   };
-
+  const fetchCompaniesList = async () => {
+    const url = '/companies';
+    try {
+      const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
+      if (res) {
+        // setEmpDataApi();
+        fetchData(fetchAction(res.data, 'companyForm'));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   useEffect(async () => {
+    fetchCompaniesList();
     fetchEmployeeList();
   }, []);
 
@@ -155,6 +189,34 @@ function EmployeeTable(props) {
   return (
     <div>
       <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} />
+      <Grid container spacing={3} className={classes.rootTable} style={{
+        display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '10px', marginTop: '5px'
+      }}>
+        {user.userRole === 'superadmin' && <Grid item xs>
+          <FormControl className={classes.field} style={{ marginBottom: 0 }}>
+            <InputLabel htmlFor="compId">Select Company</InputLabel>
+            <Select
+              labelId="input-label-empId"
+              id="compId"
+              name="compId"
+              value={searchTerm.compId}
+              placeholder='Select Company'
+              onChange={(event) => inputChange(event)}
+            >
+              <MenuItem selected={true} value={user.companyId}>Self</MenuItem>
+              {compDataTable.map(item => item.compId !== user.companyId && <MenuItem key={item.compId} value={item.compId}>{item.compName}</MenuItem>)}
+            </Select>
+          </FormControl>
+        </Grid>}
+        <Grid item xs >
+          <Tooltip title="Submit Request">
+            <Button className={classes.button} variant="contained" color="primary" onClick={fetchEmployeeList}>
+              Submit
+              <Icon className={classes.rightIcon}>send</Icon>
+            </Button>
+          </Tooltip>
+        </Grid>
+      </Grid>
       <div className={classes.rootTable}>
         <CrudTableForm
           dataTable={dataTable}
