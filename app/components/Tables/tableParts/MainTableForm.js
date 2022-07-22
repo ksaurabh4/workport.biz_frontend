@@ -27,6 +27,7 @@ function MainTableForm(props) {
     editRow,
     selectRow,
     addNew,
+    isAddButton,
     anchor,
     branch,
     width,
@@ -63,14 +64,14 @@ function MainTableForm(props) {
           <Typography variant="h6">{title}</Typography>
         </div>
         <div className={classes.spacer} />
-        <div className={classes.actions}>
+        {isAddButton && <div className={classes.actions}>
           <Tooltip title="Add Item">
             <Button variant="contained" onClick={() => addNew(anchor, branch)} color="secondary" className={classes.button}>
               <AddIcon className={classNames(isWidthUp('sm', width) && classes.leftIcon, classes.iconSmall)} />
               {isWidthUp('sm', width) && 'Add New'}
             </Button>
           </Tooltip>
-        </div>
+        </div>}
       </Toolbar>
       <div className={classes.rootTable}>
         <Table className={classNames(css.tableCrud, classes.table, classes.stripped)}>
@@ -96,6 +97,7 @@ MainTableForm.propTypes = {
   addNew: PropTypes.func.isRequired,
   removeRow: PropTypes.func.isRequired,
   canRemove: PropTypes.bool,
+  isAddButton: PropTypes.bool,
   editRow: PropTypes.func.isRequired,
   selectRow: PropTypes.func,
   branch: PropTypes.string.isRequired,

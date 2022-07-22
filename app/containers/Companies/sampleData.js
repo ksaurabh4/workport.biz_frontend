@@ -76,9 +76,9 @@ export const anchorTable = [
     hidden: false
   },
   {
-    name: 'subsIsActive',
+    name: 'isActive',
     label: 'Active',
-    initialValue: 'Yes',
+    initialValue: '',
     width: '80',
     hidden: false
   },

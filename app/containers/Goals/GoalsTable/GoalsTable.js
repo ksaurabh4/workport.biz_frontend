@@ -383,6 +383,7 @@ function GoalsTable(props) {
           formTitle={formTitle}
           fetchData={(payload) => fetchData(fetchAction(payload, branch))}
           addNew={(payload) => addNew(addAction(payload, branch))}
+          isAddButton={true}
           closeForm={handleCloseForm}
           submit={(payload) => handleSubmit(payload)}
           removeRow={(payload) => deleteClickHandler(payload)}

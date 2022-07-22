@@ -109,7 +109,22 @@ function CompaniesTable(props) {
     }
   };
 
+  const [plans, setPlans] = useState([]);
+
+  const fetchPlansList = async () => {
+    const url = '/plans';
+    try {
+      const res = await api.get(url, { headers: { Authorization: `Bearer ${user.token}` } });
+      if (res.data) {
+        setPlans(res.data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(async () => {
+    fetchPlansList();
     fetchCompaniesList();
   }, []);
 
@@ -119,7 +134,16 @@ function CompaniesTable(props) {
 
   const handleSubmit = async (values) => {
     try {
-      const data = { ...values, companyId: user.companyId };
+      const data = { ...values };
+      Object.keys(data).forEach(key => {
+        console.log(data[key]);
+        if (data[key] === null || data[key] === '') {
+          delete data[key];
+        }
+      });
+      delete data.compPlanName;
+      delete data.isActive;
+
       let res = null;
       if (formTitle.includes('Add')) {
         res = await api.post('/companies/create', data, { headers: { Authorization: `Bearer ${user.token}` } });
@@ -132,7 +156,7 @@ function CompaniesTable(props) {
       }
     } catch (e) {
       console.log(e);
-      submit(showErrorNotifAction(e.response.data.message, branch));
+      // submit(showErrorNotifAction(e.response.data.message, branch));
     }
   };
 
@@ -150,6 +174,7 @@ function CompaniesTable(props) {
           formTitle={formTitle}
           fetchData={(payload) => fetchData(fetchAction(payload, branch))}
           addNew={(payload) => addNew(addAction(payload, branch))}
+          isAddButton={false}
           closeForm={() => closeForm(closeAction(branch))}
           submit={(payload) => handleSubmit(payload)}
           removeRow={(payload) => removeRow(removeAction(payload, branch))}
@@ -176,8 +201,6 @@ function CompaniesTable(props) {
               component={TextFieldRedux}
               placeholder="Company Website"
               label="Website"
-              required
-              validate={required}
               className={classes.field}
             />
           </div>
@@ -187,8 +210,7 @@ function CompaniesTable(props) {
               component={TextFieldRedux}
               placeholder="Company Email"
               label="Email"
-              required
-              validate={[required, email]}
+              validate={[email]}
               className={classes.field}
             />
           </div>
@@ -198,8 +220,6 @@ function CompaniesTable(props) {
               component={TextFieldRedux}
               placeholder="Company Phone"
               label="Phone"
-              required
-              validate={required}
               className={classes.field}
             />
           </div>
@@ -209,8 +229,6 @@ function CompaniesTable(props) {
               component={TextFieldRedux}
               placeholder="Company Address"
               label="Address"
-              required
-              validate={required}
               className={classes.field}
             />
           </div>
@@ -220,7 +238,6 @@ function CompaniesTable(props) {
               component={TextFieldRedux}
               placeholder="Company City"
               label="City"
-              required
               className={classes.field}
             />
           </div>
@@ -229,7 +246,6 @@ function CompaniesTable(props) {
               name="compState"
               component={TextFieldRedux}
               placeholder="Company State"
-              label="State"
               className={classes.field}
             />
           </div>
@@ -239,8 +255,6 @@ function CompaniesTable(props) {
               component={TextFieldRedux}
               placeholder="Company Country"
               label="country"
-              required
-              validate={required}
               className={classes.field}
             />
           </div>
@@ -250,20 +264,19 @@ function CompaniesTable(props) {
               component={TextFieldRedux}
               placeholder="Company Zipcode"
               label="Zipcode"
-              required
               className={classes.field}
             />
           </div>
           <div>
             <FormControl className={classes.field}>
-              <InputLabel htmlFor="compSubsPlanId">Subscription Plan</InputLabel>
+              <InputLabel htmlFor="compPlanId">Subscription Plan</InputLabel>
               <Field
-                name="compSubsPlanId"
+                name="compPlanId"
                 component={SelectRedux}
                 placeholder="Selected Plan"
                 autoWidth
               >
-                {dataTable?.map(item => item.isManager === 1 && <MenuItem key={item.empId} value={item.empId}>{item.empName}</MenuItem>)}
+                {plans?.map(item => <MenuItem key={item.planId} value={item.planId}>{item.planName}</MenuItem>)}
               </Field>
             </FormControl>
           </div>

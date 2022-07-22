@@ -166,6 +166,7 @@ function EmployeeTable(props) {
           formTitle={formTitle}
           fetchData={(payload) => fetchData(fetchAction(payload, branch))}
           addNew={(payload) => addNew(addAction(payload, branch))}
+          isAddButton={true}
           closeForm={() => closeForm(closeAction(branch))}
           submit={(payload) => handleSubmit(payload)}
           removeRow={(payload) => removeRow(removeAction(payload, branch))}

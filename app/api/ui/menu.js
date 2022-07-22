@@ -1,5 +1,6 @@
 module.exports = (() => {
   const user = JSON.parse(localStorage.getItem('user'));
+  console.log(user.userRole);
   return ([
     {
       key: 'dashboard',
@@ -7,12 +8,12 @@ module.exports = (() => {
       linkParent: '/app',
       icon: 'ion-ios-home-outline',
     },
-    // {
-    //   key: 'companies',
-    //   name: 'Companies',
-    //   linkParent: '/app/companies',
-    //   icon: 'ion-ios-contact-outline',
-    // },
+    {
+      key: 'companies',
+      name: 'Companies',
+      linkParent: '/app/companies',
+      icon: 'ion-ios-cube-outline',
+    },
     {
       key: 'employees',
       name: 'Employees',
