@@ -26,13 +26,14 @@ function Goals() {
   };
   const [showHelp, setShowHelp] = useState(false);
   const [scroll, setScroll] = React.useState('paper');
-  const helpButtonClick = () => {
+  const helpButtonClick = (scrollType) => {
     setShowHelp(true);
+    setScroll(scrollType);
   };
 
   const titleRender = (<div style={{ display: 'flex', alignItems: 'center' }}>
     <span>Goals</span>
-    <span style={{ padding: '10px', marginTop: '8px' }} onClick={helpButtonClick}>
+    <span style={{ padding: '10px', marginTop: '8px' }} onClick={() => helpButtonClick('paper')}>
       <Tooltip title="How to fill goals?">
         <Icon fontSize='large'>help_center</Icon>
       </Tooltip>
@@ -72,7 +73,7 @@ function Goals() {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">How To Till Goals?</DialogTitle>
+        <DialogTitle id="scroll-dialog-title">How To Fill Goals?</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
           <DialogContentText
             id="scroll-dialog-description"
@@ -92,7 +93,7 @@ function Goals() {
             <Typography component="p" gutterBottom>Goal 3 parameter is anything related to employee quality of contribution ( it can be number,it can be
               subjective or a mix of both ) , here you can take team target as well.</Typography>
             <Typography component="p" gutterBottom>You can fill achievement on the scale of 1 to 10 and score is auto calculated in percent</Typography>
-            <Typography component="h4" variant='h4' style={{ marginTop: '20px' }}gutterBottom>Guidelines</Typography>
+            <Typography component="h4" variant='h4' style={{ marginTop: '20px' }} gutterBottom>Guidelines</Typography>
             <li>Goals can be filled by both employee and reporting manager/Line manager</li>
             <li> Goals can be edited and deleted by both employee and reporting manager/Line manager</li>
             <li> One can fill goals for last month/current month/last week/this week</li>
