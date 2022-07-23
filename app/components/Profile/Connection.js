@@ -23,10 +23,10 @@ function Connection(props) {
             <ProfileCard
               cover={data.cover}
               avatar={data.avatar}
-              name={data.empName}
-              title={data.empDesignation}
-              email= {data.empEmail}
-              phone={data.empPhone}
+              name={data.empName ?? ''}
+              title={data.empDesignation ?? ''}
+              email={data.empEmail ?? ''}
+              phone={data.empPhone ?? ''}
               // connection={data.connection}
               // isVerified={data.verified}
               // btnText="See Profile"

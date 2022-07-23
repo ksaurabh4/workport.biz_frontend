@@ -375,11 +375,11 @@ function EmployeeTable(props) {
               </Field>
             </FormControl>
           </div>
-          <div className={classes.fieldBasic}>
+          {user.userRole !== 'superadmin' && <div className={classes.fieldBasic}>
             <div className={classes.inlineWrap}>
               <FormControlLabel control={<Field name="isManager" component={CheckboxRedux} />} label="Will other employees report to him?" />
             </div>
-          </div>
+          </div>}
           {/* <div className={classes.fieldBasic}>
             <FormLabel component="label">Choose One Option</FormLabel>
             <Field name="radio" className={classes.inlineWrap} component={renderRadioGroup}>

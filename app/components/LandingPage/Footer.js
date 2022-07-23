@@ -75,6 +75,7 @@ function Footer(props) {
             {/* <IconButton color="primary" className={classes.button} href={link.twitter} target="_blank"><i className="ion-logo-twitter" /></IconButton> */}
             {/* <IconButton color="primary" className={classes.button} href={link.twitter} target="_blank"><i className="ion-logo-linkedin" /></IconButton> */}
             {/* <IconButton color="primary" className={classes.button} href={link.pinterest} target="_blank"><i className="ion-logo-pinterest" /></IconButton> */}
+            Contact us on WhatsApp
             <IconButton color="primary" className={classes.button} href={link.whatsapp} target="_blank"><i className="ion-logo-whatsapp" /></IconButton>
           </span>
         </div>

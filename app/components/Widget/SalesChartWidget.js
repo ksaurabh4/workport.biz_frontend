@@ -114,7 +114,7 @@ function SalesChartWidget(props) {
     <span>Employee Goals Overview </span>
     <span style={{ padding: '10px', marginTop: '8px' }} onClick={calanderOnClick}>
       <TooltipNew title="Select Date Range">
-        <Icon className={classes.rightIcon}>calendar_month</Icon>
+        <Icon className={classes.rightIcon} fontSize='medium'>calendar_month</Icon>
       </TooltipNew>
     </span>
   </div>);

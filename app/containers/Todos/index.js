@@ -64,9 +64,19 @@ function Todos() {
     }
   };
 
-  useEffect(() => {
-    fetchTodoList();
-  }, []);
+  const onDeleteHandler = async (id) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(id);
+    const url = `/todos/${id}`;
+    try {
+      const res = await api.delete(url, { headers: { Authorization: `Bearer ${user.token}` } });
+      if (res) {
+        fetchTodoList();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleCompose = () => {
     compose(composeAction);
@@ -103,6 +113,11 @@ function Todos() {
       }
     }
   };
+
+  useEffect(() => {
+    fetchTodoList();
+  }, []);
+
   const title = brand.name + ' - Tasks';
   const description = brand.desc;
 
@@ -118,7 +133,7 @@ function Todos() {
       </Helmet>
       <Notification close={() => closeNotif(closeNotifAction)} message={messageNotif} />
       <>
-        <TaskWidget todoData={todoData} toggleStatus={(id, todoIsCompleted) => toggleStatus(id, todoIsCompleted)} />
+        <TaskWidget todoData={todoData} onDelete={(id) => onDeleteHandler(id)} toggleStatus={(id, todoIsCompleted) => toggleStatus(id, todoIsCompleted)} />
         <ComposeTodo
           date={field.date}
           content={field.content}
