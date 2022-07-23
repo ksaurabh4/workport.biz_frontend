@@ -93,7 +93,7 @@ function Goals() {
             <Typography component="p" gutterBottom>Goal 3 parameter is anything related to employee quality of contribution ( it can be number,it can be
               subjective or a mix of both ) , here you can take team target as well.</Typography>
             <Typography component="p" gutterBottom>You can fill achievement on the scale of 1 to 10 and score is auto calculated in percent</Typography>
-            <Typography component="h4" variant='h4' style={{ marginTop: '20px' }}gutterBottom>Guidelines</Typography>
+            <Typography component="h4" variant='h4' style={{ marginTop: '20px' }} gutterBottom>Guidelines</Typography>
             <li>Goals can be filled by both employee and reporting manager/Line manager</li>
             <li> Goals can be edited and deleted by both employee and reporting manager/Line manager</li>
             <li> One can fill goals for last month/current month/last week/this week</li>
