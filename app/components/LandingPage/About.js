@@ -26,11 +26,10 @@ function About(props) {
       <div className={slideMode ? classes.fullWidth : classes.container}>
         <Title title="About us" desc="Who we are and what we are doing." align="center" monocolor={slideMode && true} />
         <Grid container className={classes.root} spacing={3}>
-          Workport SAAS is an  effective tool to monitor employee performance at all levels and boost productivity with timely intervention
-          Right direction and timely feedback can make the output green and an employee more productive
-          We are passionate about people,management and technology
+          Workport SAAS is an  effective tool to monitor employee performance at all levels and boost productivity with timely intervention.
+          Right direction and timely feedback can make the output green and an employee more productive.
+          We are passionate about people,management and technology.
           Workport is step towards combining human capability and technology to boost productivity
-
         </Grid>
       </div>
     </div>

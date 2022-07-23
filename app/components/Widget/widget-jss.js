@@ -55,6 +55,11 @@ const styles = theme => ({
       fontWeight: 400,
     }
   },
+  'recharts-legend-wrapper': {
+    '& > ui': {
+      marginTop: '20px',
+    }
+  },
   bigResume: {
     marginBottom: theme.spacing(5),
     display: 'flex',

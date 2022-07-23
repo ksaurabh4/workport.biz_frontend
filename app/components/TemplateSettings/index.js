@@ -162,7 +162,7 @@ function TemplateSettings(props) {
         )
       }
     >
-      <div className={classes.toggleButton}>
+      {/* <div className={classes.toggleButton}>
         <Fab
           size="small"
           color="primary"
@@ -175,7 +175,7 @@ function TemplateSettings(props) {
         >
           {show ? <Close /> : <Palette />}
         </Fab>
-      </div>
+      </div> */}
       <Slide direction={direction === 'rtl' ? 'right' : 'left'} in={show} mountOnEnter unmountOnExit>
         <div className={classes.root}>
           <AppBar position="fixed" className={classes.tab} color="default">

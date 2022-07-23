@@ -20,7 +20,6 @@ function Login(props) {
         remember,
       };
       const user = await api.post('/login', data);
-      console.log(user);
       if (user.data.token) {
         const employee = await api.get(`/employees/${user.data.empId}`, { headers: { Authorization: `Bearer ${user.data.token}` } });
         localStorage.setItem('user', JSON.stringify(user.data));

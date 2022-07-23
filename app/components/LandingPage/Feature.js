@@ -23,7 +23,7 @@ function Feature(props) {
   const featureList = [
     createFeatureData('ion-ios-infinite-outline', 'Define customize KPIs', 'Define customize and specific KPI for each of your employee'),
     createFeatureData('ion-ios-flower-outline', 'Periodic Performance Chart', 'Show real time performance of employee for selected period in just one click'),
-    createFeatureData('ion-ios-ionic-outline', 'Manage Day to Day Task', 'Create daily, weekly tasks and manage them accordingly')
+    createFeatureData('ion-ios-ionic-outline', 'Manage Day to Day Task', 'Create daily, weekly, monthly tasks and manage them accordingly')
   ];
 
   return (

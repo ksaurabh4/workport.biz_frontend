@@ -11,7 +11,7 @@ function Pricing(props) {
   return (
     <div className={classes.pricing}>
       <div className={slideMode ? classes.fullWidth : classes.container}>
-        <Title title="Pricing" desc="Customizable pricing options which no can match." align="center" monocolor={slideMode && true} />
+        <Title title="Pricing" desc="Pricing options which no one can match." align="center" monocolor={slideMode && true} />
         <Grid container className={classes.root} spacing={5}>
           <Grid item md={4} xs={12}>
             <PricingCard
@@ -24,7 +24,7 @@ function Pricing(props) {
           <Grid item md={4} xs={12}>
             <PricingCard
               title="Standard"
-              price="₹500"
+              price="₹1000"
               tier="cheap"
               feature={['Monthly Charges', 'Max 50 Employees', 'Unlimited Task', 'Unlimited Announcement']}
             />
@@ -32,7 +32,7 @@ function Pricing(props) {
           <Grid item md={4} xs={12}>
             <PricingCard
               title="Pro"
-              price="₹1000"
+              price="₹2000"
               tier="cheap"
               feature={['Monthly Charges', 'Max 250 Employees', 'Unlimited Task', 'Unlimited Announcement']}
             />

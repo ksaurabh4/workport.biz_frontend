@@ -536,7 +536,7 @@ function GoalsTable(props) {
               pattern="[0-9]*"
               inputMode="numeric"
               component={TextFieldRedux}
-              placeholder="Goals Achieved"
+              placeholder={type === 'g1' ? 'Enter Achieved Number' : 'Enter 0 to 10'}
               label="Achieved"
               required
               validate={[required]}

@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 import { PropTypes } from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeContext } from './ThemeWrapper';
 import Dashboard from '../Templates/Dashboard';
 import {
   // PersonalDashboard,
-  CrmDashboard, CryptoDashboard,
-  Infographics, MiniApps, Analytics,
-  InfoUpdates, Status,
-  Parent, AppLayout, Responsive, Grid,
+  CrmDashboard,
+  // CryptoDashboard,
+  // Infographics, MiniApps, Analytics,
+  // InfoUpdates, Status,
+  // Parent, AppLayout, Responsive, Grid,
   // SimpleTable, AdvancedTable, TablePlayground,
   // TreeTable, EditableCell,
   // ReduxForm, DateTimePicker, CheckboxRadio,
@@ -35,35 +36,39 @@ import {
   // Error, Settings, HelpSupport,
   // MapMarker, MapDirection, SearchMap,
   // TrafficIndicator, StreetViewMap,
-  BlankPage, Profile, NotFound, CompaniesPage, EmployeesPage, TodosPage, AnnouncementsPage, GoalsPage,
+  // BlankPage,
+  Profile, NotFound, CompaniesPage, EmployeesPage, TodosPage, AnnouncementsPage, GoalsPage,
 } from '../pageListAsync';
+import SuperAdminRoute from './SuperadminRoute';
 
 function Application(props) {
   const { history } = props;
   const changeMode = useContext(ThemeContext);
+  const user = JSON.parse(localStorage.getItem('user'));
   return (
     <Dashboard history={history} changeMode={changeMode}>
       <Switch>
         { /* Home */}
         <Route exact path="/app" component={CrmDashboard} />
-        <Route exact path="/app/companies" component={CompaniesPage} />
-        <Route exact path="/app/employees" component={EmployeesPage} />
+        {user?.userRole === 'superadmin' ? <Route exact path="/app/companies" component={CompaniesPage} /> : <Route exact path="/app/companies" render={() => <Redirect to={'/app'} />} />}
+        {/* <Route exact path="/app/employees" component={EmployeesPage} /> */}
+        {user?.userRole !== 'user' ? <Route exact path="/app/employees" component={EmployeesPage} /> : <Route exact path="/app/employees" render={() => <Redirect to={'/app'} />} />}
         <Route exact path="/app/tasks" component={TodosPage} />
         <Route exact path="/app/goals" component={GoalsPage} />
         <Route exact path="/app/announcements" component={AnnouncementsPage} />
         <Route path="/app/dashboard/sales-marketing" component={CrmDashboard} />
-        <Route path="/app/dashboard/cryptocurrency" component={CryptoDashboard} />
+        {/* <Route path="/app/dashboard/cryptocurrency" component={CryptoDashboard} /> */}
         { /* Widgets */}
-        <Route path="/app/widgets/infographics" component={Infographics} />
+        {/* <Route path="/app/widgets/infographics" component={Infographics} />
         <Route path="/app/widgets/status" component={Status} />
         <Route path="/app/widgets/mini-apps" component={MiniApps} />
         <Route path="/app/widgets/analytics" component={Analytics} />
-        <Route path="/app/widgets/info-updates" component={InfoUpdates} />
+        <Route path="/app/widgets/info-updates" component={InfoUpdates} /> */}
         { /* Layout */}
-        <Route exact path="/app/layouts" component={Parent} />
+        {/* <Route exact path="/app/layouts" component={Parent} />
         <Route path="/app/layouts/grid" component={Grid} />
         <Route path="/app/layouts/app-layout" component={AppLayout} />
-        <Route path="/app/layouts/responsive" component={Responsive} />
+        <Route path="/app/layouts/responsive" component={Responsive} /> */}
         { /* Table */}
         {/* <Route exact path="/app/tables" component={Parent} />
         <Route path="/app/tables/basic-table" component={SimpleTable} />
