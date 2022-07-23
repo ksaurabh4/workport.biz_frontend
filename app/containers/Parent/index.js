@@ -34,7 +34,7 @@ function Parent(props) {
       obj.key === place
     ));
   const getMenus = menuArray => menuArray.map((item, index) => {
-    if (item.link) {
+    if (item.show && item.link) {
       return (
         <Button
           key={index.toString()}

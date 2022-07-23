@@ -375,7 +375,7 @@ function EmployeeTable(props) {
               </Field>
             </FormControl>
           </div>
-          {user.userRole !== 'superadmin' && <div className={classes.fieldBasic}>
+          {<div className={classes.fieldBasic}>
             <div className={classes.inlineWrap}>
               <FormControlLabel control={<Field name="isManager" component={CheckboxRedux} />} label="Will other employees report to him?" />
             </div>

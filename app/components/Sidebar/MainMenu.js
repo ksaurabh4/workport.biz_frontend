@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
@@ -14,6 +14,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Chip from '@material-ui/core/Chip';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import { cloneDeep } from 'lodash';
 import styles from './sidebar-jss';
 
 const LinkBtn = React.forwardRef(function LinkBtn(props, ref) { // eslint-disable-line
@@ -58,13 +59,13 @@ function MainMenu(props) {
               </ListItemIcon>
             )}
             <ListItemText classes={{ primary: classes.primary }} variant="inset" primary={item.name} />
-            { !item.linkParent && (
+            {!item.linkParent && (
               <span>
-                { open.indexOf(item.key) > -1 ? <ExpandLess /> : <ExpandMore /> }
+                {open.indexOf(item.key) > -1 ? <ExpandLess /> : <ExpandMore />}
               </span>
             )}
           </ListItem>
-          { !item.linkParent && (
+          {!item.linkParent && (
             <Collapse
               component="div"
               className={classNames(
@@ -76,7 +77,7 @@ function MainMenu(props) {
               unmountOnExit
             >
               <List className={classes.dense} component="nav" dense>
-                { getMenus(item.child, 'key') }
+                {getMenus(item.child, 'key')}
               </List>
             </Collapse>
           )}
@@ -96,7 +97,7 @@ function MainMenu(props) {
       );
     }
     return (
-      <ListItem
+      item.show && <ListItem
         key={index.toString()}
         button
         exact
@@ -113,9 +114,26 @@ function MainMenu(props) {
       </ListItem>
     );
   });
+  const [menu, setDataMenu] = useState([]);
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  const formatMenuItem = (_dataMenu) => {
+    const newMenu = [];
+    _dataMenu.forEach(el => {
+      if (el.key === 'companies') {
+        user.userRole === 'superadmin' && newMenu.push(el);
+      } else if (el.key === 'employees') {
+        user.userRole !== 'user' && newMenu.push(el);
+      } else {
+        newMenu.push(el);
+      }
+    });
+    return newMenu;
+  };
+
   return (
     <div>
-      {getMenus(dataMenu)}
+      {getMenus(formatMenuItem(dataMenu))}
     </div>
   );
 }
