@@ -96,7 +96,7 @@ function CrmDahboard(props) {
         <meta property="twitter:description" content={description} />
       </Helmet>
       <Grid container className={classes.root}>
-        <CounterChartWidget data={dataApi.counter && Object.values(dataApi.counter)} userType={user.userRole === 'superadmin' ? 'superadmin' : 'others'} />
+        <CounterChartWidget data={dataApi.counter && dataApi.counter} userType={user.userRole === 'superadmin' ? 'superadmin' : 'others'} />
       </Grid>
       <Divider className={classes.divider} />
       <Dialog

@@ -117,7 +117,7 @@ export const cryptoData = [
   },
 ];
 function CounterChartWidget(props) {
-  const { classes, data = [], userType } = props;
+  const { classes, data = {}, userType } = props;
   return (
     <div className={classes.rootCounter}>
       <Grid container spacing={2}>
@@ -125,11 +125,11 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[6]}
             start={0}
-            end={data[0]}
+            end={userType === 'superadmin' ? data.compCount : data.empCount}
             duration={3}
             title={userType === 'superadmin' ? 'Total Companies' : 'Total Employees'}
-            // unitBefore="$ "
-            // unitAfter="k"
+          // unitBefore="$ "
+          // unitAfter="k"
           >
             <AssignmentReturned className={classes.counterIcon} />
           </CounterWidget>
@@ -138,7 +138,7 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[3]}
             start={0}
-            end={data[1]}
+            end={userType === 'superadmin' ? data.activeCompCount : data.sameTeamEmpCount}
             duration={3}
             title={userType === 'superadmin' ? 'Active Companies' : 'Team members'}
           >
@@ -151,7 +151,7 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[5]}
             start={0}
-            end={data[2]}
+            end={userType === 'superadmin' ? data.paidCompCount : data.reporteeCount}
             duration={3}
             title={userType === 'superadmin' ? 'Paid Companies' : 'Your Reportees'}
           >
@@ -164,7 +164,7 @@ function CounterChartWidget(props) {
           <CounterWidget
             color={colorfull[4]}
             start={0}
-            end={data[3]}
+            end={userType === 'superadmin' ? data.userCount : data.pendingTaskCount}
             duration={3}
             title={userType === 'superadmin' ? 'Total Users' : 'Pending Tasks'}
           >
