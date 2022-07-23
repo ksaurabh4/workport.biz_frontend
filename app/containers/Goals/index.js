@@ -38,7 +38,7 @@ function Goals() {
         {activeTab === 0 && <GoalsTable tab='Goal 1' type='g1' />}
         {activeTab === 1 && <GoalsTable tab='Goal 2' type='g2' />}
         {activeTab === 2 && <GoalsTable tab='Goal 3' type='g3' />}
-        {activeTab === 3 && <SummaryPage tab='Summary' />}
+        {activeTab === 3 && <SummaryPage tab='Scorecard' />}
       </PapperBlock>
     </div>
   );

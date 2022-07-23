@@ -29,7 +29,7 @@ export default function CenteredTabs(props) {
         <Tab label="G1" />
         <Tab label="G2" />
         <Tab label="G3" />
-        <Tab label="Summary" />
+        <Tab label="Scorecard" />
       </Tabs>
     </Paper>
   );

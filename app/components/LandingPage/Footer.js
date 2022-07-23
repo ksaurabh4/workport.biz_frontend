@@ -71,13 +71,11 @@ function Footer(props) {
       <div className={classes.copyright}>
         <div className={classes.container}>
           <p>&copy; 2022 Workport Biz. All Right Reserved </p>
+          <p>For Enquire <strong>mailworkport@gmail.com</strong></p>
           <p>
-            {/* <IconButton color="primary" className={classes.button} href={link.twitter} target="_blank"><i className="ion-logo-twitter" /></IconButton> */}
-            {/* <IconButton color="primary" className={classes.button} href={link.twitter} target="_blank"><i className="ion-logo-linkedin" /></IconButton> */}
             Contact us on WhatsApp
             <IconButton color="primary" className={classes.button} href={link.whatsapp} target="_blank"><i className="ion-logo-whatsapp" /></IconButton>
           </p>
-          <p>For Enquire <strong>mailworkport@gmail.com</strong></p>
         </div>
 
       </div>
