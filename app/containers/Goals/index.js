@@ -26,13 +26,14 @@ function Goals() {
   };
   const [showHelp, setShowHelp] = useState(false);
   const [scroll, setScroll] = React.useState('paper');
-  const helpButtonClick = () => {
+  const helpButtonClick = (scrollType) => {
     setShowHelp(true);
+    setScroll(scrollType);
   };
 
   const titleRender = (<div style={{ display: 'flex', alignItems: 'center' }}>
     <span>Goals</span>
-    <span style={{ padding: '10px', marginTop: '8px' }} onClick={helpButtonClick}>
+    <span style={{ padding: '10px', marginTop: '8px' }} onClick={() => helpButtonClick('paper')}>
       <Tooltip title="How to fill goals?">
         <Icon fontSize='large'>help_center</Icon>
       </Tooltip>
@@ -72,7 +73,7 @@ function Goals() {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">How To Till Goals?</DialogTitle>
+        <DialogTitle id="scroll-dialog-title">How To Fill Goals?</DialogTitle>
         <DialogContent dividers={scroll === 'paper'}>
           <DialogContentText
             id="scroll-dialog-description"
