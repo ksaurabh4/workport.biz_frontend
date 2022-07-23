@@ -63,7 +63,7 @@ const pieChartData = [
     color: 'green'
   },
   {
-    name: '80% to 60%',
+    name: '60% to 80%',
     value: 0,
     color: 'orange'
   },
@@ -138,7 +138,7 @@ function SalesChartWidget(props) {
               </Avatar>
               <Typography variant="h6">
                 <span className={classes.tealText}>{dataApi.pieChartData[1].value}</span>
-                <Typography>50% to 80%</Typography>
+                <Typography>60% to 80%</Typography>
               </Typography>
             </li>
             <li>
@@ -147,7 +147,7 @@ function SalesChartWidget(props) {
               </Avatar>
               <Typography variant="h6">
                 <span className={classes.blueText}>{dataApi.pieChartData[2].value}</span>
-                <Typography>Less than 50%</Typography>
+                <Typography>Less than 60%</Typography>
               </Typography>
             </li>
             {/* <li>
@@ -203,7 +203,7 @@ function SalesChartWidget(props) {
                   dataApi.pieChartData.map((entry, index) => <Cell key={index.toString()} fill={entry.color} />)
                 }
               </Pie>
-              <Legend iconType="circle" verticalALign="bottom" iconSize={10} />
+              <Legend iconType="circle" verticalALign="bottom" iconSize={10} marginTop={40} />
             </PieChart>
           </Grid>
         </Grid>

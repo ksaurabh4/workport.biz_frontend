@@ -18,6 +18,9 @@
 .recharts-wrapper {
   overflow: hidden
 }
+.recharts-default-legend {
+margin-top: 40px !important;
+}
 
 .dark-mode .recharts-default-tooltip {
   background-color: rgb(53, 53, 53) !important;

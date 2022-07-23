@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import brand from 'dan-api/dummy/brand';
 import { PapperBlock } from 'dan-components';
@@ -17,6 +17,10 @@ function Goals() {
   const handleTabChange = (tabNum) => {
     dispatch(setTabAction(tabNum));
   };
+
+  useEffect(() => () => {
+    dispatch(setTabAction(0));
+  }, []);
 
   return (
     <div>

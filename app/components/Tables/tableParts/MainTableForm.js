@@ -80,7 +80,7 @@ function MainTableForm(props) {
               {getHead(anchor)}
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody align='center'>
             {items && items.length > 0 ? getItems(items) : <div>No Data Found!</div>}
           </TableBody>
         </Table>
