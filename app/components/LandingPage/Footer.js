@@ -72,10 +72,7 @@ function Footer(props) {
         <div className={classes.container}>
           <p>&copy; 2022 Workport Biz. All Right Reserved </p>
           <p>For Enquire <strong>mailworkport@gmail.com</strong></p>
-          <p>
-            Contact us on WhatsApp
-            <IconButton color="primary" className={classes.button} href={link.whatsapp} target="_blank"><i className="ion-logo-whatsapp" /></IconButton>
-          </p>
+          <IconButton color="primary" className={classes.button} href={link.whatsapp} target="_blank"><p style={{ marginRight: '5px' }}>Contact us on WhatsApp</p><i className="ion-logo-whatsapp" /></IconButton>
         </div>
 
       </div>
