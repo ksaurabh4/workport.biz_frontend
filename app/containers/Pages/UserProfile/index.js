@@ -67,8 +67,8 @@ function UserProfile(props) {
     setValue(val);
   };
   const getUserDesc = () => (<>
-    <div>{user.empDesignation}</div>
-    <h5>{`${user.empSubDept} (${user.empDept})`}</h5>
+    <div>{user.empDesignation ?? ''}</div>
+    <h5>{`${user.empSubDept ?? ''} (${user.empDept ?? ''})`}</h5>
   </>);
   return (
     <div>
@@ -83,7 +83,7 @@ function UserProfile(props) {
       <Cover
         coverImg={bgCover}
         avatar={dummy.user.avatar}
-        name={user.empName}
+        name={user.empName ?? ''}
         desc={getUserDesc}
       />
       <AppBar position="static" className={classes.profileTab}>

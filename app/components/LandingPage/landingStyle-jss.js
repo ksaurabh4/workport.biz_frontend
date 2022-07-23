@@ -411,12 +411,12 @@ const styles = theme => ({
     [theme.breakpoints.down('md')]: {
       display: 'none'
     },
-    '& figure > div': {
-      height: 1000,
-      width: '100%',
-      position: 'relative',
-      top: 500,
-    }
+    // '& figure > div': {
+    //   height: 1000,
+    //   width: '100%',
+    //   position: 'relative',
+    //   top: 500,
+    // }
   },
   parallaxVertical: {
     width: '100%',
@@ -721,7 +721,7 @@ const styles = theme => ({
     background: theme.palette.type === 'dark' ? gradientBgDark(theme) : gradientBgLight(theme),
     paddingTop: theme.spacing(10),
     position: 'absolute',
-    bottom: -500,
+    bottom: -300,
     height: 330,
     width: '100%',
     overflow: 'hidden',

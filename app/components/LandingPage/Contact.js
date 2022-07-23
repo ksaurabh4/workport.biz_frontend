@@ -19,7 +19,7 @@ function Contact(props) {
 
   return (
     <div className={classNames(classes.contact, !slideMode && classes.withBg)}>
-      <div className={classes.container}>
+      {/* <div className={classes.container}>
         <div className={classes.contactBubble}>
           <Title title="Say hello to us" align="left" nomargin />
           <Typography component="p" className={classes.contactText}>Please fill the form below and we will get back to you!</Typography>
@@ -69,7 +69,7 @@ function Contact(props) {
             </Grid>
           </Grid>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

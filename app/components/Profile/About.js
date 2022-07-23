@@ -1,36 +1,36 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+// import Paper from '@material-ui/core/Paper';
+// import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import LinearProgress from '@material-ui/core/LinearProgress';
+// import Button from '@material-ui/core/Button';
+// import LinearProgress from '@material-ui/core/LinearProgress';
 import LocalPhone from '@material-ui/icons/LocalPhone';
 import DateRange from '@material-ui/icons/DateRange';
 import LocationOn from '@material-ui/icons/LocationOn';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Divider from '@material-ui/core/Divider';
-import Chip from '@material-ui/core/Chip';
-import ImageList from '@material-ui/core/ImageList';
-import ImageListItem from '@material-ui/core/ImageListItem';
-import ImageListItemBar from '@material-ui/core/ImageListItemBar';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import Check from '@material-ui/icons/Check';
-import AcUnit from '@material-ui/icons/AcUnit';
-import Adb from '@material-ui/icons/Adb';
-import AllInclusive from '@material-ui/icons/AllInclusive';
-import AssistantPhoto from '@material-ui/icons/AssistantPhoto';
-import imgData from 'dan-api/images/imgData';
-import Type from 'dan-styles/Typography.scss';
-import { useSelector } from 'react-redux';
-import Timeline from '../SocialMedia/Timeline';
+// import Chip from '@material-ui/core/Chip';
+// import ImageList from '@material-ui/core/ImageList';
+// import ImageListItem from '@material-ui/core/ImageListItem';
+// import ImageListItemBar from '@material-ui/core/ImageListItemBar';
+// import IconButton from '@material-ui/core/IconButton';
+// import InfoIcon from '@material-ui/icons/Info';
+// import Check from '@material-ui/icons/Check';
+// import AcUnit from '@material-ui/icons/AcUnit';
+// import Adb from '@material-ui/icons/Adb';
+// import AllInclusive from '@material-ui/icons/AllInclusive';
+// import AssistantPhoto from '@material-ui/icons/AssistantPhoto';
+// import imgData from 'dan-api/images/imgData';
+// import Type from 'dan-styles/Typography.scss';
+// import { useSelector } from 'react-redux';
+// import Timeline from '../SocialMedia/Timeline';
 import PapperBlock from '../PapperBlock/PapperBlock';
 import styles from './profile-jss';
 
@@ -45,7 +45,7 @@ function About(props) {
       spacing={3}
     >
       {/* Profile Progress */}
-      <Grid item md={12} xs={12}>
+      {/* <Grid item md={12} xs={12}>
         <div className={classes.progressRoot}>
           <Paper className={classes.styledPaper} elevation={4}>
             <Typography className={classes.title} variant="h5" component="h3">
@@ -67,7 +67,7 @@ function About(props) {
             <LinearProgress variant="determinate" className={classes.progress} value={60} />
           </Paper>
         </div>
-      </Grid>
+      </Grid> */}
       {/* ----------------------------------------------------------------------*/}
       <Grid item md={7} xs={12}>
         {/* <div>
@@ -83,7 +83,7 @@ function About(props) {
                   <DateRange />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Phone" secondary={data.empPhone} />
+              <ListItemText primary="Phone" secondary={data.empPhone ?? ''} />
             </ListItem>
             <ListItem>
               <ListItemAvatar>
@@ -91,7 +91,7 @@ function About(props) {
                   <LocalPhone />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Email" secondary={data.empEmail} />
+              <ListItemText primary="Email" secondary={data.empEmail ?? ''} />
             </ListItem>
             <ListItem>
               <ListItemAvatar>
@@ -99,7 +99,7 @@ function About(props) {
                   <LocationOn />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Address" secondary={`${data.empAddress}, ${data.empCity}, ${data.empState}, ${data.empCountry} - ${data.empZip}`} />
+              <ListItemText primary="Address" secondary={`${data.empAddress ?? ''}, ${data.empCity ?? ''}, ${data.empState ?? ''}, ${data.empCountry ?? ''} - ${data.empZip ?? ''}`} />
             </ListItem>
           </List>
         </PapperBlock>
@@ -231,7 +231,7 @@ function About(props) {
                   <DateRange />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Name" secondary={data.empManagerName}/>
+              <ListItemText primary="Name" secondary={data.empManagerName ?? ''}/>
             </ListItem>
             <ListItem>
               <ListItemAvatar>
@@ -239,7 +239,7 @@ function About(props) {
                   <LocalPhone />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Phone" secondary={data.empManagerPhone} />
+              <ListItemText primary="Phone" secondary={data.empManagerPhone ?? ''} />
             </ListItem>
             <ListItem>
               <ListItemAvatar>
@@ -247,7 +247,7 @@ function About(props) {
                   <LocationOn />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary="Email" secondary={data.empManagerEmail} />
+              <ListItemText primary="Email" secondary={data.empManagerEmail ?? ''} />
             </ListItem>
           </List>
         </PapperBlock>

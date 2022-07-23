@@ -8,17 +8,19 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
+// import CommentIcon from '@material-ui/icons/Comment';
+import DeleteIcon from '@material-ui/icons/Delete';
 import moment from 'moment';
 import PapperBlock from '../PapperBlock/PapperBlock';
 import styles from './widget-jss';
 
 function TaskWidget(props) {
-  const { classes, todoData, toggleStatus } = props;
+  const {
+    classes, todoData, toggleStatus, onDelete
+  } = props;
   const handleToggle = todo => () => {
     toggleStatus(todo.todoId, todo.todoIsCompleted);
   };
-
   return (
     <PapperBlock
       title="My Task"
@@ -50,12 +52,12 @@ function TaskWidget(props) {
                 tabIndex={-1}
                 disableRipple
               />
-              <ListItemText primary={todo.todoContent} secondary={moment(todo.todoDueDateTime).format('DD-MM-YYYY HH:mm:ss')} />
-              {/* <ListItemSecondaryAction>
-                <IconButton aria-label="Comments">
-                  <CommentIcon />
+              <ListItemText style={{ whiteSpace: 'normal' }} primary={todo.todoContent} secondary={moment(todo.todoDueDateTime).format('DD-MM-YYYY HH:mm:ss')} />
+              <ListItemSecondaryAction onClick={() => onDelete(todo.todoId)}>
+                <IconButton aria-label="Delete">
+                  <DeleteIcon />
                 </IconButton>
-              </ListItemSecondaryAction> */}
+              </ListItemSecondaryAction>
             </ListItem>
           </Fragment>
         ))}

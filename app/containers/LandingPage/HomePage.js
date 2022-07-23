@@ -35,9 +35,9 @@ function HomePage() {
       <ScrollSpy id="pricing">
         <Pricing />
       </ScrollSpy>
-      {/* <ScrollSpy id="contact">
+      <ScrollSpy id="contact">
         <Contact />
-      </ScrollSpy> */}
+      </ScrollSpy>
     </div>
   );
 }

@@ -10,13 +10,18 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import {
-  CheckboxRedux,
+  // CheckboxRedux,
   SelectRedux,
   TextFieldRedux,
-  TextAreaFieldRedux,
-  SwitchRedux,
-  renderDatePicker
+  // TextAreaFieldRedux,
+  // SwitchRedux,
+  // renderDatePicker
 } from 'dan-components/Forms/ReduxFormMUI';
 import { CrudTableForm, Notification } from 'dan-components';
 import moment from 'moment';
@@ -286,11 +291,19 @@ function GoalsTable(props) {
       submit(showErrorNotifAction(e.response.data.message, branch));
     }
   };
-  const deleteClickHandler = async (payload) => {
-    console.log(payload);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [deleteGoalId, setDeleteGoalId] = useState('');
+
+  const onDeleteButtonClick = (payload) => {
+    setShowDeleteAlert(true);
+    setDeleteGoalId(payload.goalId);
+  };
+  const deleteConfirmClickHandler = async (payload) => {
     try {
-      await api.delete(`/goals/${payload.goalId}`, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
+      await api.delete(`/goals/${deleteGoalId}`, { headers: { Authorization: `Bearer ${loggedUser.token}` } });
       removeRow(removeAction(payload, branch));
+      setShowDeleteAlert(false);
+      setShowDeleteAlert('');
     } catch (e) {
       console.log(e);
       submit(showErrorNotifAction(e.response.data.message, branch));
@@ -302,6 +315,29 @@ function GoalsTable(props) {
   return (
     <div>
       <Notification close={() => closeNotif(closeNotifAction(branch))} message={messageNotif} />
+      <Dialog
+        open={showDeleteAlert}
+        onClose={() => setShowDeleteAlert(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {'Confirmation'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure to delete this Goal?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={deleteConfirmClickHandler} color="primary" autoFocus>
+            Yes
+          </Button>
+          <Button onClick={() => setShowDeleteAlert(false)} color="primary" autoFocus>
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Grid container spacing={3} className={classes.rootTable} style={{
         display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 10
       }}>
@@ -386,7 +422,7 @@ function GoalsTable(props) {
           isAddButton={true}
           closeForm={handleCloseForm}
           submit={(payload) => handleSubmit(payload)}
-          removeRow={(payload) => deleteClickHandler(payload)}
+          removeRow={(payload) => onDeleteButtonClick(payload)}
           canRemove={true}
           editRow={(payload) => {
             updateState(payload);
@@ -506,8 +542,8 @@ function GoalsTable(props) {
               validate={[required]}
               className={classes.field}
               onChange={changeAchieved}
+              normalize={val => (val || '').replace(/[^\d]/g, '')}
               format={value => (value || achieved)}
-              normalize={val => (val || achieved).replace(/[^\d]/g, '')}
             />
           </div>
           <div>
